@@ -1,0 +1,1131 @@
+<?php
+
+namespace NinjaPhotoFeed\App\Services\Platforms\Feeds\Instagram;
+
+use NinjaPhotoFeed\App\Services\DataProtector;
+use NinjaPhotoFeed\App\Services\GlobalSettings;
+use NinjaPhotoFeed\App\Services\Helper as GlobalHelper;
+use NinjaPhotoFeed\App\Services\Platforms\Feeds\BaseFeed;
+use NinjaPhotoFeed\App\Services\Platforms\Feeds\CacheHandler;
+use NinjaPhotoFeed\App\Services\Platforms\Feeds\Common\FeedFilters;
+use NinjaPhotoFeed\App\Services\Platforms\Feeds\Config;
+use NinjaPhotoFeed\App\Services\Platforms\Feeds\Instagram\Config as InstagramConfig;
+use NinjaPhotoFeed\App\Services\Platforms\PlatformData;
+use NinjaPhotoFeed\App\Services\Platforms\PlatformErrorManager;
+use NinjaPhotoFeed\Framework\Support\Arr;
+use NinjaPhotoFeed\App\Services\Platforms\ImageOptimizationHandler;
+use NinjaPhotoFeed\App\Services\Onboarding\OnboardingHelper;
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+class InstagramFeed extends BaseFeed
+{
+    public $platform = 'instagram';
+    protected $authProvider = 'instagram';
+
+    protected $cacheHandler;
+
+    protected $platfromData;
+
+    protected $dataProtector;
+
+    protected $errorManager;
+
+    private $cronScheduleName = 'npfeed_instagram_feed_update';
+
+    public function __construct()
+    {
+        parent::__construct($this->platform);
+        $this->cacheHandler = new CacheHandler($this->platform);
+        $this->platfromData = new PlatformData($this->platform);
+        $this->dataProtector = new DataProtector();
+        $this->errorManager = new PlatformErrorManager($this->platform);
+        (new ImageOptimizationHandler($this->platform))->registerHooks();
+
+        add_action('npfeed_instagram_access_token_refresh_weekly', array($this, 'doTokenRefreshes'));
+        add_action('npfeed_instagram_send_email_report', array($this, 'maybeSendFeedIssueEmail'));
+    }
+
+    protected function persistAuthResult($result)
+    {
+        if (!Arr::get($result, 'ok')) {
+            return $result;
+        }
+
+        $platform = Arr::get($result, 'platform', '');
+        if ($platform !== $this->platform) {
+            throw new \RuntimeException(esc_html__('Invalid auth platform response.', 'ninja-photo-feed'));
+        }
+
+        $flow        = Arr::get($result, 'flow', 'business_basic');
+        $flowAliases = ['advanced' => 'business', 'basic' => 'business_basic'];
+        $flow        = isset($flowAliases[$flow]) ? $flowAliases[$flow] : $flow;
+
+        $token       = Arr::get($result, 'token', []);
+        $accessToken = Arr::get($token, 'access_token', '');
+
+        if (!$accessToken) {
+            throw new \RuntimeException(esc_html__('Instagram access token is missing.', 'ninja-photo-feed'));
+        }
+
+        if ($flow === 'business') {
+            return $this->persistBusinessAuth($result, $accessToken);
+        }
+
+        return $this->persistBusinessBasicAuth($result, $accessToken, $token);
+    }
+
+    private function persistBusinessBasicAuth($result, $accessToken, $token)
+    {
+        $args = [
+            'api_type'         => 'business_basic',
+            'credentials_type' => 'business_basic',
+            'access_token'     => $accessToken,
+            'expires_in'       => Arr::get($token, 'expires_in', ''),
+            'selectedAccounts' => [],
+        ];
+
+        $apiUrl   = $this->getHeaderApiUrl($args, 'verification_header');
+        $response = (new Common())->makeRequest($apiUrl);
+
+        if (is_wp_error($response) || (new Common())->instagramError($response)) {
+            throw new \RuntimeException(esc_html($this->getErrorMessage($response)));
+        }
+
+        if (!isset($response['username']) || !isset($response['user_id'])) {
+            throw new \RuntimeException(esc_html__('Could not retrieve Instagram account details.', 'ninja-photo-feed'));
+        }
+
+        $accountArgs = $this->setBusinessBasicAccount($response, $args);
+        $this->updateVerificationConfigs($accountArgs);
+        $this->setGlobalSettings();
+
+        foreach ($accountArgs as $account) {
+            $userId = Arr::get($account, 'user_id');
+            if ($userId) {
+                $this->clearFeedCache($userId);
+            }
+        }
+
+        $result['platform'] = $this->platform;
+        $result['flow']     = 'business_basic';
+        $result['account']  = [
+            'user_id'  => Arr::get($response, 'user_id', ''),
+            'username' => Arr::get($response, 'username', ''),
+            'api_type' => 'business_basic',
+        ];
+
+        return $result;
+    }
+
+    private function persistBusinessAuth($result, $accessToken)
+    {
+        $fbUrl    = 'https://graph.facebook.com/me/accounts?fields=instagram_business_account,access_token&limit=500&access_token=' . $accessToken;
+        $response = (new Common())->makeRequest($fbUrl);
+
+        if (is_wp_error($response)) {
+            throw new \RuntimeException(esc_html($response->get_error_message()));
+        }
+
+        $businessAccounts = $this->setAuthorizedBusinessAccount($response);
+
+        $result['platform']          = $this->platform;
+        $result['flow']              = 'business';
+        $result['business_accounts'] = $businessAccounts;
+
+        return $result;
+    }
+
+    protected function formatAuthResultForResponse($result)
+    {
+        if (Arr::get($result, 'flow') === 'business') {
+            return [
+                'ok'               => true,
+                'platform'         => $this->platform,
+                'flow'             => 'business',
+                'business_accounts' => Arr::get($result, 'business_accounts', []),
+            ];
+        }
+
+        return [
+            'ok'      => true,
+            'platform' => $this->platform,
+            'flow'    => Arr::get($result, 'flow', 'business_basic'),
+            'account' => Arr::get($result, 'account', []),
+        ];
+    }
+
+    public function pushValidPlatform($platforms)
+    {
+        $isActive = get_option('npfeed_'.$this->platform.'_verification_configs');
+
+        if(Arr::get($isActive, 'connected_accounts')) {
+            $platforms['instagram'] = __('Instagram', 'ninja-photo-feed');
+        }
+        return $platforms;
+    }
+
+    /**
+     * Manual access token handler
+     *
+     * @return void
+     * @since 1.3.0
+     */
+    public function handleCredential($args = [])
+    {
+        try {
+            $args['is_private'] = false;
+            $instagramUrl = '';
+            $accountArgs  = [];
+
+            if( $args['credentials_type'] === 'manually' && strpos($args['access_token'], 'EAAGTJHJgNIMB') !== false){
+                if(!Arr::get($args, 'user_id')){
+                    $error_message = __('Please provide a user id.', 'ninja-photo-feed');
+                    throw new \Exception($error_message);
+                }
+                $instagramUrl = $this->getHeaderApiUrl($args, 'header');
+            }
+
+            if ($args['api_type'] === 'personal') {
+                $instagramUrl = $this->getHeaderApiUrl($args, 'verification_header');
+            } elseif ($args['api_type'] === 'business' && $args['credentials_type'] !== 'manually' && sizeof($args['selectedAccounts']) === 0) {
+                $decrypt_access_token = $this->dataProtector->decrypt($args['access_token']) ? $this->dataProtector->decrypt($args['access_token']) : $args['access_token'];
+                $instagramUrl = 'https://graph.facebook.com/me/accounts?fields=instagram_business_account,access_token&limit=500&access_token=' . $decrypt_access_token;
+            } elseif ($args['api_type'] === 'business_basic'){
+                $instagramUrl = $this->getHeaderApiUrl($args, 'verification_header');
+            }
+
+            $response = null;
+            if($args['api_type'] === 'business_basic' || $args['api_type'] === 'personal' || $args['credentials_type'] === 'manually' || sizeof($args['selectedAccounts']) === 0){
+                $response = (new Common())->makeRequest($instagramUrl);
+            }
+
+            if (!is_wp_error($response) && !(new Common())->instagramError($response) && sizeof($args['selectedAccounts']) === 0 && $args['api_type'] === 'business' && $args['credentials_type'] !== 'manually'){
+                $this->setAuthorizedBusinessAccount($response);
+                wp_send_json_success([
+                    'message' => __('You are successfully verified.', 'ninja-photo-feed')
+                ], 200);
+            }
+
+            if ($args['api_type'] === 'business_basic' && !is_wp_error($response) && !(new Common())->instagramError($response) && isset($response['username']) && isset($response['user_id'])) {
+                $accountArgs = $this->setBusinessBasicAccount($response, $args);
+            }
+
+
+            if ($args['api_type'] === 'personal' && !is_wp_error($response) && !(new Common())->instagramError($response) && isset($response['username']) && isset($response['id'])) {
+                $accountArgs = $this->setPersonalAccount($response, $args);
+            }
+
+            if ((( sizeof($args['selectedAccounts']) > 0 || $args['credentials_type'] === 'manually') && $args['api_type'] === 'business' ) ) {
+                $accountArgs = $this->setBusinessAccount($args, $response);
+            }
+
+            if (!is_wp_error($response) && !(new Common())->instagramError($response) && $accountArgs) {
+                $this->updateVerificationConfigs($accountArgs);
+                $settings = get_option('npfeed_instagram_verification_configs', []);
+                $this->setGlobalSettings();
+
+                $this->errorManager->removeErrors('connection', $accountArgs);
+
+                // A reconnect must not serve the old account's caches.
+                foreach ($accountArgs as $account){
+                    $userId = Arr::get($account, 'user_id');
+                    $this->clearFeedCache($userId);
+                }
+
+                wp_send_json_success([
+                    'settings' => $settings,
+                    'message'  => __('You\'ve successfully connected your account!', 'ninja-photo-feed')
+                ]);
+            }
+
+            if (is_wp_error($response)) {
+                throw new \Exception($response->get_error_message());
+            }
+
+            $message = $this->getErrorMessage($response);
+            throw new \Exception($message);
+        } catch (\Exception $exception) {
+            wp_send_json_error([
+                'message' => $exception->getMessage()
+            ], 423);
+        }
+    }
+
+    /**
+     * Build the Instagram API url for a header or verification request
+     *
+     * @return string
+     * @since 1.3.0
+     */
+    public function getHeaderApiUrl($args, $endpoint)
+    {
+        $access_token = Arr::get($args, 'access_token');
+        if (!empty($args) && isset($args['api_type']) && $access_token) {
+            $api_type     = $args['api_type'];
+            $apiUrl       = '';
+
+            if ($api_type === 'personal') {
+                if ($endpoint === 'verification_header') {
+                    $access_token = $this->dataProtector->decrypt($access_token) ? $this->dataProtector->decrypt($access_token) : $access_token;
+                    $apiUrl = 'https://graph.instagram.com/me?fields=id,username,media_count&access_token=' . $access_token;
+                } elseif ($endpoint === 'header') {
+                    $access_token = (new RefreshToken())->getAccessToken($args);
+                    $access_token = $this->dataProtector->decrypt($access_token) ? $this->dataProtector->decrypt($access_token) : $access_token;
+                    $apiUrl       = 'https://graph.instagram.com/me?fields=id,username,media_count&access_token=' . $access_token;
+                }
+            } elseif ($api_type === 'business') {
+                $access_token = $this->dataProtector->decrypt($access_token) ? $this->dataProtector->decrypt($access_token) : $access_token;
+                if ($endpoint === 'verification') {
+                    $apiUrl = "https://graph.facebook.com/v21.0/me/accounts?fields=name,id&access_token=" . $access_token;
+                } elseif ($endpoint === 'header') {
+                    $apiUrl = 'https://graph.facebook.com/' . $args['user_id'] . '?fields=biography,id,username,website,followers_count,media_count,profile_picture_url,name&access_token=' . $access_token;
+                }
+            } elseif ($api_type === 'business_basic') {
+                $access_token = $this->dataProtector->decrypt($access_token) ? $this->dataProtector->decrypt($access_token) : $access_token;
+                if ($endpoint === 'verification_header' || $endpoint === 'header') {
+                    $apiUrl = "https://graph.instagram.com/v21.0/me?fields=user_id,username,account_type,profile_picture_url,followers_count,follows_count,media_count,name,biography&access_token=" . $access_token;
+                }
+            }
+            return $apiUrl;
+        }
+
+        return '';
+    }
+
+    public function setAuthorizedBusinessAccount($response = [])
+    {
+        $business_accounts = [];
+        $is_business_account = false;
+        foreach ($response['data'] as $index => $responseData) {
+            $business_id = Arr::get($responseData, 'instagram_business_account.id');
+            if( $business_id ) {
+                $is_business_account = true;
+                $access_token = $this->dataProtector->decrypt($responseData['access_token']) ? $this->dataProtector->decrypt($responseData['access_token']) : $responseData['access_token'];
+                $apiUrl = 'https://graph.facebook.com/' . $business_id . '?fields=name,id,username,profile_picture_url&access_token=' . $access_token;
+                $response = (new Common())->makeRequest($apiUrl);
+                if (is_wp_error($response)) {
+                    throw new \Exception(esc_html($response->get_error_message()));
+                }
+                $response['access_token'] = $this->dataProtector->maybe_encrypt($responseData['access_token']);
+                $business_accounts[] = $response;
+            }
+        }
+
+        if(!$is_business_account) {
+            $error_message = __('Please configure your business account correctly!', 'ninja-photo-feed');
+            throw new \Exception(esc_html($error_message));
+        }
+
+        if(isset($response['data']) && empty($response['data'])) {
+            $error_message = __('Please check, you allow all access in the connected Facebook app correctly.', 'ninja-photo-feed');
+            throw new \Exception(esc_html($error_message));
+        }
+
+        update_option('npfeed_instagram_authorized_business_accounts_list', $business_accounts);
+
+        return $business_accounts;
+    }
+
+    public function setBusinessBasicAccount($response = [], $args = [])
+    {
+        $args['username']    = $response['username'];
+        $args['user_id']     = $response['user_id'];
+        $args['user_avatar'] = $response['profile_picture_url'];
+        $args['followers_count'] = $response['followers_count'];
+        $args['follows_count'] = $response['follows_count'];
+        $args['media_count'] = $response['media_count'];
+
+        $args[$args['user_id']] = $args;
+        return $args;
+    }
+
+    public function setPersonalAccount($response = [], $args = [])
+    {
+        $args['username']    = $response['username'];
+        $args['user_id']     = $response['id'];
+        $args['user_avatar'] = '';
+        $response            = (new RefreshToken())->refreshToken($args);
+
+        if (isset($response['error']['code']) && $response['error']['code'] === 10) {
+            $args['is_private'] = true;
+        }
+        $args[$args['user_id']] = $args;
+        return $args;
+    }
+
+    public function setBusinessAccount($args = [], $response = [])
+    {
+        $args['isConnected'] = false;
+       
+        // Accounts picked through the business authorization flow.
+        if(empty($response)){
+            foreach ($args['selectedAccounts'] as $account) {
+                $access_token = Arr::get($account, 'access_token');
+                $args['user_id'] = Arr::get($account, 'id');
+                $args['access_token'] = $access_token;
+                $instagramUrl        = $this->getHeaderApiUrl($args, 'header');
+                $response            = (new Common())->makeRequest($instagramUrl);
+
+                if (!is_wp_error($response) && !(new Common())->instagramError($response)) {
+                    $args['username']    = Arr::get($response, 'username', '');
+                    $args['user_avatar'] = Arr::get($response, 'profile_picture_url', '');
+                    $args['isConnected'] = true;
+                    $args[$args['user_id']] = $args;
+                }
+            }
+        }
+
+        // A manually connected business account.
+        if (!is_wp_error($response) && !(new Common())->instagramError($response)) {
+            $args['username']    = $response['username'];
+            $args['user_avatar'] = $response['profile_picture_url'];
+            $args['isConnected'] = true;
+            $args[$args['user_id']] = $args;
+        }
+        return $args;
+    }
+
+    /**
+     * Instagram Api Error Message
+     *
+     * @param array|\WP_Error $response
+     *
+     * @return string
+     * @since 1.3.0
+     */
+    public function getErrorMessage($response)
+    {
+        $message = __('Error connecting to instagram', 'ninja-photo-feed');
+        if(is_wp_error($response)) {
+            $message = $response->get_error_message();
+        } else if (Arr::get($response, 'error.message')) {
+            // translators: Please retain the placeholders (%s, %d, etc.) and ensure they are correctly used in context.
+            $message = sprintf(__(' API error: %s', 'ninja-photo-feed'), $response['error']['message']);
+        } else {
+            if (isset($response['response']) && isset($response['response']->errors)) {
+                foreach ($response['response']->errors as $key => $item) {
+                    $message .= ' ' . $key . ' - ' . $item[0];
+                }
+            }
+        }
+
+        return $message;
+    }
+
+    /**
+     * Get All Verified Accounts
+     * @return void
+     * @since 1.3.0
+     */
+    public function getVerificationConfigs()
+    {
+        $connected_accounts = (new Common())->findConnectedAccounts();
+        foreach($connected_accounts as $key => $account) {
+            if ($account['api_type'] === 'business') {
+                $transientName = 'user_account_header_'.$account['user_id'];
+                $transient = $this->cacheHandler->getFeedCache($transientName);
+                if ($transient) {
+                    $connected_accounts[$key]['user_avatar'] = $transient['user_avatar'];
+                }
+            }
+        }
+
+        $business_accounts_list = get_option('npfeed_instagram_authorized_business_accounts_list');
+
+        wp_send_json_success([
+            'message'            => __('Instagram Successfully Connected!', 'ninja-photo-feed'),
+            'status'             => true,
+            'connected_accounts' => $connected_accounts,
+            'business_accounts'  => $business_accounts_list
+        ], 200);
+    }
+
+    /**
+     * Update Verification Configs
+     *
+     * @param array $accountArgs
+     *
+     * @return void
+     * @since 1.3.0
+     */
+    public function updateVerificationConfigs($accountArgs)
+    {
+        $configs            = get_option('npfeed_instagram_verification_configs', []);
+        $connected_accounts = Arr::get($configs, 'connected_accounts', []);
+        foreach ($accountArgs as $args){
+            if (Arr::get($args, 'user_id') && Arr::get($args, 'username')) {
+                $userId                      = (string)$args['user_id'];
+                $access_token = Arr::get($args, 'access_token', '');
+                $created_at = time();
+                $existing = Arr::get($connected_accounts, $userId, []);
+                // Token renewal is timed from created_at, so re-saving the same token must keep it.
+                if (!empty($existing['created_at']) && $this->isSameAccessToken(Arr::get($existing, 'access_token', ''), $access_token)) {
+                    $created_at = $existing['created_at'];
+                }
+                $access_token = $this->dataProtector->maybe_encrypt($access_token);
+                $connected_accounts[$userId] = array(
+                    'access_token' => $access_token,
+                    'expires_in'   => Arr::get($args, 'expires_in', ''),
+                    'created_at'   => $created_at,
+                    'user_id'      => $userId,
+                    'username'     => Arr::get($args, 'username', ''),
+                    'api_type'     => Arr::get($args, 'api_type', ''),
+                    'user_avatar'  => Arr::get($args, 'user_avatar', ''),
+                    'is_private'   => Arr::get($args, 'is_private', false),
+                    'error_message' => '',
+                    'has_app_permission_error' => false,
+                    'has_critical_error'   => false,
+                    'encryption_error'   => false,
+                    'error_code'   => '',
+                    'status'       => 'success'
+                );
+            }
+        }
+        update_option('npfeed_instagram_verification_configs', array('connected_accounts' => $connected_accounts));
+
+        foreach ($connected_accounts as $connected_account) {
+            if ($connected_account['api_type'] == 'personal' || $connected_account['api_type'] == 'business_basic') {
+                (new CacheHandler('instagram'))->createOrUpdateCache(
+                    'npfeed_instagram_verification_configs_' . $connected_account['user_id'],
+                    $connected_account['user_id'],
+                    7 * 24 * 60 * 60
+                );
+            }
+        }
+    }
+
+    private function isSameAccessToken($storedToken, $token)
+    {
+        if (empty($storedToken) || empty($token)) {
+            return false;
+        }
+
+        $storedToken = $this->dataProtector->decrypt($storedToken) ?: $storedToken;
+        $token       = $this->dataProtector->decrypt($token) ?: $token;
+
+        return hash_equals($storedToken, $token);
+    }
+
+    /**
+     * Disconnect Verification Configs
+     * @return void
+     * @since 1.3.0
+     */
+    public function clearVerificationConfigs($userId)
+    {
+        $accounts = (new Common())->findConnectedAccounts();
+        $this->errorManager->removeErrors('connection', $accounts[$userId]);
+
+        $connectedAccount = Arr::get($accounts, $userId);
+        $this->platfromData->deleteDataByUser($connectedAccount);
+
+        unset($accounts[$userId]);
+        if(count($accounts)) {
+            update_option('npfeed_instagram_verification_configs', array('connected_accounts' => $accounts), 'no');
+        }
+
+        $this->platfromData->deleteLastUsedTime($userId);
+
+        $additionalKeys = [];
+        if (!count($accounts)) {
+            delete_option('npfeed_instagram_verification_configs');
+            $additionalKeys = [
+                'hashtag_',
+            ];
+        }
+        $this->clearFeedCache($userId, $additionalKeys);
+
+        wp_send_json_success([
+            'message' => __('Your Instagram Account Successfully Disconnected!', 'ninja-photo-feed'),
+        ], 200);
+    }
+
+    /**
+     * Clear the feed and account caches of one user.
+     *
+     * @param string|int|null $userId User ID associated with the cache.
+     * @param array|null $additionalKeys Additional cache keys to clear.
+     */
+    private function clearFeedCache($userId = null, $additionalKeys = [])
+    {
+
+        if (empty($userId)) {
+            return; // Without a user id the keys would match every account.
+        }
+
+        $defaultKeys = [
+            'user_account_header_' . $userId,
+            'user_account_feed_id_' . $userId,
+            'hashtag_feed_id_' . $userId,
+            'npfeed_instagram_verification_configs_'.$userId
+        ];
+
+        $cache_names = array_merge($defaultKeys, $additionalKeys);
+
+        foreach ($cache_names as $cache_name) {
+            $this->cacheHandler->clearCacheByName($cache_name);
+        }
+    }
+
+    public function getTemplateMeta($settings = [], $postId = null)
+    {
+        $formatted_feed_template_meta = $settings;
+        $feed_settings = Arr::get($formatted_feed_template_meta, 'feed_settings', []);
+
+        // GDPR mode requires optimized images.
+        $global_settings = get_option('npfeed_instagram_global_settings');
+        $advanceSettings = (new GlobalSettings())->getGlobalSettings('advance_settings');
+
+        $optimized_images = Arr::get($global_settings, 'global_settings.optimized_images', 'false');
+        $has_gdpr = Arr::get($advanceSettings, 'has_gdpr', "false");
+
+        if($has_gdpr === "true" && $optimized_images == "false") {
+            $response = [
+                'error_message' => __('Instagram feeds are not being displayed due to the "optimize images" option being disabled. If the GDPR settings are set to "Yes," it is necessary to enable the optimize images option.', 'ninja-photo-feed')
+            ];
+        } else {
+            $response      = $this->templateApiHandler($feed_settings);
+        }
+
+        if (Arr::get($response, 'error_message') && empty(Arr::get($response, 'items'))) {
+            $filterResponse = $response;
+        } else {
+            $filterResponse = (new FeedFilters())->filterFeedResponse($this->platform, $feed_settings, $response);
+        }
+        $filterResponse['error_message'] = Arr::get($response, 'error_message', '');
+        
+        $formatted_feed_template_meta['dynamic'] = $filterResponse;
+        $configs                                 = $formatted_feed_template_meta;
+
+        $connected_ids            = (new Common())->findConnectedAccounts();
+        $configs['connected_ids'] = $connected_ids;
+        $account_ids = Arr::get($feed_settings, 'source_settings.account_ids', []);
+        $connected_account_list = array_intersect_key($connected_ids, array_flip($account_ids));
+        $configs['header_connected_ids'] = $connected_account_list;
+        if(defined('NINJAPHOTOFEED_PRO') && class_exists('\NinjaPhotoFeedPro\App\Services\Platforms\Feeds\Shoppable')){
+            $configs = (new \NinjaPhotoFeedPro\App\Services\Platforms\Feeds\Shoppable())->makeShoppableFeeds($configs, 'instagram');
+        }
+
+        if (Arr::get($configs, 'feed_settings.created_from_onboarding')) {
+            OnboardingHelper::applyOnboardingSettings($postId,'instagram', $configs);
+        }
+
+        return $configs;
+    }
+
+    /**
+     * Get Feed Settings
+     *
+     * @return void
+     * @since 1.3.0
+     */
+    public function getEditorSettings($args = [])
+    {
+        $postId = Arr::get($args, 'postId');
+        $postType = Arr::get($args, 'postType');
+
+        $instagramConfig = new InstagramConfig();
+
+        $feed_template_meta   = get_post_meta($postId, '_npfeed_template_config', true);
+        $feed_template_style_meta = get_post_meta($postId, '_npfeed_template_styles_config', true);
+        $decodedMeta          = json_decode($feed_template_meta, true);
+        $feed_settings        = Arr::get($decodedMeta, 'feed_settings', []);
+        $format_feed_settings = Config::formatInstagramConfig($feed_settings, array());
+        $settings             = $this->getTemplateMeta($format_feed_settings, $postId);
+        $settings['styles_config'] = $instagramConfig->formatStylesConfig(json_decode($feed_template_style_meta, true), $postId);
+        $templateDetails      = get_post($postId);
+
+        $global_settings = get_option('npfeed_instagram_global_settings');
+        $advanceSettings = (new GlobalSettings())->getGlobalSettings('advance_settings');
+
+        $image_settings = [
+            'optimized_images' => Arr::get($global_settings, 'global_settings.optimized_images', 'false'),
+            'has_gdpr' => Arr::get($advanceSettings, 'has_gdpr', "false")
+        ];
+
+        $connected_account        = Arr::get($decodedMeta, 'feed_settings.header_settings.account_to_show');
+
+        wp_send_json_success([
+            'message'          => __('Success', 'ninja-photo-feed'),
+            'header_account'  => $connected_account,
+            'image_settings'   => $image_settings,
+            'settings'         => $settings,
+            'template_details' => $templateDetails,
+            'elements'         => $instagramConfig->getStyleElement(),
+            'default_styles'   => $instagramConfig->formatStylesConfig([], $postId),
+            'post_types'       => GlobalHelper::getPostTypes()
+        ]);
+    }
+
+    /**
+     * Show updated data if new data fetched in editor without update in db
+     *
+     * @return void
+     * @throws \Exception
+     * @since 1.3.0
+     */
+    public function editEditorSettings($settings = array(), $postId = null)
+    {
+        $styles_config = Arr::get($settings, 'styles_config');
+
+        $settings['feed_settings']['source_settings']['hash_tags'] = $this->formatHashTags($settings);
+        $format_feed_settings = Config::formatInstagramConfig($settings['feed_settings'], array());
+        $settings             = $this->getTemplateMeta($format_feed_settings, $postId);
+
+        if(defined('NINJAPHOTOFEED_PRO') && class_exists('\NinjaPhotoFeedPro\App\Services\Platforms\Feeds\Shoppable')){
+            $settings = (new \NinjaPhotoFeedPro\App\Services\Platforms\Feeds\Shoppable())->makeShoppableFeeds($settings, 'instagram');
+        }
+
+        $settings['styles_config'] = $styles_config;
+        wp_send_json_success([
+            'message'  => __('Instagram Settings Updated successfully', 'ninja-photo-feed'),
+            'settings' => $settings,
+        ]);
+    }
+
+    /**
+     * Save the template settings from the editor
+     *
+     * @return void
+     * @since 1.3.0
+     */
+    public function updateEditorSettings($settings = array(), $postId = null)
+    {
+        $settings['feed_settings']['source_settings']['hash_tags'] = $this->formatHashTags($settings);
+
+        if (Arr::get($settings, 'feed_settings.created_from_onboarding')) {
+            OnboardingHelper::removeFromOnboardingSessions($postId);
+        }
+
+        if(defined('NINJAPHOTOFEED_PRO') && class_exists('\NinjaPhotoFeedPro\App\Services\TemplateCssHandler')){
+            (new \NinjaPhotoFeedPro\App\Services\TemplateCssHandler())->saveCss($settings, $postId);
+        }
+        $format_feed_settings = Config::formatInstagramConfig($settings['feed_settings'], array());
+
+        // Runtime-only keys, not part of the saved _npfeed_template_config.
+        $unsetKeys = ['dynamic', 'styles_config', 'styles', 'responsive_styles'];
+        foreach ($unsetKeys as $key){
+            if(Arr::get($format_feed_settings, $key, false)){
+                unset($format_feed_settings[$key]);
+            }
+        }
+
+        $encodedMeta        = json_encode($format_feed_settings, JSON_UNESCAPED_UNICODE);
+        update_post_meta($postId, '_npfeed_template_config', $encodedMeta);
+
+        $this->cacheHandler->clearPageCaches($this->platform);
+        wp_send_json_success([
+            'message' => __('Template Saved Successfully!!', 'ninja-photo-feed'),
+        ]);
+    }
+
+    public function formatHashTags($settings)
+    {
+        $hash_tags = Arr::get($settings, 'feed_settings.source_settings.hash_tags', '');
+
+        if(empty($hash_tags)) {
+            return '';
+        }
+
+        $hash_tags = preg_replace('/\s+/', '', $hash_tags);
+        $hash_tags = explode(',', $hash_tags);
+        $hash_tag_text = '';
+
+        foreach ($hash_tags as $hash_tag) {
+            if($hash_tag === '') {
+                continue;
+            }
+            if($hash_tag[0] !== '#') {
+                $hash_tag = '#'.$hash_tag;
+            }
+            $hash_tag_text .= $hash_tag.',';
+        }
+
+        $hash_tags = rtrim($hash_tag_text, ',');
+        return $hash_tags;
+    }
+
+    /**
+     * Template Api Handler
+     *
+     * @param $feed_settings
+     *
+     * @return array
+     * @since 1.3.0
+     */
+    public function templateApiHandler($feed_settings)
+    {
+        $error_message = [];
+        $apiSettings   = Arr::get($feed_settings, 'source_settings', []);
+        $accountIds    = Arr::get($apiSettings, 'account_ids', []);
+
+        if (!empty($accountIds) && is_array($accountIds)) {
+
+            $connectedAccounts   = (new Common())->findConnectedAccounts();
+            $connectedIds = array_keys($connectedAccounts);
+            foreach($accountIds as $accountId) {
+                if(!in_array((int)$accountId, $connectedIds)) {
+                    // translators: Please retain the placeholders (%s, %d, etc.) and ensure they are correctly used in context.
+                    $error_message['error_message'] = sprintf(__( 'Error: There is no connected account for the user %s.', 'ninja-photo-feed' ), $accountId);
+                }
+            }
+
+            $feedType = $apiSettings['feed_type'];
+            $response = array();
+            if ($feedType === 'user_account_feed') {
+                $response = (new AccountFeed())->getMultipleAccountResponse($accountIds);
+            }
+
+            if ($feedType === 'hashtag_feed') {
+                $hashtagType = isset($apiSettings['hashtag_type']) ? $apiSettings['hashtag_type'] : 'recent_media ';
+                $hashtags    = isset($apiSettings['hash_tags']) ? $apiSettings['hash_tags'] : '';
+
+                if (!empty($hashtags)) {
+                    if (defined('NINJAPHOTOFEED_PRO') && class_exists('\NinjaPhotoFeedPro\App\Services\Platforms\Feeds\Instagram\HashtagFeed')) {
+                        $response = (new \NinjaPhotoFeedPro\App\Services\Platforms\Feeds\Instagram\HashtagFeed())->getMultipleHashtagResponse($accountIds, $hashtags, $hashtagType);
+                    } else {
+                        $error_message['error_message'] = __('You need to upgrade to pro version to show hashtag feeds!!', 'ninja-photo-feed');
+                    }
+                } else {
+                    $error_message['error_message'] = __('Please enter a hashtag to fetch your instagram hashtags feed!!', 'ninja-photo-feed');
+                }
+            }
+
+            $headerDetails = $this->getHeaderDetails($accountIds, $feed_settings);
+            $error_message['error_message'] = Arr::get($response, 'error_message', '');
+
+            return [
+                'error_message' => Arr::get($error_message, 'error_message'),
+                'header'        => Arr::get($headerDetails, 'header_details', []),
+                'items'         => Arr::get($response, 'feeds', []),
+            ];
+        }
+
+        return [];
+    }
+
+    public function getHeaderDetails($accountIds, $feed_settings)
+    {
+        $headerSettings      = Arr::get($feed_settings, 'header_settings', []);
+        $connectedAccounts   = (new Common())->findConnectedAccounts();
+        $connectedAccountsId = array_keys($connectedAccounts);
+        $existsAccounts      = array_intersect($connectedAccountsId, $accountIds);
+
+        if (empty($existsAccounts)) {
+            return array(
+                'error_message' => __('The account linked to your configuration has been deleted. To continue displaying your feed from this account, please reauthorize and reconnect it in the configuration settings. Then, go to the template editor, navigate to Source → Select a User Account, and choose the account again.', 'ninja-photo-feed')
+            );
+        }
+
+        foreach ($existsAccounts as $account){
+            $accountCacheName = 'user_account_header_' . $account;
+            $accountDetails  = Arr::get($connectedAccounts, $account, []);
+            $instagramApiUrl = $this->getHeaderApiUrl($accountDetails, 'header');
+            $headerDetails = $this->cacheHandler->getFeedCache($accountCacheName);
+            $has_account_error_code = Arr::get($accountDetails, 'error_code');
+
+
+            if (!$headerDetails && empty($has_account_error_code)) {
+                $headerDetails = (new Common())->makeRequest($instagramApiUrl);
+
+                $account_type = Arr::get($accountDetails, 'api_type');
+                if (($account_type === 'personal' || $account_type === 'business_basic') && (new Common())->instagramError($headerDetails)) {
+                    $instagramUrl = $this->getHeaderApiUrl($accountDetails, 'verification_header');
+                    if($instagramUrl){
+                        (new Common())->makeRequest($instagramUrl);
+                    }
+                }
+
+                if((new Common())->instagramError($headerDetails)){
+                    $connectedAccounts = $this->addPlatformApiErrors($headerDetails, $connectedAccounts, $accountDetails);
+                    update_option('npfeed_instagram_verification_configs', array('connected_accounts' => $connectedAccounts));
+                }
+
+                if (!(new Common())->instagramError($headerDetails)) {
+                    $headerDetails = $this->formatHeaderDetails($headerDetails);
+                    $this->cacheHandler->createCache($accountCacheName, $headerDetails);
+                }
+            }
+        }
+
+        $accountToShow    = (isset($headerSettings['account_to_show']) && in_array($headerSettings['account_to_show'], $existsAccounts)) ? $headerSettings['account_to_show'] : '';
+        if(empty($accountToShow)){
+            return;
+        }
+
+        $accountCacheName = 'user_account_header_' . $accountToShow;
+        $headerDetails = $this->cacheHandler->getFeedCache($accountCacheName);
+        $global_settings = get_option('npfeed_instagram_global_settings');
+        $advanceSettings = (new GlobalSettings())->getGlobalSettings('advance_settings');
+
+        $optimized_images = Arr::get($global_settings, 'global_settings.optimized_images', 'false');
+        if($optimized_images == 'true' && !empty($headerDetails)){
+            $imageOptimizationObj =  new ImageOptimizationHandler('instagram');
+            $headerDetails['user_avatar'] = $imageOptimizationObj->getLocalHeaderUrl($accountToShow,'avatars');
+        }
+        return [
+            'header_details'    => $headerDetails
+        ];
+    }
+
+    /**
+     * Format header details
+     *
+     * @param $args
+     *
+     * @return array
+     * @since 1.3.0
+     */
+    public function formatHeaderDetails($args = [])
+    {
+        return [
+            'username'        => Arr::get($args, 'username', ''),
+            'biography'       => Arr::get($args, 'biography', ''),
+            'user_avatar'     => Arr::get($args, 'profile_picture_url', ''),
+            'followers_count' => Arr::get($args, 'followers_count', ''),
+            'media_count'     => Arr::get($args, 'media_count', ''),
+            'name'            => Arr::get($args, 'name', '')
+        ];
+    }
+
+    public function updateCachedFeeds($caches)
+    {
+        $this->cacheHandler->clearPageCaches($this->platform);
+        $connectedAccounts = (new Common())->findConnectedAccounts();
+        foreach ($connectedAccounts as $accountId => $accountDetails) {
+            $instagramApiUrl = $this->getHeaderApiUrl($accountDetails, 'header');
+            $headerDetails   = (new Common())->makeRequest($instagramApiUrl);
+            if ($headerDetails) {
+                $connectedAccounts[$accountId]['user_avatar'] = Arr::get($headerDetails, 'profile_picture_url', '');
+            }       
+        }
+        if (!empty($connectedAccounts)) {
+            $this->updateVerificationConfigs($connectedAccounts);
+        }
+
+        foreach ($caches as $index => $cache) {
+            $optionName = $cache['option_name'];
+            $feed_type  = '';
+
+            $separator        = '_feed';
+            $feed_position    = strpos($optionName, $separator) + strlen($separator);
+            $initial_position = 0;
+            if ($feed_position) {
+                $feed_type = substr($optionName, $initial_position, $feed_position - $initial_position);
+            }
+            $feedTypes = ['user_account_feed', 'hashtag_feed'];
+
+            if (in_array($feed_type, $feedTypes)) {
+                if ($feed_type === 'user_account_feed') {
+                    $separator     = '_id_';
+                    $feed_position = strpos($optionName, $separator) + strlen($separator);
+                    $accountId     = substr($optionName, $feed_position, strlen($optionName) - $feed_position);
+
+                    if (!empty($accountId)) {
+                        $accountDetails  = isset($connectedAccounts[$accountId]) ? $connectedAccounts[$accountId] : array();
+                        if(empty($accountDetails)) {
+                            continue;
+                        }
+
+                        $instagramApiUrl = $this->getHeaderApiUrl($accountDetails, 'header');
+
+                        $headerDetails   = (new Common())->makeRequest($instagramApiUrl);
+
+                        $headerCacheName = 'user_account_header_' . $accountId;
+                        if (!(new Common())->instagramError($headerDetails)) {
+                            $headerDetails = $this->formatHeaderDetails($headerDetails);
+                            if(!empty($headerDetails)){
+                                $this->cacheHandler->createCache($headerCacheName, $headerDetails);
+                            }
+                            $this->errorManager->removeErrors('connection', $accountDetails);
+                        } else {
+                            // The existing cache is kept; only the error is recorded.
+                            if((new Common())->instagramError($headerDetails)) {
+                                $connectedAccounts = $this->addPlatformApiErrors($headerDetails, $connectedAccounts, $accountDetails);
+                                update_option('npfeed_instagram_verification_configs', array('connected_accounts' => $connectedAccounts));
+                            }
+                        }
+
+                        $user_avatar = Arr::get($accountDetails, 'user_avatar', '');
+                        $userName = Arr::get($accountDetails, 'username', '');
+                        $feedCacheName         = 'user_account_feed_id_' . $accountId;
+                        $instagramApiUrl       = (new AccountFeed())->getApiUrl($accountDetails);
+                        $resultWithoutComments = (new Common())->expandWithoutComments($instagramApiUrl);
+                        if (!(new Common())->instagramError($resultWithoutComments)) {
+                            $resultWithoutComments['data'] = (new AccountFeed())->processFeedItems($userName, $accountId, $user_avatar, $resultWithoutComments);
+                            $resultWithComments = (new Common())->expandWithComments($accountDetails,
+                                $resultWithoutComments);
+                            if(!empty($resultWithComments)){
+                                $this->cacheHandler->createCache($feedCacheName, $resultWithComments);
+                            }
+                            $this->errorManager->removeErrors('connection', $accountDetails);
+
+                            $this->updateVerificationErrorStatus($accountId, $connectedAccounts);
+                        } else {
+                            if((new Common())->instagramError($resultWithoutComments)) {
+                                $connectedAccounts = $this->addPlatformApiErrors($headerDetails, $connectedAccounts, $accountDetails);
+                                update_option('npfeed_instagram_verification_configs', array('connected_accounts' => $connectedAccounts));
+                            }
+                        }
+                    }
+                } else if ($feed_type === 'hashtag_feed' && defined('NINJAPHOTOFEED_PRO') && class_exists('\NinjaPhotoFeedPro\App\Services\Platforms\Feeds\Instagram\HashtagFeed')) {
+                    $separator           = '_id_';
+                    $id_position         = strpos($optionName, $separator) + strlen($separator);
+                    $type_position       = strpos($optionName, '_type_');
+                    $hashtag_id_position = strpos($optionName, '_hashtag_id_');
+
+                    $accountId = substr($optionName, $id_position, $hashtag_id_position - $id_position);
+
+                    $hashtagId = substr($optionName, $hashtag_id_position + strlen('_hashtag_id_'),
+                        $type_position - ($hashtag_id_position + strlen('_hashtag_id_')));
+
+                    $hashtagType = substr($optionName, $type_position + strlen('_type_'),
+                        strlen($optionName) - ($type_position + strlen('_type_')));
+
+                    $accountDetails = isset($connectedAccounts[$accountId]) ? $connectedAccounts[$accountId] : '';
+                    if(empty($accountDetails)) {
+                        continue;
+                    }
+
+                    if(!empty($hashtagId) && !empty($hashtagType) ){
+                        $feedCacheName = "hashtag_feed_id_{$accountId}_hashtag_id_{$hashtagId}_type_{$hashtagType}";
+                        $hashtagFeed = new \NinjaPhotoFeedPro\App\Services\Platforms\Feeds\Instagram\HashtagFeed();
+                        if(method_exists($hashtagFeed, 'makeRequestToGetNewData')) {
+                            $feedResponse = $hashtagFeed->makeRequestToGetNewData($feedCacheName, $hashtagId, $hashtagType, $accountDetails);
+                        }
+                        if (!empty($feedResponse)) {
+                            $this->updateVerificationErrorStatus($accountId, $connectedAccounts);
+                            $this->errorManager->removeErrors('connection', $accountDetails);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public function updateVerificationErrorStatus($accountId, $connectedAccounts)
+    {
+        $connectedAccounts[$accountId]['status'] = 'success';
+        $connectedAccounts[$accountId]['error_code'] = '';
+        $connectedAccounts[$accountId]['error_message'] = '';
+        $connectedAccounts[$accountId]['has_critical_error'] = false;
+        $connectedAccounts[$accountId]['encryption_error'] = false;
+        update_option('npfeed_instagram_verification_configs', array('connected_accounts' => $connectedAccounts));
+    }
+
+    public function doTokenRefreshes()
+    {
+        // should_attempt_refresh() decides; the verification cache marker is deleted by any cache clear.
+        $options            = get_option('npfeed_instagram_verification_configs', array());
+        $connected_accounts = isset($options['connected_accounts']) ? $options['connected_accounts'] : array();
+        if (is_array($connected_accounts) && !empty($connected_accounts)) {
+            foreach ($connected_accounts as $connected_account) {
+                if (!empty($connected_account['user_id'])) {
+                    $is_personal = (isset($connected_account['api_type']) && $connected_account['api_type'] === 'personal');
+                    $is_business_basic = (isset($connected_account['api_type']) && $connected_account['api_type'] === 'business_basic');
+                    $is_private  = (isset($connected_account['is_private'])) ? $connected_account['is_private'] : false;
+
+                    if (($is_personal || $is_business_basic) && isset($connected_account['expires_in']) && !empty($connected_account['expires_in']) && !$is_private) {
+                        $refreshToken = new RefreshToken();
+                        if ($refreshToken->should_attempt_refresh($connected_account) && !$refreshToken->getAccessToken($connected_account)) {
+                            $this->recordTokenRefreshError($refreshToken->lastError, $connected_account);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private function recordTokenRefreshError($error, $connectedAccount)
+    {
+        if (is_wp_error($error)) {
+            $error = ['error' => ['code' => $error->get_error_code(), 'message' => $error->get_error_message()]];
+        }
+
+        if (!Arr::get($error, 'error.code')) {
+            $error = ['error' => ['code' => 'token_refresh_failed', 'message' => __('Instagram access token could not be renewed.', 'ninja-photo-feed')]];
+        }
+
+        $connectedAccounts = (new Common())->findConnectedAccounts();
+        if (empty($connectedAccounts[$connectedAccount['user_id']])) {
+            return;
+        }
+
+        $connectedAccounts = $this->addPlatformApiErrors($error, $connectedAccounts, $connectedAccounts[$connectedAccount['user_id']]);
+        update_option('npfeed_instagram_verification_configs', array('connected_accounts' => $connectedAccounts));
+    }
+
+    public function setGlobalSettings()
+    {
+        $option_name    = 'npfeed_' . $this->platform . '_global_settings';
+        $existsSettings = get_option($option_name);
+        if (!$existsSettings) {
+            $args = [
+                'global_settings' => [
+                    'expiration'        => 60*60*6,
+                    'caching_type'      => 'background',
+                    'optimized_images'  => 'false'
+                ]
+            ];
+            update_option($option_name, $args);
+        }
+    }
+
+    public function clearCache()
+    {
+        $this->cacheHandler->clearPageCaches($this->platform);
+        $this->cacheHandler->clearCache();
+
+        wp_send_json_success([
+            'message' => __('Cache cleared successfully!', 'ninja-photo-feed'),
+        ], 200);
+    }
+
+    private function hasEncryptionError($accessToken)
+    {
+        if($accessToken){
+            return strpos($accessToken, 'IG') === false && strpos($accessToken, 'EA') === false && !$this->dataProtector->decrypt($accessToken);
+        }
+        return false;
+    }
+
+    public function addPlatformApiErrors($response, $connectedAccounts, $accountDetails)
+    {
+        $responseErrorCode = Arr::get($response, 'error.code', '');
+        $userId   = $accountDetails['user_id'];
+        $accessToken   =  Arr::get($accountDetails, 'access_token', '');
+
+        if(!empty($responseErrorCode) && !$this->hasEncryptionError($accessToken)) {
+            $connectedAccounts[$userId]['error_message'] = Arr::get($response, 'error.message', '');
+            $connectedAccounts[$userId]['error_code'] = $responseErrorCode;
+            $connectedAccounts[$userId]['has_critical_error'] = $this->errorManager->isCriticalError($response);
+            $connectedAccounts[$userId]['has_app_permission_error'] = $this->platfromData->isAppPermissionError($response);
+        }
+        $connectedAccounts[$userId]['status'] = 'error';
+
+        if($this->hasEncryptionError($accessToken)){
+            $connectedAccounts[$userId]['encryption_error'] = true;
+            $connectedAccounts[$userId]['has_critical_error'] = false;
+            $connectedAccounts[$userId]['error_code'] = 999;
+            $encryptionError = GlobalHelper::getEncryptionErrorData();
+            $response['error']['message'] = Arr::get($encryptionError, 'message');
+            $response['error']['code'] =  Arr::get($encryptionError, 'code');
+        }
+
+        $this->errorManager->addError('api', $response, $accountDetails);
+
+        return $connectedAccounts;
+    }
+
+    public function maybeSendFeedIssueEmail()
+    {
+        if( !$this->errorManager->hasCriticalError($this->platform) ){
+            return;
+        }
+
+        $this->platfromData->sendScheduleEmailReport();
+    }
+}

@@ -1,0 +1,160 @@
+.npfeed-review-template-three{
+  margin-top: 0;
+  margin-left: 30px;
+  .npfeed-recommends {
+    justify-content: flex-start;
+  }
+  .npfeed-review-platform{
+    position: absolute;
+    top: 40px;
+    left: -55px;
+    transform: rotate(-90deg);
+    span{
+      background-color: #1cb03b;
+      color: #fff;
+      padding: 6px 15px;
+      font-size: 16px;
+      text-transform: capitalize;
+      display: block;
+    }
+  }
+  @media screen and (max-width: 1024px) {
+    padding: 25px 15px;
+  }
+  .npfeed-recommends{
+    padding-top: 0;
+  }
+  &.npfeed-review-template-facebook{
+    .npfeed-review-platform{
+      left: -64px;
+      span{
+        background-color: #345a9e;
+      }
+    }
+  }
+  &.npfeed-review-template-zomato{
+    .npfeed-review-platform{
+      left: -58px;
+      span{
+        background-color: #f3153c;
+      }
+    }
+  }
+  &.npfeed-review-template-yelp{
+    .npfeed-review-platform{
+      left: -45px;
+      span{
+        background-color: #fa3e3e;
+      }
+    }
+  }
+
+  &.npfeed-review-template-airbnb{
+    .npfeed-review-platform{
+      span{
+        background-color: #ff385c;
+      }
+    }
+  }
+  &.npfeed-review-template-tripadvisor{
+    .npfeed-review-platform{
+      left: -70px;
+      top: 50px;
+      span{
+        background-color: #04a96c;
+      }
+    }
+  }
+  &.npfeed-review-template-amazon{
+    .npfeed-review-platform{
+      left: -58px;
+      span{
+        background-color: #ffa41c;
+      }
+    }
+  }
+  &.npfeed-review-template-trustpilot{
+    .npfeed-review-platform{
+      left: -65px;
+      span{
+        background-color: #00b67a;
+      }
+    }
+  }
+  &.npfeed-review-template-aliexpress{
+    .npfeed-review-platform{
+      left: -68px;
+      span{
+        background-color: #fe4646;
+      }
+    }
+  }
+  &[class~="npfeed-review-template-booking.com"] {
+    .npfeed-review-platform{
+      left: -76px;
+    }
+  }
+  .npfeed-rating-wrapper{
+    padding-bottom: 0;
+  }
+
+  .npfeed-review-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+
+    .npfeed-reviewer-image{
+      img{
+        max-height: 60px;
+        border-radius: 50%;
+        max-width: 60px;
+        object-fit: cover;
+      }
+      padding-right: 20px;
+      @media screen and (max-width: 1024px) {
+        padding-right: 10px;
+        img{
+          max-height: 55px;
+        }
+      }
+    }
+    .npfeed-review-info{
+      margin-right: auto;
+      text-align: inherit;
+      padding-top: 0;
+      .npfeed-reviewer-name-url{
+        .npfeed-reviewer-name{
+          font-size: 15px;
+          @media screen and (max-width: 1024px) {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+  .npfeed-review-title {
+    margin-bottom: 5px;
+    margin-top: 0;
+  }
+  .npfeed-review-content{
+    margin-top: 5px;
+  }
+}
+
+.npfeed-reviews-template-grid3{
+  .npfeed-ai-summary-enabled{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    row-gap: 30px;
+    margin-top: 30px;
+    column-gap: 15px;
+    [class*="npfeed-col-"]{
+      display: flex;
+    }
+    .npfeed-review-template{
+      margin: 0;
+      width: 100%;
+    }
+  }
+}

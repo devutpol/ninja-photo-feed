@@ -1,0 +1,34 @@
+.npfeed-video-uploader {
+  width: 100%;
+}
+
+.npfeed-video-or {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+  color: #99A0AE;
+  font-size: 12px;
+}
+.npfeed-video-or:before,
+.npfeed-video-or:after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--npfeed-primary-border, #E1E4EA);
+}
+
+/* Same button as the author image, with the explanation reading on from it. */
+.npfeed-video-upload-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.npfeed-video-upload-row .npfeed-photo-upload-btn {
+  flex-shrink: 0;
+}
+.npfeed-video-upload-hint {
+  color: #99A0AE;
+  font-size: 12px;
+  text-align: left;
+}

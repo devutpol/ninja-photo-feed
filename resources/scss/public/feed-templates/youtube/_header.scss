@@ -1,0 +1,165 @@
+@import 'subscribe_button';
+@import 'header-layout-minimal';
+.npfeed-yt-header{
+  width: 100%;
+  margin-bottom: 30px;
+  &.npfeed-gap-no_gap{
+    margin-bottom: 0;
+  }
+  &.npfeed-gap-narrow{
+    margin-bottom: 10px;
+  }
+  &.npfeed-gap-small{
+    margin-bottom: 20px;
+  }
+  &.npfeed-gap-wide{
+    margin-bottom: 40px;
+  }
+  &.npfeed-gap-wider{
+    margin-bottom: 50px;
+  }
+    .npfeed-yt-header-banner{
+  
+      img{
+        object-fit: cover;
+        height: 150px;
+        max-width: 100%;
+        width: 100%;
+      }
+      .npfeed-yt-header-banner-desktop{
+        display: block;
+      }
+      .npfeed-yt-header-banner-mobile,
+      .npfeed-yt-header-banner-tablet{
+        display: none;
+      }
+  
+      @media screen and (max-width: 1024px) {
+        .npfeed-yt-header-banner-mobile,
+        .npfeed-yt-header-banner-desktop{
+          display: none;
+        }
+        .npfeed-yt-header-banner-tablet{
+          display: block;
+        }
+      }
+  
+      @media screen and (max-width: 767px) {
+        .npfeed-yt-header-banner-tablet,
+        .npfeed-yt-header-banner-desktop{
+          display: none;
+        }
+        .npfeed-yt-header-banner-mobile{
+          display: block;
+        }
+      }
+  
+    }
+    .npfeed-yt-header-inner{
+      padding: 20px;
+      background-color: #f9f9f9;
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      @media screen and (max-width: 767px) {
+        display: block;
+        text-align: center;
+        padding: 20px 15px;
+      }
+      .npfeed-yt-header-logo{
+        margin-right: 15px;
+        flex: auto 0 0;
+        a{
+          text-decoration: none;
+          box-shadow: none;
+          &:focus{
+            outline: 2px solid #72aee6;
+          }
+          &:hover{
+            outline: none;
+          }
+          img{
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: inline-block;
+            @media screen and (max-width: 767px) {
+              margin: 0 auto;
+            }
+          }
+        }
+      }
+  
+      .npfeed-yt-header-info{
+        flex-grow: 1;
+        @media screen and (max-width: 767px) {
+          padding-top: 5px;
+        }
+        .npfeed-yt-header-channel-name{
+          a{
+            text-decoration: none;
+            box-shadow: none;
+            font-size: 18px;
+            line-height: 1.2;
+            font-weight: 400;
+            color: #030303;
+            &:focus{
+              outline: 2px solid #72aee6;
+            }
+            &:hover{
+              outline: none;
+            }
+          }
+        }
+        .npfeed-yt-header-channel-description{
+          p{
+            font-size: 14px;
+            line-height: 1.4;
+            font-weight: 400;
+            color: #606060;
+            margin-top: 10px;
+            margin-bottom: 0;
+            word-break: break-word;
+          }
+        }
+        .npfeed-yt-header-channel-statistics{
+          display: flex;
+          flex-wrap: nowrap;
+          @media screen and (max-width: 767px) {
+            flex-direction: column;
+          }
+          .npfeed-yt-header-statistic-item{
+            margin-right: 15px;
+            position: relative;
+            font-size: 14px;
+            font-weight: 400;
+            color: #606060;
+            line-height: 1.4;
+            &:after{
+              position: absolute;
+              content: ".";
+              top: -7px;
+              font-size: 25px;
+              margin: 0 5px;
+              line-height: 0.75;
+              @media screen and (max-width: 767px) {
+                content: initial;
+              }
+            }
+            &:last-child{
+              &:after{
+                content: none;
+              }
+            }
+            &:last-child{
+              margin-right: 0;
+            }
+          }
+        }
+  
+      }
+
+
+    }
+  }
+

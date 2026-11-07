@@ -1,0 +1,103 @@
+.widget_wpsn-widget{
+  .npfeed-container{
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .npfeed-ig-feed-wrapper:not(.npfeed-instagram-slider-activate){
+    .npfeed-ig-feed-wrapper-inner{
+      background-color: #f9f9f9;
+      padding: 10px;
+      overflow-y: scroll;
+      max-height: 400px;
+      height: 100%;
+      overflow-x: hidden;
+      transition: height 100ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    }
+    .npfeed-ig-header{
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .npfeed-ig-header-inner{
+    display: block;
+    text-align: center;
+    .npfeed-ig-header-logo{
+      margin-right: 5px;
+      a{
+        img{
+          width: 40px;
+          height: 40px;
+        }
+      }
+    }
+    .npfeed-ig-header-info{
+      .npfeed-ig-header-statistics{
+        justify-content: center;
+      }
+      .npfeed-ig-header-name{
+        a{
+          font-size: 16px;
+        }
+      }
+      .npfeed-ig-header-description{
+        p{
+          font-size: 14px;
+        }
+      }
+    }
+    .npfeed-ig-follow-btn{
+      margin-left: 0;
+      margin-top: 10px;
+    }
+  }
+  .npfeed-ig-post{
+    .npfeed-ig-post-info{
+      padding: 10px;
+      .npfeed-ig-post-statistics{
+        .npfeed-ig-post-single-statistic svg{
+          height: 18px;
+          width: 18px;
+        }
+      }
+      .npfeed-ig-post-caption{
+        p{
+          font-size: 12px;
+        }
+      }
+      .npfeed-ig-icon{
+        svg{
+          width: 15px !important;
+          height: 15px !important;
+        }
+      }
+    }
+  }
+  .npfeed-instagram-slider-activate{
+    .npfeed-ig-post{
+      margin-bottom: 0;
+    }
+    .npfeed-swiper-pagination{
+      bottom: initial !important;
+    }
+    .npfeed-swiper-prev-next{
+      opacity: 0;
+      transition: 0.3s;
+    }
+    &:hover{
+      .npfeed-swiper-prev-next{
+        opacity: 1;
+      }
+    }
+  } 
+  .npfeed-ig-footer{
+    margin-top: 0 !important;
+  }
+  .npfeed-ig-follow-btn{
+    margin-left: 10px;
+  }
+  .npfeed-ig-follow-btn a,
+  .npfeed-ig-load-more.npfeed-load-more-default{
+    padding: 5px 6px;
+    font-size: 13px;
+  }
+}

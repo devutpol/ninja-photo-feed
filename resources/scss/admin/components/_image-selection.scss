@@ -1,0 +1,189 @@
+.is_disabled{
+  cursor: not-allowed;
+}
+.npfeed_images_trigger_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+
+  .npfeed_images_trigger_header_action{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .npfeed_plain_btn {
+    margin-left: 0;
+  }
+}
+
+.npfeed_template_label{
+  text-align: start;
+  padding: 0 0 0 6px;
+}
+
+.npfeed_element_box{
+  width: 100%;
+  .npfeed_element_selection{
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+    .npfeed_template_images_row{
+        display: grid;
+        grid-auto-flow: column;
+        // Capped so a picker with fewer options than the row holds keeps compact cards.
+        grid-auto-columns: minmax(0, 120px);
+        grid-template-rows: auto auto;
+        column-gap: 3px;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+  }
+}
+
+.npfeed_template_image_without_padding{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 81px;
+  max-width: 120px;
+  border-radius: var(--npfeed-radius-sm, 4px);
+  border: 1.5px solid transparent;
+
+  img{
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+}
+
+.npfeed_template_demo_image_wrapper{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+
+  .npfeed_template_image{
+    display: flex;
+    padding: 12px 6px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: var(--npfeed-radius-md, 8px);
+    max-width: 120px;
+    box-sizing: border-box;
+    background-color: var(--npfeed-light-primary-bg, #F2F5F8);
+    border: 1.5px solid transparent;
+
+    img{
+      width: 100%;
+      max-width: 109px;
+      height: auto;
+      max-height: 110px;
+      object-fit: contain;
+      display: block;
+    }
+  }
+
+  .npfeed_template_label{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    align-self: stretch;
+    font-size: 12px;
+
+    .npfeed_label_icon{
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+// Thumbnails and labels differ in height. Subgrid gives every card in a row the same image row and label row.
+.npfeed_template_images_row,
+.npfeed_editor_selections {
+  // A leaving card must keep the transition's display: none, so it is left out here.
+  > .npfeed_template_demo_image_wrapper:not(.fade-move-leave-active) {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    row-gap: 6px;
+
+    > .npfeed_template_label {
+      align-self: start;
+    }
+  }
+}
+
+// Preview columns can be narrower than an image, so the card content must shrink instead of overflowing into the next card.
+.npfeed_template_images_row > .npfeed_template_demo_image_wrapper:not(.fade-move-leave-active) {
+  grid-template-columns: minmax(0, 1fr);
+
+  > .npfeed_template_label > span:not(.npfeed_label_icon) {
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+}
+
+.npfeed_template_demo_image_wrapper{
+  .npfeed_selected_template{
+    border: 1.5px solid var(--npfeed-primary-btn-bg, #5525D9);
+  }
+}
+
+
+.npfeed_editor_selections {
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+  background-color: var(--npfeed-primary-bg, #FFFFFF);
+}
+
+.npfeed_editor_select_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  background: #fff;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: border 0.2s;
+  cursor: pointer;
+}
+.npfeed_item_selected {
+  border: 2px solid var(--npfeed-primary-btn-bg, #5525D9);
+}
+.npfeed_editor_image_box {
+    display: flex;
+    width: 109px;
+    height: 110px;
+    padding: 12px 6px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+.npfeed_editor_image_box img {
+  width: 109px;
+  height: auto;
+  max-height: 110px;
+  object-fit: contain;
+  display: block;
+}
+.npfeed_editor_label {
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+}
+.npfeed_is_disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+  

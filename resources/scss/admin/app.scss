@@ -1,0 +1,57 @@
+/** Import Custom Elements **/
+@import "elements/variables";
+@import "elements/typography";
+@import "elements/icons";
+@import "elements/universel";
+@import "elements/rating";
+@import "elements/all-platforms";
+@import "elements/all-templates";
+@import "elements/configuration_modal";
+@import "elements/chat-modal";
+@import "elements/global-settings";
+@import "elements/qr-code";
+@import "elements/management-settings";
+@import "elements/dashboard-promote";
+@import "elements/permission-notification";
+@import "elements/swiper-navs";
+@import "elements/table";
+@import "elements/tools";
+@import "elements/shoppable";
+@import "elements/screen-option-drawer";
+@import "elements/dark-mode";
+@import "elements/photo-upload";
+@import "elements/video-upload";
+
+@import "template-editor/edit-view";
+@import "template-editor/docs";
+@import "template-editor/full_screen";
+
+@import "components/auth-redirect";
+@import "components/image-selection";
+@import "components/add-new-review";
+@import "components/styles-section";
+@import "components/typography";
+@import "components/spacing";
+@import "components/border";
+@import "components/skeleton";
+
+@import "elements/native-components";
+
+// Same partial as the public build; the preview renders the same class names.
+
+// Same partial as the public build. The preview renders the same class names, so
+// a copy here would be two files to keep in step.
+
+
+
+
+@import "feed-templates/instagram/template";
+@import "feed-templates/instagram/card-shared";
+@import "feed-templates/instagram/template-2";
+@import "feed-templates/instagram/template-3";
+@import "feed-templates/instagram/template-4";
+@import "feed-templates/instagram/color-schemes";
+
+
+
+@import "admin-all-templates-overrides";

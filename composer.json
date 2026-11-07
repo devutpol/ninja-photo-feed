@@ -1,0 +1,32 @@
+{
+    "name": "devutpol/ninja-photo-feed",
+    "description": "Display your Instagram feed beautifully on your WordPress website.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "NinjaPhotoFeed\\App\\": "app/",
+            "NinjaPhotoFeed\\Database\\": "database/",
+            "NinjaPhotoFeed\\Framework\\": "vendor/wpfluent/framework/src/WPFluent/"
+        },
+        "classmap": [
+            "database/"
+        ],
+        "files": [
+            "boot/globals.php"
+        ]
+    },
+    "require": {
+        "php": ">=7.2"
+    },
+    "config": {
+        "optimize-autoloader": true
+    },
+    "extra": {
+        "wpfluent": {
+            "namespace": {
+                "current": "NinjaPhotoFeed"
+            }
+        }
+    }
+}

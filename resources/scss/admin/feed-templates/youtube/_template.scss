@@ -1,0 +1,209 @@
+@import './header';
+@import './popup';
+@import './livestream';
+
+.npfeed-yt-feed-wrapper{
+  &[class*=npfeed-yt-feed-template]{
+    margin-bottom: 30px;
+  }
+}
+
+.npfeed-yt-all-feed{
+  background-color: #f1f1f1;
+  position: relative;
+}
+//.slick-slide{
+//  .npfeed-yt-video{
+//    margin-bottom: 15px;
+//  }
+//}
+.npfeed-yt-video{
+  margin-bottom: 30px;
+
+  // the card clips its children, so ring the card when a control inside takes focus
+  &:focus-within {
+    outline: 2px solid #72aee6;
+    outline-offset: -2px;
+  }
+
+  // where :has() is available, keep the ring off mouse clicks
+  @supports selector(:has(*)) {
+    &:focus-within {
+      outline: none;
+    }
+    &:has(:focus-visible) {
+      outline: 2px solid #72aee6;
+      outline-offset: -2px;
+    }
+  }
+
+  &:hover{
+    .npfeed-yt-video-preview{
+      svg{
+        .npfeed-yt-play-icon-color-1{
+          fill: rgba(255, 0, 0, 1);
+        }
+      }
+    }
+  }
+  .npfeed-yt-video-player{
+    display: none;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    object,
+    embed,
+    iframe{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  }
+
+  .npfeed-yt-video-preview{
+    display: block;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    text-decoration: none;
+    box-shadow: none;
+    cursor: pointer;
+    img{
+      display: block;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      margin: -9.5% 0px -10%;
+      &.npfeed-hide{
+        display: none;
+      }
+    }
+    .npfeed-yt-video-duration{
+      position: absolute;
+      z-index: 3;
+      right: 10px;
+      bottom: 10px;
+      background: #000;
+      padding: 4px 6px;
+      color: #fff;
+      border-radius: 2px;
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    svg{
+      position: absolute;
+      z-index: 3;
+      top: 50%;
+      left: 50%;
+      width: 55px;
+      display: block;
+      transform: translateX(-50%) translateY(-50%);
+      transition: all 0.3s ease;
+      .npfeed-yt-play-icon-color-1{
+        fill: rgba(255, 0, 0, 0.8);
+      }
+    }
+  }
+
+  &.active{
+    .npfeed-yt-video-player {
+      display: block;
+    }
+    .npfeed-yt-video-preview{
+      display: none;
+    }
+  }
+
+
+  .npfeed-yt-video-info{
+    padding-top: 15px;
+    padding-right: 20px;
+    h3{
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.2;
+      padding: 0;
+      margin-top: 0;
+      margin-bottom: 8px;
+      cursor: pointer;
+       a{
+         color: #030303;
+         text-decoration: none;
+         box-shadow: none;
+       }
+      &:hover{
+        a{
+          text-decoration: underline;
+        }
+      }
+    }
+    .npfeed-yt-video-description{
+      color: #606060;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.4;
+      padding: 0;
+      margin-top: 8px;
+      margin-bottom: 0;
+      word-break: break-word;
+    }
+    .npfeed-yt-channel-title{
+      text-decoration: none;
+      font-size: 13px;
+      color: #606060;
+      font-weight: 400;
+      line-height: 1.4;
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+    }
+    .npfeed-yt-video-statistics{
+      margin-top: 5px;
+      display: flex;
+      .npfeed-yt-video-statistic-item{
+        margin-right: 15px;
+        font-size: 13px;
+        position: relative;
+        color: #606060;
+        font-weight: 400;
+        line-height: 1.4;
+        &:after{
+          position: absolute;
+          content: ".";
+          top: -15px;
+          font-size: 25px;
+          margin: 0 5px;
+        }
+        &:last-child{
+          &:after{
+            content: none;
+          }
+        }
+        &:last-child{
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+}
+
+.npfeed-yt-video-player-gallery{
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  iframe{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+}

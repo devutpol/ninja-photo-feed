@@ -1,0 +1,1343 @@
+.npfeed_editor{
+  .npfeed-global-settings{
+    &.npfeed-global-settings-collapse-shoppable_by_hashtags{
+      .el-main{
+        padding: 0;
+      }
+    }
+    .npfeed-settings-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+    .npfeed-twitter-msg{
+      font-size: 18px;
+      font-weight: 500;
+      span{
+        margin-right: 10px;
+      }
+    }
+    .el-aside{
+      background-color: var(--npfeed-primary-bg, #0E121B);
+      position: initial;
+      height: 100vh;
+      .el-collapse-item__arrow.is-active{
+        background: #dcd2f7;
+        color: #5525d7;
+        padding: 5px;
+        border-radius: 6px;
+        font-weight: 700;
+      }
+      .el-collapse-item__header{
+        display: flex;
+        padding: 8px 12px;
+        align-items: center;
+        gap: 8px;
+        border-bottom: none;
+        border-radius: var(--npfeed-radius-md, 8px);
+        background-color: var(--npfeed-primary-bg, #0E121B);
+      }
+      .npfeed-single-tab{
+        text-decoration: none;
+        font-size: 16px;
+        transition: 0.4s;
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        gap: 8px;
+        align-items: center;
+      }
+      .npfeed-single-menu-item-active{
+        border-radius: var(--npfeed-radius-md, 8px);
+        // background: var( --npfeed-settings-tab-active-bg, #EEE9FB);
+      }
+      .npfeed-tools-settings{
+        .npfeed-tab{
+          &.npfeed-tab-active::before {
+            background: none !important;
+          }
+        }
+      }
+      .npfeed-tab{
+        text-decoration: none;
+        padding: 10px 10px 10px 20px;
+        font-size: 14px;
+        transition: 0.4s;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        color: var(--npfeed-primary-text, #525866);
+        font-weight: 600;
+        img{
+          height: 20px;
+          width: 20px;
+          object-fit: contain;
+          border-radius: 6px;
+        }
+        &:focus,
+        &:hover{
+          outline: none;
+          box-shadow: none;
+        }
+        &.npfeed-tab-active{
+          background-color: #f8f5ff;
+          color: var(--npfeed-secondary-menu-active-text, #5525D9);
+          border-radius: var(--npfeed-radius-md, 8px);
+          background: var( --npfeed-settings-tab-active-bg, #EEE9FB);
+        }
+        &.npfeed-tab-active::before {
+          content: "";
+          position: absolute;
+          left: 19px;
+          height: 45px;
+          width: 2px;
+          --tw-translate-y: -50%;
+          transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+          border-radius: 8px;
+          --tw-bg-opacity: 1;
+          background: var(--npfeed-tab-indicator-bg, #8D6DE6);
+        }
+      }
+      a[href="#/settings/get-reviews"] img{
+        border-radius: 0;
+      }
+      .el-collapse-item__wrap{
+        background-color: var(--npfeed-primary-bg, #0E121B);
+        padding: 0;
+        border-bottom: none;
+      }
+    }
+    .el-main{
+      background: var(--npfeed-secondary-bg, #FFFFFF);
+      padding: 0;
+      //height: initial !important;
+      //overflow-y: initial !important;
+      //overflow-x: initial !important;
+      .npfeed-setting-content-area{
+        // padding: 20px;
+        .npfeed-setting-section{
+          padding: 20px;
+          border-radius: 6px;
+          box-shadow: 0 0 20px 0 rgb(16 64 112 / 5%);
+          background-color: #fff;
+          input.readonly, input[readonly], textarea.readonly, textarea[readonly] {
+            background-color: #fff;
+          }
+          .el-form-item__label{
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.6;
+          }
+          .el-form-item__content{
+            p{
+              font-size: 13px;
+              line-height: 1.5;
+              margin: 10px 0 0 0;
+            }
+          }
+        }
+        .npfeed-clear-btn{
+          padding: 10px 15px;
+          border: 1px solid #DCDFE6;
+          cursor: pointer;
+          border-radius: 5px;
+        }
+      }
+    }
+
+    &.npfeed-global-settings-collapse-shoppable_by_hashtags,
+    &.npfeed-global-settings-collapse-others{
+      .el-main{
+        height: initial !important;
+        overflow-y: initial !important;
+        overflow-x: initial !important;
+        &.npfeed-global-settings-main {
+          overflow: auto !important;
+        }
+      }
+    }
+    .npfeed-save-g-settings{
+      margin-top: 30px;
+    }
+
+    .npfeed-editor-edit-item-field{
+      .el-select__selection{
+        height: 30px;
+      }
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      h3,
+      >span{
+        font-size: 14px;
+        font-weight: 400;
+        padding-right: 20px;
+        flex: 0 0 25%;
+        max-width: 25%;
+        margin: 10px 0;
+      }
+    }
+
+  }
+  .npfeed-global-settings-container{
+    border-top: 1px solid var(--npfeed-primary-border);
+    .npfeed-global-settings-collapse-aside{
+      border-right: 1px solid var(--npfeed-primary-border, #E1E4EA);
+      width: 300px;
+      .el-collapse{
+        border-top: none !important;
+        border-bottom: none !important;
+      }
+      .npfeed-global-settings-collapse{
+        padding: 20px;
+        .el-collapse-item__title, .npfeed-menu-title{
+          display: flex;
+          gap: 8px;
+          align-items: center;
+          height: 0;
+          svg path {
+              stroke: var(--npfeed-svg-primary-color, #525866);
+          }
+        }
+        .el-collapse-item {
+          color: var(--npfeed-primary-text, #525866);
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 500;
+          .el-collapse-item__content{
+            padding-bottom: 0px;
+            .npfeed-sub-menu-items{
+              position: relative;
+              margin-top: 4px;
+              margin-bottom: 4px;
+              padding-left: 26px;  
+            }
+            .npfeed-sub-menu-items::before {
+              content: "";
+              position: absolute;
+              left: 19px;
+              height: calc(100% - 16px);
+              width: 2px;
+              --tw-translate-y: -50%;
+              transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+              border-radius: 8px;
+              --tw-bg-opacity: 1;
+              background: var(--npfeed-primary-border, #E1E4EA);
+            } 
+          }
+        }
+        .el-collapse-item.is-active{
+          .el-collapse-item__title{
+            color: var(--npfeed-heading-text, #0E121B);
+          }
+          .npfeed-sub-menu-items{
+            .npfeed-menu-title{
+              color: var(--npfeed-menu-text, #525866);
+            }
+
+            .npfeed-tab-active{
+              .npfeed-menu-title{
+                color: var(--npfeed-secondary-menu-active-text, #5525D9);
+              }
+            }
+          }
+
+          svg:not(.pro-crown-icon) path {
+              stroke: var(--npfeed-settings-svg-primary-active-color, #525866);
+          }
+        }
+        .npfeed-single-menu-item{
+          display: flex;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 500;
+          align-items: center;
+          gap: 4px;
+          a{
+            padding: 8px 12px;
+            height: 45px;
+            width: 100%;
+          }
+          .npfeed-menu-title{
+            color: var(--npfeed-primary-text, #525866);
+          }
+          a:focus{
+            box-shadow: none;
+            outline: none;
+          }
+          svg:not(.pro-crown-icon) path {
+            stroke: var(--npfeed-svg-primary-color, #525866);
+          }
+        }
+        .npfeed-single-menu-item.npfeed-single-menu-item-active{
+          border-radius: var(--npfeed-radius-md, 8px);
+          background: var(--npfeed-secondary-menu-active-bg, #EEE9FB);
+          .npfeed-menu-title{
+            color: var(--npfeed-secondary-menu-active-text, #525866);
+            
+          }
+
+          svg:not(.pro-crown-icon) path {
+              stroke: var(--npfeed-settings-svg-primary-active-color, #525866);
+          }
+        }
+      }
+    }
+  }
+}
+.npfeed-warning{
+  color:#cead62;
+}
+
+.npfeed-note-area {
+  display: inline-block;
+  background-color: #fff3d8;
+  p {
+    margin: 10px 5px;
+  }
+}
+
+// Translation Settings
+.npfeed-input-border{
+  border: 1px solid var(--npfeed-primary-border, #E1E4EA);
+  border-radius: 8px;
+
+}
+.npfeed-general-settings-wrapper{
+  padding: 24px 32px 24px 32px;
+  background-color: var(--npfeed-secondary-bg);
+}
+.npfeed-feed-global-settings-wrapper{
+  margin-bottom: 24px;
+}
+.npfeed-feed-setting-border{
+  border-bottom: 1px solid var(--npfeed-primary-border, #E1E4EA);
+}
+.npfeed-settings-container {
+  background: var(--npfeed-primary-bg, #FFFFFF);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  .el-input-group__append{
+    box-shadow: none;
+    border: 1px solid var(--npfeed-primary-border, #E1E4EA);
+    border-left: none;
+    border-left: none;
+  }
+}
+
+.npfeed-translation-header {
+  padding: 16px 20px 20px 16px;
+  .npfeed-translation-header-title {
+    color: var(--npfeed-heading-text, #0E121B);
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 0 8px 0;
+    line-height: 1.2;
+    letter-spacing: -0.176px;
+  }
+  .npfeed-translation-header-description {
+    color: var(--npfeed-menu-text, #525866);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    margin: 0px;
+  }
+}
+
+.npfeed-translation-table {
+  overflow: hidden;
+}
+
+.npfeed-translation-table-header {
+  display: flex;
+  background-color: var(--npfeed-secondary-bg, #F8F9FA);
+  border: 1px solid var(--npfeed-primary-border, #E1E4EA);
+}
+
+.npfeed-translation-original-column,
+.npfeed-translation-custom-column {  
+  flex: 1;
+  padding: 8px 20px;
+  align-items: flex-start;
+  gap: 10px;
+  align-self: stretch;
+  span {
+    color: var(--npfeed-menu-text, #525866);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px; 
+  }
+}
+
+.npfeed-translation-table-body {
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.npfeed-translation-row {
+  display: flex;
+  border-bottom: 1px solid var(--npfeed-primary-border, #E1E4EA);
+  transition: background-color 0.2s ease;
+  align-items: center;
+  gap: 12px;
+  align-self: stretch;
+}
+
+.npfeed-translation-row:last-child {
+  border-bottom: none;
+}
+
+.npfeed-translation-original-cell,
+.npfeed-translation-custom-cell {
+  flex: 1;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  min-height: 60px;
+  span {
+    overflow: hidden;
+    color: var(--npfeed-heading-text, #0E121B);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+  }
+}
+
+.npfeed-translation-original-text {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+.npfeed-translation-custom-cell {
+  background-color: var(--npfeed-primary-bg, #FFFFFF);
+}
+
+.npfeed-translation-custom-cell .el-input {
+  width: 100%;
+}
+
+.npfeed-translation-custom-cell .el-input__inner {
+  border: 1px solid var(--npfeed-primary-border, #E1E4EA);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+/* Scrollbar styling */
+.npfeed-translation-table-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.npfeed-translation-table-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.npfeed-translation-table-body::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.npfeed-translation-table-body::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+
+
+// License Settings
+.npfeed-license-body,
+.npfeed-license-valid,
+.npfeed-license-unregistered {
+  padding: 25px;
+  h3{
+    margin-top: 0;
+    color: var(--npfeed-heading-text, #0E121B);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+}
+
+.npfeed-activated-icon{
+  font-size: 50px !important;
+  margin-bottom: 10px;
+  color: var(--npfeed-secondary-menu-active-text, #5525D9) !important;
+}
+.npfeed-license-form-title{
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.27px;
+  color: var(--npfeed-heading-text, #0E121B);
+  margin: 0;
+}
+.npfeed-deactivate-license-text{
+  color: var(--npfeed-primary-text, #525866);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+}
+.npfeed-license-purchase-link{
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.084px;
+  color: var(--npfeed-primary-btn-bg, #5525D9);
+  text-decoration: underline;
+  text-underline-position: from-font;
+  -webkit-text-decoration-skip-ink: none;
+  text-decoration-skip-ink: none;
+}
+
+// License card: status pill, plan/expiry rows and the account links under it.
+// --npfeed-error-bg / --npfeed-warning-bg are the solid accent fills used for badges
+// and icons; a full-bleed alert needs the soft tints instead.
+.npfeed-license-alert {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  border-radius: var(--npfeed-radius-md, 8px);
+  border: 1px solid var(--npfeed-primary-border, #E1E4EA);
+  border-left-width: 3px;
+  background: var(--npfeed-secondary-bg, #F5F7FA);
+  text-align: left;
+
+  strong {
+    display: block;
+    color: var(--npfeed-heading-text, #0E121B);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+  }
+
+  p {
+    margin: 4px 0 0;
+    color: var(--npfeed-primary-text, #525866);
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  &.is-warning {
+    border-color: var(--npfeed-icon-info-warning-color, #FF8447);
+    background: var(--npfeed-warning-secondary-bg, #FFF1EB);
+  }
+
+  &.is-danger {
+    border-color: var(--npfeed-error-bg, #FB3748);
+    background: var(--npfeed-alert-bg, #FFEBEC);
+  }
+}
+
+.npfeed-license-alert-body {
+  flex: 1 1 240px;
+  min-width: 0;
+}
+
+.npfeed-license-alert-btn {
+  flex: none;
+  padding: 7px 14px;
+  border-radius: var(--npfeed-radius-md, 8px);
+  background: var(--npfeed-primary-btn-bg, #5525D9);
+  color: var(--npfeed-primary-btn-text, #FFFFFF);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    background: var(--npfeed-primary-btn-bg-hover, #3C1A9A);
+    color: var(--npfeed-primary-btn-text, #FFFFFF);
+  }
+}
+
+.npfeed-license-card {
+  border: 1px solid var(--npfeed-primary-border, #E1E4EA);
+  border-radius: var(--npfeed-radius-md, 8px);
+  background: var(--npfeed-primary-bg, #FFFFFF);
+  text-align: left;
+  overflow: hidden;
+}
+
+.npfeed-license-card-head {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 16px;
+  border-bottom: 1px solid var(--npfeed-primary-border, #E1E4EA);
+
+  h3 {
+    margin: 0;
+  }
+
+  p {
+    margin: 4px 0 0;
+    color: var(--npfeed-primary-text, #525866);
+    font-size: 13px;
+    line-height: 18px;
+  }
+}
+
+.npfeed-license-pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--npfeed-primary-border, #E1E4EA);
+  color: var(--npfeed-primary-text, #525866);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  white-space: nowrap;
+
+  &.is-success {
+    border-color: #A6E3C0;
+    background: #ECFDF3;
+    color: #05603A;
+  }
+
+  &.is-warning {
+    border-color: transparent;
+    background: var(--npfeed-warning-bg, #FFC0C5);
+    color: var(--npfeed-warning-text, #681219);
+  }
+
+  &.is-danger {
+    border-color: transparent;
+    background: var(--npfeed-error-bg, #FB3748);
+    color: var(--npfeed-error-text, #FFFFFF);
+  }
+
+  // Row badges sit beside body text, where a solid chip shouts. Fixed hexes so
+  // the tint cannot flip to a dark fill under the fixed text in dark mode.
+  &.is-soft.is-warning {
+    border-color: #F5C888;
+    background: #FFF1EB;
+    color: #93500B;
+  }
+
+  &.is-soft.is-danger {
+    border-color: #F1A8A8;
+    background: #FFEBEC;
+    color: #9B1C1C;
+  }
+}
+
+.npfeed-license-meta {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    justify-content: space-between;
+    margin: 0;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--npfeed-primary-border, #E1E4EA);
+  }
+}
+
+.npfeed-license-meta-label {
+  color: var(--npfeed-primary-text, #525866);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.npfeed-license-meta-value {
+  color: var(--npfeed-heading-text, #0E121B);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: right;
+  word-break: break-word;
+
+  small {
+    display: block;
+    margin-top: 2px;
+    color: var(--npfeed-primary-text, #525866);
+    font-size: 12px;
+    font-weight: 400;
+  }
+}
+
+.npfeed-license-card-footer {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+}
+
+.npfeed-license-checked {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  color: var(--npfeed-primary-text, #525866);
+  font-size: 12px;
+  line-height: 18px;
+
+  a {
+    color: var(--npfeed-primary-btn-bg, #5525D9);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.npfeed-license-card-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.npfeed-license-form {
+  margin-top: 20px;
+  text-align: left;
+
+  p {
+    color: var(--npfeed-primary-text, #525866);
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  // A license key is 32 characters; a field the width of the viewport reads as
+  // a layout bug and makes the verify button a long mouse trip away.
+  .npfeed-license-form-field {
+    max-width: 460px;
+  }
+}
+
+// .npfeed-license-body h3 would otherwise win on specificity and flatten this to
+// the card's title size; the empty-state heading is the primary one on the screen.
+.npfeed-license-form .npfeed-license-form-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.npfeed-license-form-head {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.npfeed-license-form-cancel {
+  flex: none;
+  color: var(--npfeed-primary-text, #525866);
+  font-size: 13px;
+  line-height: 18px;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: var(--npfeed-primary-btn-bg, #5525D9);
+    text-decoration: underline;
+  }
+}
+
+.npfeed-license-form-help {
+  margin: 6px 0 12px;
+}
+
+// Swapping the key is a secondary action sitting under an active license card,
+// so it gets a tinted panel rather than a heading that competes with the card.
+.npfeed-license-form.is-swap {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid var(--npfeed-primary-border, #E1E4EA);
+  border-radius: var(--npfeed-radius-md, 8px);
+  background: var(--npfeed-secondary-bg, #F5F7FA);
+
+  .npfeed-license-form-title {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+  }
+
+  .npfeed-license-form-help {
+    margin-top: 4px;
+  }
+
+  // The panel tint and the disabled-button fill are the same grey, which makes
+  // the button dissolve and the input group look truncated.
+  .el-input__wrapper,
+  .el-input-group__append .npfeed_primary_btn:disabled {
+    background: var(--npfeed-primary-bg, #FFFFFF);
+  }
+}
+
+// The first-run state is the only thing on the screen, so it gets the same card
+// treatment as the license it is about to become - and, unlike the card/swap
+// states, it reads better centered since there is nothing to align against.
+.npfeed-license-form:not(.is-swap) {
+  margin-top: 0;
+  padding: 20px;
+  background: var(--npfeed-primary-bg, #FFFFFF);
+  text-align: center;
+
+  .npfeed-license-form-head {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .npfeed-license-form-field {
+    margin: 0 auto;
+  }
+}
+
+.npfeed-license-switch {
+  margin-top: 16px;
+  color: var(--npfeed-primary-text, #525866);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.npfeed-license-warning {
+  margin-top: 16px;
+  text-align: left;
+
+  p {
+    margin: 0 0 4px;
+    color: #9B1C1C;
+    font-size: 13px;
+    line-height: 18px;
+  }
+}
+
+// This text sits on the plain card surface, so it needs a red that carries on a
+// dark background rather than the light-mode ink.
+body.npfeed-dark-mode .npfeed-license-warning p {
+  color: #FF8A8F;
+}
+
+// Errors from the first-run activation form should read centered like the
+// rest of that box, not left-aligned like the card/swap-form errors.
+.npfeed-license-form:not(.is-swap) ~ .npfeed-license-warning {
+  text-align: center;
+}
+
+// Feed Settings 
+
+.npfeed-feed-settings-wrapper {
+  background: var(--npfeed-primary-bg, #FFFFFF);
+  border-radius: 8px;
+  padding: 0;
+}
+
+.npfeed-feed-settings-container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.npfeed-settings-header {
+  padding: 24px 24px 16px 24px;
+  border-bottom: 1px solid var(--npfeed-primary-border, #E1E4EA);
+}
+
+.npfeed-feed-settings-title, .npfeed-reviews-settings-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--npfeed-heading-text, #0E121B);
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.npfeed-feed-settings-description {
+  font-size: 14px;
+  color: var(--npfeed-primary-text, #525866);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.npfeed-feed-settings-content {
+  padding: 0;
+}
+
+.npfeed-setting-row {
+  display: flex;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--npfeed-primary-border, #E1E4EA);
+  gap: 24px;
+}
+
+.npfeed-setting-row-no-border {
+  display: flex;
+  align-items: center;
+  padding: 20px 20px 0px 20px;
+  gap: 24px;
+}
+
+.npfeed-setting-row:last-child {
+  border-bottom: none;
+}
+
+.npfeed-setting-left {
+  flex: 0 0 464px;
+  min-width: 0;
+}
+
+.npfeed-setting-right {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  flex: 1 0 0;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.npfeed-setting-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--npfeed-heading-text, #0E121B);
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+  display: flex;
+  gap: 4px;
+}
+
+.npfeed-setting-description {
+  font-size: 14px;
+  color: var(--npfeed-primary-text, #525866);
+  margin: 0;
+  line-height: 1.4;
+  .npfeed-gdpr-note {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--npfeed-primary-text, #525866);
+  }
+
+  .npfeed-gdpr-link {
+    margin-left: 4px;
+  }
+}
+
+.npfeed-gdpr-link {
+  color: var(--npfeed-secondary-menu-active-text, #5525D9);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.npfeed-select {
+  min-width: 120px;
+}
+
+/* Stacks a control above its helper text inside the flex-row right column. */
+.npfeed-setting-field {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+}
+
+.npfeed-ai-api-key-hint {
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+.npfeed-ai-status-tag {
+  margin-left: 8px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #9a3412;
+  background: #ffedd5;
+
+  &.npfeed-ai-status-tag-retired {
+    color: #991b1b;
+    background: #fee2e2;
+  }
+}
+
+.npfeed-ai-deprecation-note {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #9a3412;
+}
+
+.npfeed-ai-notice-link-row {
+  margin-top: 10px;
+}
+
+.npfeed-ai-notice-link {
+  color: var(--npfeed-secondary-menu-active-text, #5525D9);
+  font-weight: 500;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.el-button.npfeed-clear-btn,
+.el-button.npfeed-reset-local-btn,
+.el-button.npfeed-twitter-clear-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  background: var(--npfeed-primary-bg, #FFFFFF);
+  color: #374151;
+}
+
+.el-button.npfeed-clear-btn:hover,
+.el-button.npfeed-reset-local-btn:hover,
+.el-button.npfeed-twitter-clear-btn:hover {
+  background-color: var(--npfeed-secondary-bg, #E5E7EB);
+  border-color: var(--npfeed-primary-border, #E1E4EA);
+}
+
+.el-button.npfeed-clear-btn:active,
+.el-button.npfeed-reset-local-btn:active,
+.el-button.npfeed-twitter-clear-btn:active {
+  transform: translateY(0);
+}
+
+.npfeed-btn-icon path {
+  fill: #525866;
+}
+
+.npfeed-btn-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin-left: 6px;
+  white-space: nowrap;
+}
+
+.npfeed-optimize-switch {
+  transform: scale(1.1);
+}
+
+.npfeed-reset-btn {
+  display: inline-block;
+}
+.npfeed-btn-icon{
+  width: 10.5px;
+  height: 10.5px;
+  flex-shrink: 0;
+  fill: var(--npfeed-primary-btn-text, #FFF);
+}
+/* Responsive design */
+@media (max-width: 768px) {
+  .npfeed-setting-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  
+  .npfeed-setting-right {
+    justify-content: flex-start;
+  }
+  
+  .npfeed-settings-header {
+    padding: 20px 16px 12px 16px;
+  }
+  
+  .npfeed-setting-row {
+    padding: 16px;
+  }
+}
+
+.npfeed-shoppable-title, .npfeed-management-title {
+  color: var(--npfeed-heading-text, #0E121B);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  margin: 0 0 8px 0;
+}
+
+.npfeed-shoppable-description, .npfeed-management-description {
+  font-size: 14px;
+  color: var(--npfeed-primary-text, #525866);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.npfeed-table-actions {
+  display: flex;
+  align-items: center;
+  .npfeed-edit-btn,
+  .npfeed-delete-btn {
+    padding: 6px;
+    min-width: auto;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background-color: var(--npfeed-primary-bg, #FFFFFF);
+    border: 1px solid var(--npfeed-secondary-link, #E1E4EA);
+    transition: all 0.2s ease;
+  }
+  .npfeed-edit-btn svg,
+  .npfeed-delete-btn svg {
+    transition: all 0.2s ease;
+  }
+  .npfeed-edit-btn svg path,
+  .npfeed-delete-btn svg path {
+    fill: #525866;
+    transition: fill 0.2s ease;
+  }
+}
+.npfeed-single-menu-item-active .npfeed-menu-title {
+  color: var(--npfeed-heading-text, #525866);
+}
+
+.npfeed-single-menu-item-active .menu-icon svg path {
+  stroke: var(--npfeed-primary-btn-bg, #5525D9);
+  fill: none;
+}
+
+.npfeed-tab.npfeed-tab-active .menu-icon svg path {
+  stroke: var(--npfeed-primary-btn-bg, #5525D9);
+  fill: none;
+}
+
+// Connection Upgrade Section
+.npfeed-setting-content-area {
+  .npfeed-connection-upgrade-to-pro {
+    width: 100%;
+    background-color: var(--npfeed-primary-bg, #FFFFFF);
+    border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    
+    .npfeed-connection-upgrade-message {
+      max-width: 530px;
+      margin: 0 auto;
+      
+      h2 {
+        font-size: 18px;
+        line-height: 24px;
+        margin: 5px 0;
+        font-weight: 500;
+        color: var(--npfeed-heading-text, #0E121B);
+      }
+      
+      p {
+        padding: 0;
+        font-size: 14px;
+        color: var(--npfeed-primary-text, #525866);
+        line-height: 1.4;
+        margin: 0 0 10px 0;
+      }
+    }
+  }
+}
+
+// tools
+.npfeed-tools-settings-collapse-container{
+  border-top: 1px solid var(--npfeed-primary-border, #E1E4EA);
+  .npfeed-tools-settings-collapse-aside{
+    border-right: 1px solid var(--npfeed-primary-border, #E1E4EA);
+  }
+  .npfeed-tools-settings {
+    padding: 20px;
+    gap: 10px;
+    display: grid;
+    .npfeed-menu-title{
+      font-size: 16px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+  .npfeed-tools-export-import{
+    border-radius: 6px;
+    box-shadow: 0 0 20px 0 rgba(16, 64, 112, 0.05);
+    background-color: var(--npfeed-primary-bg, #fff);
+    .npfeed-setting-header {
+      padding: 24px 24px 10px 24px;
+      h3 {
+        margin: 0px;
+        color: var(--npfeed-heading-text, #0E121B);
+      }
+    }
+    .npfeed-setting-no-border-action-btn{
+      padding-bottom: 20px !important;
+    }
+
+    /* Table container to handle overflow */
+    .npfeed-table-container {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Ensure table fits within container */
+    .npfeed-table-container .el-table {
+      min-width: 100%;
+      width: auto;
+    }
+
+    /* Responsive table styling */
+    @media (max-width: 768px) {
+      .npfeed-table-container {
+        font-size: 12px;
+      }
+      
+      .npfeed-table-container .el-table th,
+      .npfeed-table-container .el-table td {
+        padding: 8px 4px;
+      }
+    }
+  }
+  .el-button.npfeed-tools-btn svg {
+    margin-right: 4px;
+  }
+}
+
+.npfeed-license-management{
+  /* Ensure primary button styling is applied to license verification buttons */
+  .el-input-group__append .npfeed_primary_btn {
+    background-color: var(--npfeed-primary-btn-bg, #5525D9);
+    border-color: var(--npfeed-primary-btn-bg, #5525D9);
+    color: var(--npfeed-primary-btn-text, #FFFFFF);
+    border-radius: 0;
+    border-left: none;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+
+  .el-input-group__append .npfeed_primary_btn:hover {
+    background-color: var(--npfeed-primary-btn-bg-hover, #3C1A9A);
+    border-color: var(--npfeed-primary-btn-bg-hover, #3C1A9A);
+    color: var(--npfeed-primary-btn-text, #FFFFFF);
+  }
+
+  .el-input-group__append .npfeed_primary_btn:disabled {
+    background-color: var(--npfeed-primary-bg, #F5F7FA);
+    border-color: var(--npfeed-primary-bg, #F5F7FA);
+    color: #99A0AE;
+    cursor: not-allowed;
+    border-right: 1px solid var(--npfeed-primary-border, #E1E4EA);
+  }
+
+  .el-input-group__append .npfeed_primary_btn .el-icon {
+    color: #99A0AE;
+  }
+}
+
+.npfeed-integration-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #374151;
+  margin: 0 0 32px 0;
+}
+
+.npfeed-integration-message {
+  margin-bottom: 32px;
+}
+
+.npfeed-integration-message p {
+  font-size: 16px;
+  color: #374151;
+  line-height: 1.6;
+  margin: 0 0 24px 0;
+}
+
+// WooCommerce Batch Import
+
+.npfeed-import-description {
+  margin: 10px 0 0;
+  color: #666;
+}
+
+.npfeed-import-progress {
+  margin-bottom: 15px;
+}
+
+.npfeed-progress-header {
+  .npfeed-progress-header-label{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+  .npfeed-import-description{
+    margin: 5px 0 0;
+  }
+}
+.npfeed-import-status{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 20px;
+  border: 1px solid #e0dbdb;
+  border-radius: 8px;
+  background-color: #f5f3fd;
+  i{
+    font-size: 18px;
+    color: #0F9D58;
+  }
+  .npfeed-import-status-text{
+    display: flex;
+    flex-direction: column;
+    h3{
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0;
+      padding: 0;
+      color: var(--npfeed-heading-text, #0E121B);
+    }
+    p,
+    span{
+      margin: 0;
+      font-size: 12px;
+      color: #0F9D58;
+    }
+  }
+}
+
+.npfeed-import-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+hr{
+  border-top: 1px solid var(--npfeed-primary-border, #DCDCDE);
+  border-bottom: 1px solid var(--npfeed-primary-border, #F6F7F7);
+}
+
+.el-dialog__title {
+  color: var(--npfeed-heading-text, #0E121B);
+}
+
+.el-date-editor.npfeed-text-input .el-input__wrapper{
+  box-shadow: none !important;
+}

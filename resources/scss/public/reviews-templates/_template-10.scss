@@ -1,0 +1,187 @@
+.npfeed-all-reviews [class^="npfeed-col-"]:last-of-type > .npfeed-review-template-ten {
+  border-bottom: none;
+}
+
+.npfeed-review-template {
+  &.npfeed-review-template-ten {
+
+    margin-top: 0;
+    position: relative;
+    background-color: transparent;  
+    box-shadow: none;
+    margin: 10px 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+    border-radius: unset;
+
+    @media screen and (max-width: 1024px) {
+      margin: 5px 0;
+    }
+
+    // Row 1: Date row
+    .npfeed-review-date-row {
+      .npfeed-review-date-container {
+        .npfeed-review-time {
+          font-size: 12px;
+          margin: 0;
+        }
+      }
+    }
+
+    // Row 2: Main content row with image and info
+    .npfeed-review-main-content-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      flex: 1;
+      @media screen and (max-width: 1024px) {
+        gap: 10px;
+      }
+
+      // First column: Reviewer image (40px x 40px)
+      .npfeed-review-image-column {
+        flex-shrink: 0;
+        
+        .npfeed-reviewer-image {
+          img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+        }
+      }
+
+      // Second column: Name, rating, and content in 3 rows
+      .npfeed-review-info-column {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        // Row 1: Reviewer name - preserve original styling
+        .npfeed-reviewer-name-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .npfeed-reviewer-name-wrapper {
+            a{
+              text-decoration: none;
+            }
+            .npfeed-reviewer-name-url {
+              .npfeed-reviewer-name {
+                font-size: 18px;
+                font-weight: 600;
+                line-height: 1.4;
+                text-decoration: none;
+                
+                @media screen and (max-width: 1024px) {
+                  font-size: 16px;
+                }
+              }
+            }
+          }
+        }
+
+        // Row 2: Rating - preserve original styling
+        .npfeed-reviewer-rating-row {
+          .npfeed-rating-wrapper {
+            display: flex;
+            align-items: center;
+            
+            @media screen and (max-width: 1024px) {
+              padding-bottom: 0;
+            }
+          }
+        }
+        // Row 3: Review content - preserve original styling
+        .npfeed-review-content-row {
+          .npfeed-review-title {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-top: 0;
+          }
+          .npfeed-review-content {
+            margin-top: 0;
+            font-size: 14px;
+            line-height: 1.6;
+            p {
+              margin: 0 0 10px 0;
+              line-height: 1.6;
+            }
+          }
+        }
+      }
+    }
+
+    // Row 3: Platform icon row
+    .npfeed-review-platform-row {
+      display: flex;
+      justify-content: flex-end;
+      
+      .npfeed-review-platform-container {
+        img {
+          max-height: 20px;
+          
+          @media screen and (max-width: 1024px) {
+            max-height: 18px;
+          }
+        }
+      }
+    }
+
+    &.npfeed-review-template-facebook{
+      .npfeed-recommends{
+        justify-content: flex-start;
+      }
+    }
+
+    // Remove old absolute positioned elements to avoid conflicts
+    .npfeed-review-date-top,
+    .npfeed-review-platform-bottom {
+      display: none;
+    }
+
+    // Hide old structure elements to avoid conflicts
+    .npfeed-review-header {
+      display: none;
+    }
+
+    .npfeed-review-content-section {
+      display: none;
+    }
+
+    // Legacy styles for backward compatibility - preserve original reviewer image styling
+    .npfeed-reviewer-image {
+      flex-shrink: 0;
+      
+      img {
+        height: 40px;
+        border-radius: 50%;
+        width: 40px;
+        object-fit: cover;
+      }
+      
+      @media screen and (max-width: 1024px) {
+        img {
+          height: 40px;
+          width: 40px;
+        }
+      }
+    }
+    
+    .npfeed-review-info {
+      flex: 1;
+      text-align: inherit;
+      padding-top: 0;
+    }
+  
+    // Keep original platform icon styling for legacy compatibility but hidden
+    .npfeed-review-platform {
+      display: none;
+    }
+  }
+}

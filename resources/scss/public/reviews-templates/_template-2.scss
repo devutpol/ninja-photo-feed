@@ -1,0 +1,89 @@
+.npfeed-review-template {
+  &.npfeed-review-template-two{
+    margin-top: 0;
+    @media screen and (max-width: 1024px) {
+      padding: 25px 15px;
+    }
+    &.npfeed-review-template-google{
+      border-bottom: 10px solid #e7711a;
+    }
+    &.npfeed-review-template-zomato{
+      border-bottom: 10px solid #f3153c;
+    }
+    &.npfeed-review-template-facebook{
+      border-bottom: 10px solid #345a9e;
+    }
+    &.npfeed-review-template-yelp{
+      border-bottom: 10px solid #fa3e3e;
+    }
+    &.npfeed-review-template-tripadvisor{
+      border-bottom: 10px solid #04a96c;
+    }
+    &.npfeed-review-template-amazon{
+      border-bottom: 10px solid #ffa41c;
+    }
+    &.npfeed-review-template-trustpilot{
+      border-bottom: 10px solid #00b67a;
+    }
+    &.npfeed-review-template-aliexpress{
+      border-bottom: 10px solid #fe4646;
+    }
+    display: flex;
+    flex-direction: inherit;
+    flex-wrap: wrap;
+  
+    .npfeed-reviewer-image{
+      margin-right: 10px;
+    }
+    .npfeed-review-info {
+      flex-grow: 1;
+    }
+  
+    .npfeed-review-platform{
+      right: 15px;
+      left: auto;
+      @media screen and (max-width: 1024px) {
+        top: 5px;
+        img{
+          max-height: 18px;
+        }
+      }
+    }
+    .npfeed-reviewer-image{
+      img{
+        height: 70px;
+        border-radius: 50%;
+        width: 70px;
+        object-fit: cover;
+      }
+      padding-right: 15px;
+      @media screen and (max-width: 1024px) {
+        padding-right: 10px;
+        img{
+          height: 55px;
+          width: 55px;
+        }
+      }
+    }
+    .npfeed-review-info{
+      margin-right: auto;
+      text-align: inherit;
+      padding-top: 0;
+    }
+    .npfeed-reviews-content-footer{
+      margin-top: 10px;
+      width: 100%;
+    }
+    .npfeed-review-title {
+      margin-bottom: -10px;
+    }
+    .npfeed-review-content{
+      margin-top: 15px;
+    }
+    &.npfeed-review-template-facebook{
+      .npfeed-recommends{
+        justify-content: flex-start;
+      }
+    }
+  }
+}

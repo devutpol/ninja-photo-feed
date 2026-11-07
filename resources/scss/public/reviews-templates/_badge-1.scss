@@ -1,0 +1,21 @@
+.npfeed-reviews-badge2{
+	.npfeed-reviews-badge-btn,
+	.npfeed-reviews-badge-html{
+		padding: 15px 20px;
+	}
+	.npfeed-reviews-badge-wrapper-inner{
+		display: flex;
+		.npfeed-business-info-logo{
+			margin-right: 15px;
+			img{
+				height: 50px;
+			}
+		}
+	}
+	.npfeed-rating-and-count{
+		display: block;
+		.npfeed-total-reviews{
+			padding-left: 0;
+		}
+	}
+}

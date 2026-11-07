@@ -1,0 +1,122 @@
+// Colour scheme presets. :where() adds no specificity, so each rule ties with the base rule it
+// overrides (and wins by coming later), while a colour set in Pro's style editor still wins.
+// Import after the template partials.
+
+:where(.npfeed-ig-scheme-dark) {
+  &.npfeed-ig-feed-wrapper {
+    background-color: #111111;
+    padding: 20px;
+    border-radius: 12px;
+  }
+  .npfeed-ig-header .npfeed-ig-header-inner {
+    background-color: #1c1c1c;
+    .npfeed-ig-header-info {
+      .npfeed-ig-header-name a,
+      .npfeed-ig-header-fullname,
+      .npfeed-ig-header-statistics .npfeed-ig-header-statistic-item,
+      .npfeed-ig-header-statistics .npfeed-ig-header-statistic-item strong {
+        color: #ffffff;
+      }
+      .npfeed-ig-header-description p {
+        color: #a8a8a8;
+      }
+    }
+  }
+  .npfeed-ig-follow-btn a {
+    background-color: #ffffff;
+    color: #111111;
+    &:hover,
+    &:focus {
+      background-color: #e6e6e6;
+    }
+  }
+  &.npfeed-ig-feed-template2 .npfeed-ig-post {
+    background-color: #1c1c1c;
+    box-shadow: none;
+    border: 1px solid #2a2a2a;
+    .npfeed-ig-post-info {
+      .npfeed-ig-post-caption p,
+      .npfeed-ig-post-statistics .npfeed-ig-post-single-statistic,
+      .npfeed-ig-post-statistics .npfeed-ig-post-single-statistic span {
+        color: #f5f5f5;
+      }
+      .npfeed-ig-post-caption p a {
+        color: #8ab4f8;
+      }
+    }
+    .npfeed-ig-post-author-name {
+      color: #f5f5f5;
+    }
+    .npfeed-ig-post-author-avatar {
+      box-shadow: 0 0 0 2px #1c1c1c, 0 0 0 3px #3a3a3a;
+    }
+  }
+  .npfeed-ig-load-more.npfeed-load-more-default {
+    background-color: #262626;
+    color: #ffffff;
+    &:hover {
+      background-color: #333333;
+    }
+  }
+}
+
+:where(.npfeed-ig-scheme-shadow) {
+  .npfeed-ig-header.npfeed-ig-header-layout-minimal .npfeed-ig-header-inner {
+    padding: 15px 20px;
+  }
+  .is-mobile-active & .npfeed-ig-header.npfeed-ig-header-layout-minimal .npfeed-ig-header-inner {
+    padding: 15px 20px;
+  }
+  .npfeed-ig-header .npfeed-ig-header-inner {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  }
+  &.npfeed-ig-feed-template1 .npfeed-ig-post,
+  &.npfeed-ig-feed-template2 .npfeed-ig-post {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  }
+}
+
+:where(.npfeed-ig-scheme-soft) {
+  &.npfeed-ig-feed-wrapper {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 12px;
+  }
+  .npfeed-ig-header .npfeed-ig-header-inner {
+    background-color: #ffffff;
+    border-radius: 8px;
+  }
+  &.npfeed-ig-feed-template2 .npfeed-ig-post {
+    background-color: #ffffff;
+    box-shadow: none;
+    border-radius: 8px;
+  }
+}
+
+:where(.npfeed-ig-scheme-bordered) {
+  .npfeed-ig-header.npfeed-ig-header-layout-minimal .npfeed-ig-header-inner {
+    padding: 15px 20px;
+  }
+  .is-mobile-active & .npfeed-ig-header.npfeed-ig-header-layout-minimal .npfeed-ig-header-inner {
+    padding: 15px 20px;
+  }
+  .npfeed-ig-header .npfeed-ig-header-inner {
+    background-color: transparent;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+  }
+  &.npfeed-ig-feed-template1 .npfeed-ig-post {
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  &.npfeed-ig-feed-template2 .npfeed-ig-post {
+    box-shadow: none;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+  }
+}

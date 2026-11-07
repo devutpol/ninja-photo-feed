@@ -1,0 +1,93 @@
+.widget_wpsn-widget{
+  .npfeed-container{
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .npfeed-yt-feed-wrapper:not(.npfeed-youtube-slider-activate){
+    .npfeed-yt-feed-wrapper-inner{
+      padding: 10px;
+      overflow-y: scroll;
+      max-height: 400px;
+      height: 100%;
+      overflow-x: hidden;
+      transition: height 100ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    }
+    .npfeed-yt-header{
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .npfeed-yt-header-inner{
+    padding: 10px 5px;
+    .npfeed-yt-header-logo{
+      margin-right: 5px;
+      a{
+        img{
+          width: 50px;
+          height: 50px;
+        }
+      }
+    }
+
+    .npfeed-yt-header-info{
+      .npfeed-yt-header-channel-name{
+        a{
+          font-size: 14px;
+        }
+      }
+      .npfeed-yt-header-channel-statistics{
+        .npfeed-yt-header-statistic-item{
+          font-size: 12px;
+        }
+        .npfeed-yt-header-statistic-item:after{
+          right: -5px;
+        }
+      }
+      .npfeed-yt-header-description{
+        p{
+          font-size: 14px;
+        }
+      }
+    }
+
+    .npfeed-yt-header-subscribe-btn{
+      margin-left: 5px;
+      a{
+        font-size: 12px;
+        padding: 5px 10px;
+      }
+    }
+  }
+  .npfeed-yt-video{
+    .npfeed-yt-video-info{
+      h3{
+        font-size: 12px;
+      }
+    }
+    .npfeed-yt-video-preview svg{
+      width: 25px;
+    }
+  }
+  .npfeed-youtube-slider-activate{
+    .npfeed-yt-video{
+      margin-bottom: 0;
+    }
+    .npfeed-swiper-pagination{
+      bottom: initial !important;
+    }
+    .npfeed-swiper-prev-next{
+      opacity: 0;
+      transition: 0.3s;
+    }
+    &:hover{
+      .npfeed-swiper-prev-next{
+        opacity: 1;
+      }
+    }
+  }
+  .npfeed-yt-load-more.npfeed-load-more-default{
+    padding: 10px 15px;
+    font-size: 13px;
+    width: auto;
+  }
+}

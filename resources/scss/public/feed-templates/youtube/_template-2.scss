@@ -1,0 +1,63 @@
+.npfeed-yt-feed-template2{
+  .npfeed-yt-all-feed{
+    .npfeed-yt-video{
+      position: relative;
+      overflow: hidden;
+      .npfeed-yt-video-preview{
+        svg{
+          z-index: 4;
+        }
+        img{
+          transition: 0.4s;
+          transform: scale(1);
+        }
+      }
+      .npfeed-yt-video-info{
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 3;
+        background-color: rgba(0, 0, 0, 0.6);
+        cursor: pointer;
+        transition: 0.4s;
+        padding: 15px;
+        box-sizing: border-box;
+        h3 a,
+        .npfeed-yt-video-statistics .npfeed-yt-video-statistic-item,
+        .npfeed-yt-video-description{
+          color: #fff;
+        }
+        .npfeed-yt-channel-title{
+          color: #fff;
+        }
+
+        .npfeed-live-now-btn{
+          background-color: #c00;
+          color:#fff;
+          border: 1px solid #c00;
+          text-decoration: none;
+        }
+      }
+      &:not(.active){
+        &:hover{
+          .npfeed-yt-video-preview{
+            img{
+              transform: scale(1.05);
+            }
+          }
+          .npfeed-yt-video-info{
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+      }
+
+    }
+  }
+
+}

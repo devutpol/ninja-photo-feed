@@ -1,0 +1,407 @@
+/**
+ * Creates a debounced function that delays invoking `func` until after `wait`
+ * milliseconds have elapsed since the last time the debounced function was invoked.
+ * 
+ * @param {Function} func - The function to debounce
+ * @param {number} [wait=0] - The number of milliseconds to delay
+ * @param {Object} [options={}] - The options object
+ * @param {boolean} [options.leading=false] - Invoke on the leading edge of the timeout
+ * @param {boolean} [options.trailing=true] - Invoke on the trailing edge of the timeout
+ * @param {number} [options.maxWait] - Maximum time func is allowed to be delayed before it's invoked
+ * @returns {Function} The debounced function with cancel, flush, and pending methods
+ */
+export function debounce(func, wait = 0, options = {}) {
+    if (typeof func !== 'function') {
+        throw new TypeError('Expected a function');
+    }
+
+    const leading = options.leading === true;
+    const trailing = options.trailing !== false;
+    const maxWait = options.maxWait !== undefined ? Math.max(Number(options.maxWait) || 0, wait) : undefined;
+    const hasMaxWait = maxWait !== undefined;
+
+    let timerId;
+    let maxTimerId;
+    let lastArgs;
+    let lastThis;
+    let result;
+    let lastCallTime;
+    let lastInvokeTime = 0;
+
+    function invokeFunc(time) {
+        const args = lastArgs;
+        const thisArg = lastThis;
+
+        lastArgs = lastThis = undefined;
+        lastInvokeTime = time;
+        
+        result = func.apply(thisArg, args);
+        return result;
+    }
+
+    function shouldInvoke(time) {
+        const timeSinceLastCall = time - lastCallTime;
+        const timeSinceLastInvoke = time - lastInvokeTime;
+
+        return (
+            lastCallTime === undefined ||
+            timeSinceLastCall >= wait ||
+            timeSinceLastCall < 0 ||
+            (hasMaxWait && timeSinceLastInvoke >= maxWait)
+        );
+    }
+
+    function remainingWait(time) {
+        const timeSinceLastCall = time - lastCallTime;
+        const timeSinceLastInvoke = time - lastInvokeTime;
+        
+        const timeWaiting = wait - timeSinceLastCall;
+
+        return hasMaxWait
+            ? Math.min(timeWaiting, maxWait - timeSinceLastInvoke)
+            : timeWaiting;
+    }
+
+    function trailingEdge(time) {
+        timerId = undefined;
+
+        if (trailing && lastArgs) {
+            return invokeFunc(time);
+        }
+        
+        lastArgs = lastThis = undefined;
+        return result;
+    }
+
+    function timerExpired() {
+        const time = Date.now();
+        
+        if (shouldInvoke(time)) {
+            return trailingEdge(time);
+        }
+        
+        timerId = setTimeout(timerExpired, remainingWait(time));
+    }
+
+    function leadingEdge(time) {
+        lastInvokeTime = time;
+        
+        timerId = setTimeout(timerExpired, wait);
+        
+        return leading ? invokeFunc(time) : result;
+    }
+
+    function cancel() {
+        if (timerId !== undefined) {
+            clearTimeout(timerId);
+        }
+        if (maxTimerId !== undefined) {
+            clearTimeout(maxTimerId);
+        }
+        
+        lastInvokeTime = 0;
+        lastArgs = lastThis = timerId = lastCallTime = maxTimerId = undefined;
+    }
+
+    function flush() {
+        if (timerId === undefined) {
+            return result;
+        }
+        
+        return trailingEdge(Date.now());
+    }
+
+    function pending() {
+        return timerId !== undefined;
+    }
+
+    function debounced(...args) {
+        const time = Date.now();
+        const isInvoking = shouldInvoke(time);
+
+        lastArgs = args;
+        lastThis = this;
+        lastCallTime = time;
+
+        if (isInvoking) {
+            if (timerId === undefined) {
+                return leadingEdge(time);
+            }
+            
+            if (hasMaxWait) {
+                clearTimeout(timerId);
+                timerId = setTimeout(timerExpired, wait);
+                
+                return invokeFunc(time);
+            }
+        }
+
+        if (timerId === undefined) {
+            timerId = setTimeout(timerExpired, wait);
+        }
+
+        return result;
+    }
+
+    debounced.cancel = cancel;
+    debounced.flush = flush;
+    debounced.pending = pending;
+
+    return debounced;
+}
+
+/**
+ * Opens the auth bridge connect page with a POST form, so auth_result_key and the
+ * challenge never appear in a URL (browser history, proxy/server logs).
+ *
+ * @param {string} action - Bridge connect URL (no query string)
+ * @param {Object} fields - Form fields returned by the prepare endpoint
+ */
+export function wpsrSubmitAuthForm(action, fields) {
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = action;
+    // The bridge decodes UTF-8; without this, non-UTF-8 admin pages would encode in blog_charset.
+    form.acceptCharset = 'UTF-8';
+    form.style.display = 'none';
+
+    Object.keys(fields || {}).forEach((name) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = name;
+        input.value = fields[name] == null ? '' : String(fields[name]);
+        form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+    // Call the prototype method: a field named "submit" would otherwise shadow form.submit.
+    HTMLFormElement.prototype.submit.call(form);
+}
+
+export function wpsrBuildAuthReturnUrl(routeName, authPlatform = '', fallbackUrl = '', templateId = '') {
+    const wpsrAppendAuthPlatform = (url) => {
+        if (!authPlatform) {
+            return url;
+        }
+
+        const separator = url.indexOf('?') === -1 ? '?' : '&';
+        return `${url}${separator}npfeed_auth_platform=${encodeURIComponent(authPlatform)}`;
+    };
+
+    if (!routeName) {
+        return wpsrAppendAuthPlatform(fallbackUrl);
+    }
+
+    const currentUrl = window.location.href;
+    const isEditor = currentUrl.includes(`#/` + routeName + `/`);
+
+    if (!isEditor) {
+        return wpsrAppendAuthPlatform(fallbackUrl);
+    }
+
+    const baseUrl = window.location.origin + window.location.pathname;
+    const hashMatch = window.location.hash.match(new RegExp(routeName + '\\/?(\\d+)'));
+    const wpsrTemplateId = templateId || (hashMatch && hashMatch[1] ? hashMatch[1] : '');
+
+    if (!wpsrTemplateId) {
+        return wpsrAppendAuthPlatform(fallbackUrl);
+    }
+
+    // The bridge strips unrecognised URL params, so store editor context in sessionStorage
+    // instead of embedding it in the return URL.
+    try {
+        window.sessionStorage.setItem('npfeed_auth_return_route', JSON.stringify({ name: routeName, templateId: wpsrTemplateId }));
+    } catch (e) {}
+
+    const urlParams = new URLSearchParams(window.location.search || '');
+    const page = urlParams.get('page') || 'ninjaphotofeed.php';
+
+    return wpsrAppendAuthPlatform(`${baseUrl}?page=${encodeURIComponent(page)}`);
+}
+
+/**
+ * Creates a throttled function that only invokes `func` at most once per
+ * every `wait` milliseconds.
+ * 
+ * @param {Function} func - The function to throttle
+ * @param {number} [wait=0] - The number of milliseconds to throttle invocations to
+ * @param {Object} [options={}] - The options object
+ * @param {boolean} [options.leading=true] - Invoke on the leading edge of the timeout
+ * @param {boolean} [options.trailing=true] - Invoke on the trailing edge of the timeout
+ * @returns {Function} The throttled function with cancel, flush, and pending methods
+ */
+export function throttle(func, wait = 0, options = {}) {
+    if (typeof func !== 'function') {
+        throw new TypeError('Expected a function');
+    }
+
+    const leading = options.leading !== false;
+    const trailing = options.trailing !== false;
+
+    return debounce(func, wait, {
+        leading: leading,
+        maxWait: wait,
+        trailing: trailing
+    });
+}
+
+/**
+ * Returns the index of the first element in the array that satisfies the
+ * provided testing function. Otherwise, it returns -1.
+ * 
+ * @param {Array|ArrayLike} array - The array to search
+ * @param {Function|Object|string|Array} [predicate] - The predicate to match
+ * @param {number} [fromIndex=0] - The index to start searching from
+ * @returns {number} The index of the found element, or -1
+ */
+export function findIndex(array, predicate, fromIndex) {
+    const length = array == null ? 0 : array.length;
+    if (!length) {
+        return -1;
+    }
+
+    let index = fromIndex == null ? 0 : toInteger(fromIndex);
+    
+    if (index < 0) {
+        index = Math.max(length + index, 0);
+    }
+
+    const iteratee = getIteratee(predicate);
+
+    for (let i = index; i < length; i++) {
+        if (iteratee(array[i], i, array)) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+/**
+ * Returns the index of the last element in the array that satisfies the
+ * provided testing function. Otherwise, it returns -1.
+ * 
+ * @param {Array|ArrayLike} array - The array to search
+ * @param {Function|Object|string|Array} [predicate] - The predicate to match
+ * @param {number} [fromIndex=array.length-1] - The index to start searching from
+ * @returns {number} The index of the found element, or -1
+ */
+export function findLastIndex(array, predicate, fromIndex) {
+    const length = array == null ? 0 : array.length;
+    if (!length) {
+        return -1;
+    }
+
+    let index = fromIndex == null ? length - 1 : toInteger(fromIndex);
+    
+    if (index < 0) {
+        index = Math.max(length + index, 0);
+    } else if (index >= length) {
+        index = length - 1;
+    }
+
+    const iteratee = getIteratee(predicate);
+
+    for (let i = index; i >= 0; i--) {
+        if (iteratee(array[i], i, array)) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+/**
+ * Converts a value to an integer.
+ * 
+ * @param {*} value - The value to convert
+ * @returns {number} The converted integer
+ * @private
+ */
+function toInteger(value) {
+    const result = Number(value);
+    
+    if (Number.isNaN(result)) {
+        return 0;
+    }
+    
+    if (result === 0 || !Number.isFinite(result)) {
+        return result === 0 ? 0 : (result > 0 ? Number.MAX_SAFE_INTEGER : -Number.MAX_SAFE_INTEGER);
+    }
+    
+    return Math.trunc(result);
+}
+
+/**
+ * Creates an iteratee function based on the type of the predicate.
+ * 
+ * @param {Function|Object|string|Array} [predicate] - The predicate to convert
+ * @returns {Function} The iteratee function
+ * @private
+ */
+function getIteratee(predicate) {
+    if (predicate == null) {
+        return (value) => value;
+    }
+
+    if (typeof predicate === 'function') {
+        return predicate;
+    }
+
+    if (typeof predicate === 'string') {
+        return (obj) => obj != null && Boolean(obj[predicate]);
+    }
+
+    if (Array.isArray(predicate)) {
+        const [key, value] = predicate;
+        return (obj) => obj != null && obj[key] === value;
+    }
+
+    if (typeof predicate === 'object') {
+        const keys = Object.keys(predicate);
+        return (obj) => {
+            if (obj == null) {
+                return false;
+            }
+            return keys.every((key) => obj[key] === predicate[key]);
+        };
+    }
+
+    return (value) => value;
+}
+
+/**
+ * Load Fluent Player's media list from its own REST route.
+ *
+ * Only the request is shared; each caller seeds its own saved id.
+ *
+ * @param {Object} appVars
+ * @returns {Promise<Array<{value: number, label: string}>>} empty when page 1 fails
+ */
+export function wpsrFetchFluentPlayerMedia(appVars) {
+    const fetchPage = (page) => window.jQuery.ajax({
+        url: appVars.rest.base_url + 'wp/v2/fluent_player_media',
+        data: {per_page: 100, page, orderby: 'title', order: 'asc', _fields: 'id,title'},
+        headers: {'X-WP-Nonce': appVars.rest.nonce}
+    });
+
+    const toOptions = (medias) => medias.map((media) => ({
+        value: media.id,
+        label: media.title.rendered || '#' + media.id
+    }));
+
+    return fetchPage(1).then(
+        (medias, status, jqXHR) => {
+            // Every page: per_page caps at 100, and a failed one must not lose the rest.
+            const totalPages = parseInt(jqXHR.getResponseHeader('X-WP-TotalPages'), 10) || 1;
+            const rest = [];
+
+            for (let page = 2; page <= totalPages; page++) {
+                rest.push(fetchPage(page).then((more) => more || [], () => []));
+            }
+
+            return Promise.all(rest).then((pages) => toOptions([].concat(medias || [], ...pages)));
+        },
+        () => []
+    );
+}

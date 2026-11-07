@@ -1,0 +1,6 @@
+// This build only has one platform (Instagram), so the platform filter on All
+// Templates is pointless. The Platform table column is removed in AllTemplates.vue
+// instead — hiding an el-table column via CSS desyncs its computed header/body widths.
+.npfeed-controls-filter {
+  display: none;
+}

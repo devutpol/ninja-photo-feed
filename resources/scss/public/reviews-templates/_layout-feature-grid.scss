@@ -1,0 +1,177 @@
+// Feature Grid (stored as layout_style "feature_grid"): repeats a 4-card rhythm of one tall featured card,
+// two normal cards and one wide card. Shared by the public templates and the admin preview.
+// nth-child keeps the rhythm going for cards appended by Load more, with no JS.
+@import "layout-mixins";
+
+$npfeed-feature-grid-featured: ".npfeed-all-reviews > :nth-child(4n + 1) .npfeed-review-template";
+
+@mixin npfeed-feature-grid-quote {
+  content: "\61";
+  display: block;
+  flex-shrink: 0;
+  width: max-content;
+  font-family: "ninja-photo-feed";
+  font-size: 26px;
+  line-height: 1;
+  margin-bottom: 10px;
+  color: var(--npfeed-feature-grid-quote-color, #a8bdf5);
+  transform: rotate(180deg);
+  speak: never;
+}
+
+.npfeed-reviews-layout-style-feature_grid {
+  container-type: inline-size;
+
+  .npfeed-all-reviews {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-flow: dense;
+    gap: 20px;
+    margin-left: 0;
+    margin-right: 0;
+
+    // The skins still print 12-column span classes; the grid owns the sizing here.
+    > [class*="npfeed-col-"] {
+      @include npfeed-stretch-card;
+      flex: none;
+      width: auto;
+      max-width: none;
+      padding-left: 0;
+      padding-right: 0;
+      margin-bottom: 0;
+    }
+
+    > :nth-child(4n + 1) {
+      grid-row: span 2;
+    }
+
+    > :nth-child(4n + 4) {
+      grid-column: span 2;
+    }
+
+    // Overrides the fixed equal-height inline style: the grid already equalises each row.
+    .npfeed-review-template {
+      height: auto !important;
+      margin-bottom: 0;
+    }
+
+    @include npfeed-stretched-skins;
+  }
+
+  #{$npfeed-feature-grid-featured} {
+    &::before {
+      @include npfeed-feature-grid-quote;
+    }
+
+    .npfeed-review-content,
+    .npfeed-review-content p {
+      font-size: 1.125em;
+      line-height: 1.55;
+    }
+  }
+
+  // grid5 already prints a quote watermark behind the text; scale that up instead of adding a second quote.
+  &.npfeed-reviews-template-grid5 #{$npfeed-feature-grid-featured} {
+    &::before {
+      content: none;
+    }
+
+    .npfeed-review-content::after {
+      font-size: 110px;
+      top: -40px;
+    }
+  }
+
+  // grid8 is a row flex card whose text only shows on hover; the quote goes above its centred author block.
+  &.npfeed-reviews-template-grid8 #{$npfeed-feature-grid-featured} {
+    &::before {
+      content: none;
+    }
+
+    .npfeed-review-info::before {
+      @include npfeed-feature-grid-quote;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  // Platform logo sits top-left and the avatar top-centre, so the corner opposite the logo is free.
+  &.npfeed-reviews-template-grid1 #{$npfeed-feature-grid-featured}::before {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    margin: 0;
+  }
+
+  // Speech-bubble card: the quote belongs inside the bubble.
+  &.npfeed-reviews-template-grid4 #{$npfeed-feature-grid-featured} {
+    &::before {
+      content: none;
+    }
+
+    .npfeed-review-header::before {
+      @include npfeed-feature-grid-quote;
+    }
+  }
+
+  // Row-direction cards: the full-width margin forces the quote onto its own line.
+  &.npfeed-reviews-template-grid2,
+  &.npfeed-reviews-template-grid7,
+  &.npfeed-reviews-template-grid9 {
+    #{$npfeed-feature-grid-featured} {
+      flex-wrap: wrap;
+      align-content: flex-start;
+
+      &::before {
+        margin-right: 100%;
+      }
+    }
+  }
+
+  // The admin preview prints grid2's title and text straight into the wrapping row (the PHP view wraps
+  // them in a full-width footer), so a wide cell would pull the title up beside the author.
+  &.npfeed-reviews-template-grid2 .npfeed-review-template-two {
+    > .npfeed-review-title,
+    > span {
+      flex-basis: 100%;
+    }
+  }
+
+  &.npfeed-reviews-template-testimonial2 #{$npfeed-feature-grid-featured}::before {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @container (max-width: 900px) {
+    .npfeed-all-reviews {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @container (max-width: 600px) {
+    .npfeed-all-reviews {
+      grid-template-columns: minmax(0, 1fr);
+
+      > :nth-child(4n + 1),
+      > :nth-child(4n + 4) {
+        grid-row: auto;
+        grid-column: auto;
+      }
+    }
+  }
+}
+
+.rtl .npfeed-reviews-layout-style-feature_grid.npfeed-reviews-template-grid1 #{$npfeed-feature-grid-featured}::before {
+  right: auto;
+  left: 15px;
+}
+
+// grid10 has no card surface, so the cell shapes would be invisible. :where() keeps this at the skin's
+// own weight: it beats the skin's transparent default, and the Style tab's "Review box" still wins.
+:where(.npfeed-reviews-layout-style-feature_grid.npfeed-reviews-template-grid10) .npfeed-review-template.npfeed-review-template-ten {
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 0;
+}

@@ -1,0 +1,23 @@
+// Inline also carries the minimal layout class. The username and counts share one row; the full
+// name and bio, when switched on, take their own lines below.
+.npfeed-ig-header.npfeed-ig-header-layout-inline .npfeed-ig-header-inner .npfeed-ig-header-info{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 16px;
+  @media screen and (max-width: 767px) {
+    justify-content: center;
+  }
+  .npfeed-ig-header-statistics{
+    padding-top: 0;
+  }
+  .npfeed-ig-header-fullname,
+  .npfeed-ig-header-description{
+    flex-basis: 100%;
+    margin-top: 0;
+  }
+}
+
+.is-mobile-active .npfeed-ig-header.npfeed-ig-header-layout-inline .npfeed-ig-header-inner .npfeed-ig-header-info{
+  justify-content: center;
+}

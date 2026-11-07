@@ -1,0 +1,91 @@
+@import "layout-mixins";
+
+.npfeed-reviews-layout-style-score_slider {
+  container-type: inline-size;
+
+  > .npfeed-container {
+    display: grid;
+    grid-template-columns: clamp(200px, 24%, 280px) minmax(0, 1fr);
+    column-gap: 40px;
+    align-items: center;
+
+    > * {
+      grid-column: 2;
+      min-width: 0;
+    }
+
+    > .npfeed-business-info-wrapper {
+      grid-column: 1;
+      grid-row: 1 / span 3;
+    }
+  }
+
+  &.npfeed-reviews-wrapper {
+    > .npfeed-container > .npfeed-row,
+    .npfeed-business-info-wrapper .npfeed-row {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  .npfeed-business-info-wrapper {
+    .npfeed-business-info {
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      padding: 28px 18px;
+      text-align: center;
+    }
+
+    .npfeed-business-info-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .npfeed-business-info-paltforms,
+    .npfeed-business-info-logo,
+    .npfeed-rating-and-count {
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .npfeed-business-info-right {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      border-left: none;
+    }
+  }
+
+  .npfeed-fixed-height .npfeed-business-info {
+    background-color: transparent;
+  }
+
+  .npfeed-reviews-slider .swiper-wrapper {
+    align-items: stretch;
+  }
+
+  .npfeed-reviews-slider .swiper-slide {
+    @include npfeed-stretch-card;
+    height: auto;
+  }
+
+  @include npfeed-stretched-skins;
+
+  @container (max-width: 720px) {
+    > .npfeed-container {
+      grid-template-columns: minmax(0, 1fr);
+
+      > *,
+      > .npfeed-business-info-wrapper {
+        grid-column: 1;
+        grid-row: auto;
+      }
+    }
+  }
+}

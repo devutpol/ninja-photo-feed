@@ -1,0 +1,299 @@
+.npfeed-qr-form{
+    .el-form-item{
+        margin-bottom: 15px;
+    }
+    .helper-text{
+        margin: 5px 0;
+    }
+}
+
+.error-text {
+    color: red;
+}
+
+.npfeed-qr-code-select{
+    width: 100%;
+    .el-select__wrapper.is-focused{
+        box-shadow: 0 0 0 1px var(--npfeed-heading-text, #0E121B);
+    }
+}
+
+.el-select--large.npfeed-qr-code-select .el-select__wrapper {
+    padding: 5px 16px;
+    border-radius: 10px;
+}
+
+.npfeed-qr-code-wrapper{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0.5rem;
+    h3{ 
+        margin: 0;
+        color: var(--npfeed-heading-text, #0E121B);
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.2;
+    }
+    p{
+        color: var(--npfeed-primary-text, #525866);
+        font-size: 14px;
+        margin: 0;
+        line-height: 1.4;
+    }
+
+    .npfeed-qr-code{
+        justify-self: center;
+        align-self: center;
+        .npfeed-qr-code-image{
+            display: grid;
+            justify-self: center;
+            align-self: center;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .npfeed-qr-code-download-wrapper{
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            align-content: space-around;
+            justify-content: space-between;
+
+            .npfeed-qr-code-download{
+                display: grid;
+                justify-self: center;
+                align-self: center;
+                margin-top: 1rem;
+                margin-bottom: 1rem;
+                border: 2px solid black;
+                color: #000;
+                cursor: pointer;
+            }
+
+            .npfeed-qr-code-download:hover{
+                background-color: #e0e0e0;
+                border: 2px solid #000;
+                transition: all 0.3s ease;
+                transform: scale(1.05);
+
+            }
+        }
+    }
+
+
+}
+
+.npfeed-pagination{
+    text-align: right;
+    margin-top: 20px;
+}
+
+.el-button.npfeed-add-qr-btn svg {
+    margin-right: 4px;
+}
+
+.npfeed-qr-btn-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+.npfeed-qr-code-table-wrapper {
+    background: var(--npfeed-primary-bg, #FFFFFF);
+    border-radius: 8px;
+    padding: 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.npfeed-table-search-header {
+    padding: 20px 24px 16px 24px;
+    border-bottom: 1px solid var(--npfeed-primary-border, #E1E4EA);
+}
+
+.npfeed-table-search-input {
+    max-width: 300px;
+    border-color: 1px solid var(--npfeed-primary-border, #9ca3af);
+}
+
+.npfeed-custom-table {
+    overflow: hidden;
+}
+
+.npfeed-table-header-qr {
+    display: flex;
+    border-bottom: 1px solid var(--npfeed-primary-border, #E1E4EA);
+    padding: 12px 24px;
+}
+
+.npfeed-table-body {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.npfeed-qr-table-cell {
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+}
+
+.npfeed-qr-table-cell-name {
+    flex: 1.5;
+    min-width: 0;
+}
+
+.npfeed-qr-table-cell-url {
+    flex: 2;
+    min-width: 0;
+}
+
+.npfeed-qr-table-cell-scans {
+    flex: 0.8;
+    justify-content: center;
+}
+
+.npfeed-qr-table-cell-qrcode {
+    flex: 1;
+    justify-content: center;
+}
+
+.npfeed-qr-table-cell-actions {
+    flex: 1;
+    justify-content: flex-end;
+}
+
+.npfeed-table-header-text {
+    color: var(--npfeed-heading-text, #0E121B);
+}
+
+.npfeed-qr-table-cell-content {
+    color: var(--npfeed-menu-text-active, #1f2937);
+}
+
+.npfeed-qr-name {
+    font-weight: 500;
+    color: var(--npfeed-menu-text-active, #1f2937);
+}
+
+.npfeed-qr-url {
+    color: var(--npfeed-secondary-menu-active-text);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+.npfeed-qr-url:hover {
+    color: #451ea6;
+    text-decoration: underline;
+}
+
+.npfeed-scan-count {
+    font-weight: 500;
+    color: var(--npfeed-menu-text-active, #1f2937);
+    text-align: center;
+}
+
+.npfeed-qr-code-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.npfeed-table-row {
+    display: flex;
+    border-bottom: 1px solid var(--npfeed-primary-border, #E1E4EA);
+    padding: 16px 24px;
+    transition: background-color 0.2s ease;
+}
+
+.npfeed-table-row:last-child {
+    border-bottom: none;
+}
+
+.npfeed-edit-btn,
+.npfeed-delete-btn {
+    padding: 6px;
+    min-width: auto;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background-color: var(--npfeed-primary-bg, #FFFFFF);
+    border: 1px solid var(--npfeed-primary-border, #E1E4EA);
+    transition: all 0.2s ease;
+}
+
+.npfeed-edit-btn svg,
+.npfeed-delete-btn svg {
+    transition: all 0.2s ease;
+}
+
+.npfeed-edit-btn svg path,
+.npfeed-delete-btn svg path {
+    fill: #525866;
+    transition: fill 0.2s ease;
+}
+
+/* Scrollbar Styling */
+.npfeed-table-body::-webkit-scrollbar {
+width: 6px;
+}
+
+.npfeed-table-body::-webkit-scrollbar-track {
+background: #f1f5f9;
+border-radius: 3px;
+}
+
+.npfeed-table-body::-webkit-scrollbar-thumb {
+background: #cbd5e1;
+border-radius: 3px;
+}
+
+.npfeed-table-body::-webkit-scrollbar-thumb:hover {
+background: #94a3b8;
+}
+.npfeed-qr-code-modal {
+    .npfeed-field-group{
+        margin-bottom: 16px;
+        
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+
+        .el-form-item{
+            margin-bottom: 0;
+        }
+    }
+    .npfeed-form-section{
+        margin-bottom: 0;
+    }
+}
+      
+/* Responsive Design */
+@media (max-width: 768px) {
+    .npfeed-table-header {
+        padding: 12px 16px;
+    }
+    
+    .npfeed-table-row {
+        padding: 16px;
+    }
+    
+    .npfeed-table-search-header {
+        padding: 16px;
+    }
+    
+    .npfeed-qr-table-cell-scans,
+    .npfeed-qr-table-cell-qrcode {
+        display: none;
+    }
+    
+    .npfeed-qr-table-cell-name {
+        flex: 1;
+    }
+    
+    .npfeed-qr-table-cell-url {
+        flex: 1.5;
+    }
+}

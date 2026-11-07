@@ -1,0 +1,81 @@
+.toplevel_page_ninjaphotofeed {
+  // ─── TEXT COLORS ─────────────────────── //
+  --npfeed-primary-text: #525866;
+  --npfeed-secondary-text: #FFFFFF;
+  --npfeed-heading-text: #0E121B;
+
+  // ─── BACKGROUND COLORS ───────────────── //
+  --npfeed-primary-bg: #FFFFFF;
+  --npfeed-primary-light-bg: rgba(120, 77, 239, 0.10);
+  --npfeed-settings-tab-active-bg: #EEE9FB;
+  --npfeed-secondary-bg: #F5F7FA;
+  --npfeed-light-primary-bg: #F2F5F8;
+  --npfeed-selected-bg: #F8F6FE;
+  --npfeed-editor-notes-bg: #EBF1FF;
+  --npfeed-white-icons-bg: #E1E4EA;
+  --npfeed-platform-icon-bg: #EBF1FF;
+ // ─── BUTTONS ───────────────── //
+  --npfeed-primary-btn-bg: #5525D9;
+  --npfeed-primary-btn-bg-hover: #3C1A9A;
+  --npfeed-primary-btn-text: #fff;
+
+  --npfeed-secondary-btn-bg: #0E121B;
+  --npfeed-secondary-btn-hover-bg: #222530;
+  --npfeed-secondary-button-text: #FFF;
+
+  --npfeed-tertiary-btn-bg: #F9FAFB;
+  --npfeed-tertiary-btn-bg-hover: #FFF;
+
+  // ─── LINKS ───────────────── //
+  --npfeed-secondary-link: #99A0AE;
+  --npfeed-secondary-link-hover: #0E121B;
+  
+  // ─── MENU COLORS ───────────────── //
+  --npfeed-menu-active-bg: #F5F7FA;
+  --npfeed-menu-text: #525866;
+  --npfeed-menu-text-active: #0E121B;
+  --npfeed-secondary-menu-active-bg: #EEE9FB;
+  --npfeed-secondary-menu-active-text: #5525D9;
+  --npfeed-tab-indicator-bg: #8D6DE6;
+
+  // ─── STAR / RATING ───────────────────── //
+  --npfeed-star-color: #f7b80c;
+
+  // ─── BORDER COLORS ───────────────────── //
+  --npfeed-primary-border: #E1E4EA;
+  --npfeed-selected-border: #5525D9;
+  --npfeed-dark-default-border: #E1E4EA;
+
+  // ─── RADIUS ──────────────────────────── //
+  --npfeed-radius-sm: 4px;
+  --npfeed-radius-intermediate: 6px;
+  --npfeed-radius-md: 8px;
+  --npfeed-radius-lg: 12px;
+
+  // ─── SHADOWS ─────────────────────────── //
+  --npfeed-shadow-light: rgba(10, 13, 20, 0.03);
+  --npfeed-shadow-soft: rgba(153, 160, 174, 0.16);
+  // ─── SVG ──────────────────────────── //
+  --npfeed-svg-primary-color: #525866;
+  --npfeed-responsivebar-svg-active-color: #525866;
+  --npfeed-responsivebar-svg-default-color: #CACFD8;
+  --npfeed-svg-primary-active-color: #5525d9;
+  --npfeed-dark-svg-primary-active-color: #8C71F6;
+  --npfeed-svg-secondary-color: #335CFF;
+  --npfeed-settings-svg-primary-active-color: #0E121B;
+
+  // ─── Warnings ─────────────────────── //
+  --npfeed-warning-bg: #FFC0C5;
+  --npfeed-warning-secondary-bg: #FFF1EB;
+  --npfeed-warning-text: #681219;
+  --npfeed-error-bg: #FB3748;
+  --npfeed-error-text: #FFF;
+
+  --npfeed-icon-info-color: #23A682;
+  --npfeed-icon-info-warning-color: #FF8447;
+  --npfeed-icon-disabled-color: #717784;
+  --npfeed-icon-info-secondary-color: #99A0AE;
+
+  // ─── Alert ─────────────────────── //
+  --npfeed-alert-bg: #FFEBEC;
+}

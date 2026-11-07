@@ -1,0 +1,187 @@
+.npfeed-badge-sticker {
+	.npfeed-reviews-badge-btn,
+	.npfeed-reviews-badge-html {
+		// inline-flex, not flex: the wrapper centers via text-align, which only works on an inline-level box.
+		display: inline-flex;
+		box-sizing: border-box;
+		box-shadow: 0 10px 24px 0 rgb(15 23 42 / 18%);
+		-webkit-font-smoothing: antialiased;
+	}
+	.npfeed-reviews-badge-btn:focus-visible {
+		outline: 2px solid #111;
+		outline-offset: 3px;
+	}
+	.npfeed-reviews-badge-wrapper-inner {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+	}
+	.npfeed-sticker-quality {
+		font-size: 13px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: #fff;
+	}
+	.npfeed-sticker-rating {
+		font-size: 44px;
+		font-weight: 800;
+		line-height: 1.1;
+		color: #fff;
+		font-variant-numeric: tabular-nums;
+	}
+	.npfeed-sticker-bottom {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 6px;
+	}
+	.npfeed-rating {
+		display: inline-flex;
+		gap: 3px;
+		margin: 0;
+	}
+	.npfeed-star-container {
+		width: 18px;
+		height: 18px;
+	}
+	.npfeed-sticker-summary {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 13px;
+		font-weight: 600;
+		text-align: center;
+	}
+	// Plain CSS circle + border-trick checkmark, same technique as the verified-badge tick; no SVG.
+	.npfeed-sticker-check {
+		display: inline-flex;
+		flex-shrink: 0;
+		width: 14px;
+		height: 14px;
+		border-radius: 50%;
+		background: #1a73e8;
+		position: relative;
+		&::after {
+			content: '';
+			position: absolute;
+			top: 45%;
+			left: 50%;
+			width: 6px;
+			height: 3px;
+			border: 2px solid #fff;
+			border-top: none;
+			border-right: none;
+			transform: translate(-50%, -50%) rotate(-45deg);
+		}
+	}
+	// Row of logos, each in an equal box, so mixed-aspect-ratio platform icons line up on one baseline.
+	.npfeed-sticker-platform-logos {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+	}
+	.npfeed-sticker-platform-logo {
+		width: 28px;
+		height: 28px;
+		object-fit: contain;
+	}
+}
+
+// Badge 5 — circle sticker. A white medallion/seal, not a filled sphere: flat trust-badge
+// patterns (Shopper Approved's "Medallion", stock checkmark seals) read as credible on any
+// page background, where a solid gradient fill fights with the surrounding page colour.
+// :where() keeps these skin rules (badge5 and badge6) at two classes so the template style editor can override them.
+.npfeed-reviews-badge5:where(.npfeed-badge-sticker) {
+	.npfeed-reviews-badge-btn,
+	.npfeed-reviews-badge-html {
+		width: 210px;
+		height: 210px;
+		border-radius: 50%;
+		padding: 20px 24px;
+		background: #fff;
+		border: 3px solid #3461dd;
+		box-shadow: 0 10px 24px 0 rgb(15 23 42 / 12%);
+	}
+	// A circle's safe area narrows away from centre, so the stack stays compact and each line keeps clear of the curve.
+	.npfeed-reviews-badge-wrapper-inner {
+		gap: 6px;
+	}
+	.npfeed-sticker-quality {
+		padding: 3px 10px;
+		border-radius: 999px;
+		background: #e8f0fe;
+		color: #1a56db;
+		font-size: 11px;
+	}
+	.npfeed-sticker-rating {
+		font-size: 38px;
+		color: #0e121b;
+	}
+	.npfeed-sticker-bottom {
+		gap: 4px;
+	}
+	.npfeed-sticker-summary {
+		color: #6b7280;
+		font-weight: 500;
+	}
+	@media (max-width: 400px) {
+		.npfeed-reviews-badge-btn,
+		.npfeed-reviews-badge-html {
+			width: 168px;
+			height: 168px;
+			padding: 16px 20px;
+		}
+		.npfeed-sticker-rating {
+			font-size: 30px;
+		}
+	}
+}
+
+// Badge 6 — rounded-square sticker.
+.npfeed-reviews-badge6:where(.npfeed-badge-sticker) {
+	.npfeed-reviews-badge-btn,
+	.npfeed-reviews-badge-html {
+		width: 190px;
+		border-radius: 20px;
+		overflow: hidden;
+		padding: 0;
+		background: #fff;
+	}
+	.npfeed-reviews-badge-wrapper-inner {
+		gap: 0;
+	}
+	.npfeed-sticker-top {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 4px;
+		width: 100%;
+		padding: 16px 12px;
+		// A white overlay instead of a fixed two-colour gradient, so a style-editor background colour keeps the sheen.
+		background-color: #3461dd;
+		background-image: linear-gradient(135deg, rgb(255 255 255 / 14%) 0%, rgb(255 255 255 / 0%) 100%);
+	}
+	.npfeed-sticker-bottom {
+		width: 100%;
+		padding: 14px 16px 18px;
+		gap: 8px;
+	}
+	.npfeed-sticker-summary {
+		color: #1f2937;
+	}
+	@media (max-width: 400px) {
+		.npfeed-reviews-badge-btn,
+		.npfeed-reviews-badge-html {
+			width: 150px;
+		}
+		.npfeed-sticker-rating {
+			font-size: 32px;
+		}
+	}
+}

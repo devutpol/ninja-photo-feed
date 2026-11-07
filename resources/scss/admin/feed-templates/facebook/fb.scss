@@ -1,0 +1,43 @@
+.npfeed-fb-feed-follow-button-group .npfeed-fb-feed-btn a svg{
+  height: 12px;
+  width: 12px;
+}
+
+.npfeed-fb-feed-follow-button-group .npfeed-fb-feed-btn a svg{
+  height: 12px;
+  width: 12px;
+}
+
+@import '../../elements/feed-popup';
+// Editor device-preview only. `.is-mobile-active` / `.is-tablet-active` are set by
+// ResponsiveBar.vue, so these rules must never reach the public bundle.
+.is-mobile-active,
+.is-tablet-active {
+  .npfeed-fb-highlights-grid {
+    grid-template-columns: repeat(2, 1fr);
+
+    // :nth-child(n) matches the desktop pattern's specificity so this reset wins on source order.
+    .npfeed-fb-highlight-item:nth-child(n) {
+      grid-column: auto;
+      grid-row: auto;
+    }
+
+    .npfeed-fb-highlight-item:nth-child(5n + 1) {
+      grid-column: span 2;
+    }
+  }
+
+  .npfeed-fb-feed-template4 {
+    .npfeed-fb-overlay-avatar {
+      width: 30px;
+      height: 30px;
+      min-width: 30px;
+    }
+    .npfeed-fb-overlay-username {
+      font-size: 14px;
+    }
+    .npfeed-fb-overlay-text-body .npfeed-fb-feed-content {
+      font-size: 14px;
+    }
+  }
+}

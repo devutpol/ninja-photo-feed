@@ -1,0 +1,51 @@
+.npfeed-fm-chat-wrapper.npfeed-fm-chat-template4{
+
+  .npfeed-fm-chat-close{
+    &:before,
+    &:after{
+      background-color: var(--wpsn-chat-close-btn-color, #fff);
+    }
+  }
+  .npfeed-fm-chat-header{
+    background-color: #111111;
+    .npfeed-fm-group-details{
+      h3, p {
+        color: #fff;
+      }
+    }
+  }
+  .npfeed-fm-chat-room{
+    .npfeed-fm-chat-btn-wrapper{
+      .npfeed-fm-btn-icon{
+        a{
+          background-color: #F44336;
+          color: #fff;
+          svg{
+            .npfeed-fm-btn-icon-path-1{
+              fill: #fff;
+            }
+            .npfeed-fm-btn-icon-path-2{
+              fill: #F44336;
+            }
+          }
+        }
+      }
+      p{
+        margin: 0;
+        padding: 10px 0 0;
+        font-size: 11px;
+        line-height: 1.5;
+        color: rgba(0, 0, 0, 0.4);
+        text-align: center;
+      }
+    }
+  }
+  .npfeed-fm-chat-bubble{
+    .npfeed-fm-bubble-btn{
+      background-color: #111111;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+}
+

@@ -1,0 +1,306 @@
+/* WP Social Ninja - Review Form */
+
+// Variables
+$npfeed-rf-text-primary: #1e293b;
+$npfeed-rf-text-secondary: #334155;
+$npfeed-rf-text-muted: #64748b;
+$npfeed-rf-border: #cbd5e1;
+$npfeed-rf-border-light: #e2e8f0;
+$npfeed-rf-accent: #6366f1;
+$npfeed-rf-accent-hover: #4f46e5;
+$npfeed-rf-rating-default: #cbd5e1;
+$npfeed-rf-rating-star: #f59e0b;
+$npfeed-rf-rating-heart: #ef4444;
+$npfeed-rf-rating-thumbs: #3b82f6;
+$npfeed-rf-error: #ef4444;
+$npfeed-rf-radius: 6px;
+$npfeed-rf-transition: 0.15s ease;
+
+// Form container
+.npfeed-review-form {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+// Form title & subtitle
+.npfeed-review-form-title {
+    font-size: 1.5em;
+    font-weight: 600;
+    margin: 0 0 4px;
+    color: $npfeed-rf-text-primary;
+}
+
+.npfeed-review-form-subtitle {
+    font-size: 0.95em;
+    color: $npfeed-rf-text-muted;
+    margin: 0 0 24px;
+}
+
+// Fields
+.npfeed-review-form-field {
+    margin-bottom: 20px;
+
+    label {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        color: $npfeed-rf-text-secondary;
+        margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+        display: block;
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 14px;
+        line-height: 1.5;
+        color: $npfeed-rf-text-primary;
+        background: #fff;
+        border: 1px solid $npfeed-rf-border;
+        border-radius: $npfeed-rf-radius;
+        box-sizing: border-box;
+        transition: border-color $npfeed-rf-transition, box-shadow $npfeed-rf-transition;
+
+        &:focus {
+            outline: none;
+            border-color: $npfeed-rf-accent;
+            box-shadow: 0 0 0 3px rgba($npfeed-rf-accent, 0.1);
+        }
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+}
+
+// Required marker
+.npfeed-required {
+    color: $npfeed-rf-error;
+    margin-left: 2px;
+}
+
+// Rating widget
+.npfeed-rating-input {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.npfeed-rating-icon {
+    cursor: pointer;
+    color: $npfeed-rf-rating-default;
+    transition: color $npfeed-rf-transition, transform $npfeed-rf-transition;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+
+    &:hover {
+        transform: scale(1.15);
+    }
+
+    svg {
+        display: block;
+    }
+
+    &.npfeed-rating-hover,
+    &.npfeed-rating-active {
+        color: $npfeed-rf-rating-star;
+    }
+}
+
+// Rating styles
+.npfeed-rating-input[data-style="heart"] {
+    .npfeed-rating-icon.npfeed-rating-hover,
+    .npfeed-rating-icon.npfeed-rating-active {
+        color: $npfeed-rf-rating-heart;
+    }
+}
+
+.npfeed-rating-input[data-style="emoji"] {
+    .npfeed-rating-icon.npfeed-rating-hover,
+    .npfeed-rating-icon.npfeed-rating-active {
+        color: $npfeed-rf-rating-star;
+    }
+}
+
+.npfeed-rating-input[data-style="thumbs"] {
+    .npfeed-rating-icon.npfeed-rating-hover,
+    .npfeed-rating-icon.npfeed-rating-active {
+        color: $npfeed-rf-rating-thumbs;
+    }
+}
+
+.npfeed-rating-input[data-style="number"] {
+    .npfeed-rating-icon {
+        width: 36px;
+        height: 36px;
+        border: 2px solid $npfeed-rf-border;
+        border-radius: 50%;
+        font-size: 14px;
+        font-weight: 600;
+        color: $npfeed-rf-text-muted;
+        background: #fff;
+
+        &.npfeed-rating-hover,
+        &.npfeed-rating-active {
+            border-color: $npfeed-rf-accent;
+            background: $npfeed-rf-accent;
+            color: #fff;
+        }
+    }
+}
+
+// Checkbox fields
+.npfeed-field-checkbox {
+    label {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        font-weight: 400;
+        cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+        margin-top: 3px;
+        flex-shrink: 0;
+    }
+
+    a {
+        color: $npfeed-rf-accent;
+        text-decoration: underline;
+    }
+}
+
+// Media upload
+.npfeed-field-media {
+    input[type="file"] {
+        font-size: 14px;
+    }
+}
+
+.npfeed-media-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+    overflow: visible;
+
+    .npfeed-media-preview-item {
+        position: relative;
+        display: inline-block;
+        overflow: visible;
+    }
+
+    img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: $npfeed-rf-radius;
+        border: 1px solid $npfeed-rf-border-light;
+    }
+
+    .npfeed-media-remove {
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        z-index: 1;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #ff4d4f;
+        color: #fff;
+        border: none;
+        font-size: 14px;
+        line-height: 1;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+
+        &:hover {
+            background: #cf1322;
+        }
+    }
+}
+
+.npfeed-media-notice {
+    font-size: 13px;
+    color: $npfeed-rf-error;
+    margin: 6px 0 0;
+}
+
+// Submit button
+.npfeed-review-form-submit {
+    margin-top: 24px;
+}
+
+.npfeed-review-form-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 24px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+    background: $npfeed-rf-accent;
+    border: none;
+    border-radius: $npfeed-rf-radius;
+    cursor: pointer;
+    transition: background $npfeed-rf-transition;
+
+    &:hover {
+        background: $npfeed-rf-accent-hover;
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+}
+
+// Messages
+.npfeed-review-form-messages {
+    margin-top: 16px;
+}
+
+.npfeed-review-form-message-success {
+    padding: 12px 16px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: $npfeed-rf-radius;
+    color: #166534;
+    font-size: 14px;
+}
+
+.npfeed-review-form-message-error {
+    padding: 12px 16px;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: $npfeed-rf-radius;
+    color: #991b1b;
+    font-size: 14px;
+}
+
+// Login required
+.npfeed-review-form-login-required {
+    padding: 16px;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: $npfeed-rf-radius;
+    color: #92400e;
+    font-size: 14px;
+    text-align: center;
+}
+
+// Loading state
+.npfeed-review-form.npfeed-form-loading {
+    .npfeed-review-form-btn {
+        opacity: 0.6;
+        pointer-events: none;
+    }
+}

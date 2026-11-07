@@ -1,0 +1,86 @@
+.npfeed-review-template {
+  &.npfeed-review-template-five{
+    margin-top: 30px;
+    border-radius: 8px;
+  
+    .npfeed-review-platform{
+      right: 15px;
+      left: auto;
+    }
+  
+    .npfeed-recommends{
+      justify-content: center;
+    }
+  
+    .npfeed-reviewer-image{
+      position: absolute;
+      top: -40px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      line-height: 0;
+      img{
+        margin: auto;
+        max-height: 80px;
+        width: 80px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 4px solid #fff;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.34);
+      }
+    }
+    .npfeed-review-header{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .npfeed-review-info{
+      margin: 0 auto;
+      text-align: center;
+      padding-top: 20px;
+    }
+    .npfeed-rating-wrapper{
+      padding-bottom: 0;
+      padding-top: 10px;
+      justify-content: center;
+      &.npfeed-rating{
+        .npfeed-star{
+          margin-right: 2px;
+        }
+      }
+      .npfeed-booking-rating-style{
+        justify-content: center;
+      }
+    }
+    .npfeed-review-date{
+      text-align: center;
+      padding-top: 5px;
+    }
+    .npfeed-review-title {
+      margin-bottom: -5px;
+      margin-top: 5px;
+      text-align: center;
+    }
+    .npfeed-review-content{
+      text-align: center;
+      margin-top: 10px;
+      position: relative;
+      z-index: 1;
+      &:after{
+        position: absolute;
+        content: "\61";
+        font-family: "ninja-photo-feed";
+        font-size: 70px;
+        top: -25px;
+        z-index: -1;
+        opacity: 0.2;
+        left: 0;
+        right: 0;
+        color: #1c7298;
+      }
+    }
+    .npfeed-review-images{
+      justify-content: center;
+    }
+  }  
+}

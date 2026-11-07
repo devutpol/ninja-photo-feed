@@ -1,0 +1,127 @@
+.wp-admin.folded {
+  .toplevel_page_ninjaphotofeed .wrap {
+    left: 56px;
+  }
+}
+
+#wp-link-wrap,
+.el-color-picker__panel,
+.el-message,
+.el-notification,
+.el-notification.right,
+.el-popper,
+.el-tooltip__popper,
+div.mce-inline-toolbar-grp.mce-arrow-up {
+  z-index: 999999 !important;
+}
+
+// .el-overlay backs dialogs, drawers and message boxes. Element Plus teleports it to <body>
+// with a z-index near 2000, so it would otherwise render under .wrap, which the full-screen
+// editor pins at 100099. It has to stay below the popper layer above, or a select opened
+// inside a dialog is drawn behind the dialog.
+.toplevel_page_ninjaphotofeed .el-overlay {
+  z-index: 100100 !important;
+}
+
+.el-notification{
+  word-break: break-word;
+}
+
+.el-notification__content{
+  text-align: start;
+}
+
+body.npfeed_full_screen {
+  overflow-y: hidden;
+  transition: 0.4s;
+
+  .wrap {
+    background-color: #efeff0;
+    z-index: 100099 !important;
+    position: fixed;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    top: 0;
+    bottom: 0;
+    left: 0 !important;
+    right: 0 !important;
+    height: 100%;
+    min-width: 0;
+    cursor: default;
+    margin: 0 !important;
+  }
+  .npfeed_editor .npfeed_editor_wrapper .npfeed-responsive-bar-wrapper{
+    top: 73px;
+    left: 0;
+  }
+}
+
+#switchScreen {
+  font-size: 25px;
+  vertical-align: middle;
+  font-weight: bold;
+  margin-left: 10px;
+  cursor: pointer;
+  background: transparent;
+  color: white;
+  border: none;
+}
+
+img.npfeed_platfrom_mini {
+  width: auto;
+  max-height: 32px;
+  border-radius: 0;
+}
+
+span.npfeed_platforms {
+  display: block;
+  text-align: center;
+  text-transform: capitalize;
+  img {
+    border-radius: 0;
+  }
+}
+
+span.npfeed_platforms.npfeed_has_platform_multi img {
+  width: 20px;
+  text-align: center;
+  margin-left: 4px;
+}
+
+
+// Not wrapped in .npfeed_set_boxed anywhere in the current markup - these apply
+// directly so the license management screen gets its header/body spacing and
+// the centered narrow box instead of stretching full width.
+.npfeed_set_header {
+  padding: 15px 20px;
+  border-bottom: 1px solid #dcdfe5;
+
+  .npfeed_set_header_title {
+    display: inline-block;
+
+    h3 {
+      line-height: 100%;
+      margin: 0;
+      padding: 0;
+      color: var(--npfeed-heading-text, #0E121B);
+    }
+  }
+
+  .npfeed_set_actions {
+    float: right;
+    line-height: 100%;
+  }
+}
+
+.npfeed_set_body {
+  padding: 15px 20px;
+}
+
+.fc_narrow_box {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.text-align-center {
+  text-align: center;
+}

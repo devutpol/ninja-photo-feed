@@ -1,0 +1,177 @@
+.npfeed-fb-feed-template3 {
+  .npfeed-fb-card-item {
+    // White card on a white page needs its own edge: hairline for the boundary, shadow to separate neighbours.
+    border: 1px solid #e4e6eb;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 4px 12px rgba(16, 24, 40, 0.05);
+    // 1px more than the inner radius so the border stays concentric with the clipped content.
+    border-radius: 15px;
+    overflow: visible;
+    background: #fff;
+
+    .npfeed-fb-feed-inner {
+      border-radius: 14px;
+      overflow: hidden;
+      padding: 0;
+      box-shadow: none;
+    }
+  }
+
+  .npfeed-column-gap-no_gap {
+    .npfeed-fb-card-item {
+      border: none;
+      box-shadow: none;
+      border-radius: 0;
+
+      .npfeed-fb-feed-inner {
+        border-radius: 0;
+      }
+    }
+
+    .npfeed-fb-card-content {
+      border-radius: 0;
+    }
+  }
+
+  .npfeed-fb-feed-content-wrapper {
+    overflow: hidden;
+
+    .npfeed-fb-feed-image {
+      border-radius: 0;
+    }
+  }
+
+  .npfeed-fb-card-content {
+    position: relative;
+    padding: 30px 16px 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border-radius: 14px 14px 0 0;
+    margin-top: -14px;
+    z-index: 1;
+  }
+
+  // The content card is pulled 14px up over the media and paints above it, which cuts into the
+  // duration badge on video feeds. Lift the badge clear so it keeps its 10px gap from the card.
+  // Needs the full chain: video-feed.scss sets bottom at the same weight and imports later.
+  .npfeed-fb-feed-item .npfeed-fb-feed-video-preview .npfeed-fb-feed-video-duration {
+    bottom: 24px;
+  }
+
+  .npfeed-fb-card-avatar-wrapper {
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    border-radius: 50%;
+    padding: 4px;
+    line-height: 0;
+    z-index: 2;
+
+    a {
+      display: block;
+      line-height: 0;
+    }
+  }
+
+  .npfeed-fb-card-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .npfeed-fb-card-author {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .npfeed-fb-feed-author-name,
+    .npfeed-fb-card-author-name {
+      font-weight: 700;
+      font-size: 14px;
+      color: #161616;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+
+      span {
+        color: inherit;
+      }
+    }
+
+    .npfeed-fb-feed-time {
+      font-size: 12px;
+      color: #646060;
+      text-align: center;
+    }
+  }
+
+  .npfeed-fb-feed-content {
+    font-size: 12px;
+    color: #111113;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  // The card is a centred column, so these two would otherwise shrink to their text.
+  .npfeed-fb-feed-url-summary-card-wrapper {
+    width: 100%;
+    text-align: left;
+  }
+
+  .npfeed-fb-feed-statistics {
+    justify-content: center;
+    padding-top: 0;
+  }
+
+  // Video feeds carry their title here, not in .npfeed-fb-feed-content, so it must stay visible.
+  .npfeed-fb-feed-video-info {
+    width: 100%;
+    text-align: center;
+
+    h3 {
+      margin: 0;
+
+      a {
+        font-size: 12px;
+        color: #111113;
+        line-height: 1.2;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .npfeed-fb-card-platform-icon {
+    display: flex;
+    justify-content: center;
+    margin-top: 4px;
+
+    .icon-facebook-square {
+      font-size: 24px;
+      color: #1877F2;
+    }
+  }
+
+  // Equal height support
+  &.npfeed-has-equal-height {
+    .npfeed-fb-card-item {
+      height: 100%;
+
+      .npfeed-fb-feed-inner {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .npfeed-fb-card-content {
+        flex: 1;
+      }
+    }
+  }
+}

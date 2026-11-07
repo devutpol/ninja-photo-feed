@@ -1,0 +1,1350 @@
+@import "channels";
+.npfeed-fm-chat-wrapper{
+    position: fixed;
+    right: 20px;
+    bottom: 25px;
+    z-index: 9999;
+    margin: 20px 0 0;
+    transition: 0.5s;
+    .frm-fluent-form{
+      padding: 20px;
+    }
+    &.npfeed-chat-icons-layout{
+      .npfeed-fm-chat-box-display{
+        bottom: 0;
+        opacity: 1;
+      }
+      .npfeed-channels{
+        .npfeed-channel-item{
+          .npfeed-channel-btn{
+            img{
+              height: 40px;
+              width: auto;
+            }
+            &.messenger{
+              @extend .messenger;
+            }
+            &.whatsapp{
+              @extend .whatsapp;
+            }
+            &.telegram{
+              @extend .telegram;
+            }
+            &.instagram{
+              @extend .instagram;
+            }
+            &.instagram-dm{
+              @extend .instagram-dm;
+            }
+            &.sms{
+              @extend .sms;
+            }
+            &.twitter{
+              @extend .twitter;
+            }
+            &.slack{
+              @extend .slack;
+            }
+            &.microsoft-teams{
+              @extend .microsoft-teams;
+            }
+            &.phone{
+              @extend .phone;
+            }
+            &.email{
+              @extend .email;
+            }
+            &.wechat{
+              @extend .wechat;
+            }
+            &.line{
+              @extend .line;
+            }
+            &.snapchat{
+              @extend .snapchat;
+            }
+            &.linkedin{
+              @extend .linkedin;
+            }
+            &.viber{
+              @extend .viber;
+            }
+            &.fluent_forms{
+              @extend .fluent_forms;
+            }
+          }
+        }
+      }
+      .npfeed-fm-chat-bubble{
+        .npfeed-fm-bubble-btn{
+          -moz-transform: rotate(0deg);
+          -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+          -moz-transition: all 0.6s linear;
+          -webkit-transition: all 0.6s linear;
+          transition: all 0.6s linear;
+        }
+        .npfeed-chat-icons-closee{
+          opacity: 0;
+          display: none;
+          visibility: hidden;
+        }
+        &.active{
+
+          .npfeed-fm-bubble-btn {
+            -moz-transform: rotate(-180deg);
+            -webkit-transform: rotate(-180deg);
+            transform: rotate(-180deg);
+            img{
+              display: none;
+            }
+            //> svg{
+            //  display: none;
+            //}
+            .npfeed-chat-icons-closee{
+              width: 25px;
+              opacity: 1;
+              display: flex;
+              visibility: visible;
+              -moz-transform: rotate(180deg);
+              -webkit-transform: rotate(180deg);
+              transform: rotate(180deg);
+            }
+          }
+        }
+      }
+      .ff_form_modal{
+        .ff_modal_btn{
+          border-radius: 50%;
+          @media screen and (max-width: 767px) {
+            height: 50px;
+            width: 50px;
+            line-height: 50px;
+            &:after{
+              background-size: 40px 40px;
+            }
+          }
+        }
+      }
+    }
+    &.npfeed-fm-chat-box-active{
+      z-index: 99999 !important;
+    }
+    &.npfeed-multiplatform-chat{
+      .npfeed-fm-chat-box-display{
+        z-index: 999;
+      }
+    }
+    &.npfeed-multiplatform-chat.npfeed-chat-whatsapp{
+      &.npfeed-fm-bubble-position-top-right{
+        left: auto;
+        top: 165px;
+        .npfeed-fm-chat-box{
+          top: 250px;
+          right: 30px;
+          left: auto;
+        }
+      }
+    }
+    &.npfeed-multiplatform-chat.npfeed-chat-whatsapp{
+      &.npfeed-fm-bubble-position-top-left{
+        right: auto;
+        top: 165px;
+        .npfeed-fm-chat-box{
+          top: 250px;
+          right: auto;
+          left: 30px;
+        }
+      }
+    }
+    &.npfeed-multiplatform-chat.npfeed-chat-whatsapp{
+      &.npfeed-fm-bubble-position-bottom-right{
+        left: auto;
+        bottom: 90px;
+        .npfeed-fm-chat-box{
+          bottom: 70px;
+          right: 30px;
+          left: auto;
+        }
+      }
+    }
+    &.npfeed-multiplatform-chat.npfeed-chat-telegram{
+      &.npfeed-fm-bubble-position-top-right{
+        left: auto;
+        top: 230px;
+        .npfeed-fm-chat-box{
+          top: 320px;
+          right: 30px;
+          left: auto;
+        }
+      }
+    }
+    &.npfeed-multiplatform-chat.npfeed-chat-telegram{
+      &.npfeed-fm-bubble-position-top-left{
+        right: auto;
+        top: 230px;
+        .npfeed-fm-chat-box{
+          top: 315px;
+          right: auto;
+          left: 30px;
+        }
+      }
+    }
+    &.npfeed-multiplatform-chat.npfeed-chat-telegram{
+      &.npfeed-fm-bubble-position-bottom-right{
+        left: auto;
+        bottom: 160px;
+        .npfeed-fm-chat-box{
+          bottom: 140px;
+          right: 30px;
+          left: auto;
+        }
+      }
+    }
+    &.npfeed-multiplatform-chat.npfeed-chat-telegram{
+      &.npfeed-fm-bubble-position-bottom-left{
+        right: auto;
+        bottom: 150px;
+        .npfeed-fm-chat-box{
+          bottom: 120px;
+          right: auto;
+          left: 30px;
+        }
+      }
+    }
+    &.npfeed-multiplatform-chat.npfeed-chat-whatsapp{
+      &.npfeed-fm-bubble-position-bottom-left{
+        right: auto;
+        bottom: 85px;
+        .npfeed-fm-chat-box{
+          bottom: 60px;
+          right: auto;
+          left: 30px;
+        }
+      }
+    }
+    &.npfeed-fm-bubble-position-bottom-left{
+      right: auto;
+      left: 30px;
+      .npfeed-fm-chat-box{
+        right: auto;
+        left: 30px;
+      }
+      .npfeed-channel-icon,
+      .npfeed-channels-icons{
+        right: auto;
+        left: 20px;
+      }
+      .npfeed-channel-item{
+        .npfeed-channel-name{
+          right: -130px;
+          transform: rotate(0deg);
+          &:after{
+            transform: rotate(180deg);
+            right: 100%;
+            left: auto;
+          }
+        }
+      }
+    }
+    &.npfeed-fm-bubble-position-top-left{
+      right: auto;
+      left: 30px;
+      top: 100px;
+      bottom: auto;
+      .npfeed-fm-chat-box{
+        right: auto;
+        left: 30px;
+        top: 0;
+        bottom: auto;
+        transition: 0.5s;
+        &.npfeed-fm-chat-box-display{
+          top: 200px;
+        }
+      }
+      .npfeed-channel-icon,
+      .npfeed-channels-icons{
+        right: auto;
+        left: 20px;
+        top: 185px;
+        bottom: auto;
+      }
+      .npfeed-channel-item{
+        .npfeed-channel-name{
+          right: -130px;
+          transform: rotate(0deg);
+          &:after{
+            transform: rotate(180deg);
+            right: 100%;
+            left: auto;
+          }
+        }
+      }
+    }
+    &.npfeed-fm-bubble-position-top-right{
+      right: 15px;
+      left: auto;
+      top: 100px;
+      bottom: auto;
+      .npfeed-fm-chat-box{
+        right: 30px;
+        left: auto;
+        top: 0;
+        bottom: auto;
+        transition: 0.5s;
+        &.npfeed-fm-chat-box-display{
+          top: 200px;
+        }
+      }
+      .npfeed-channel-icon,
+      .npfeed-channels-icons{
+        right: auto;
+        right: 20px;
+        top: 185px;
+        bottom: auto;
+      }
+    }
+    &.npfeed_pro_active{
+      .npfeed-fm-chat-header {
+        &.npfeed-online,
+        &.npfeed-offline{
+          .npfeed-chat-user-img {
+            position: relative;
+            &:before {
+              display: block;
+              position: absolute;
+              content: "";
+              bottom: 5px;
+              right: 5px;
+              width: 12px;
+              height: 12px;
+              border-radius: 50%;
+            }
+          }
+        }
+        &.npfeed-offline{
+          .npfeed-chat-user-img {
+            &:before {
+              background-color: #e2d6d6;
+              border: 2px solid #e2d6d6;
+            }
+          }
+          .npfeed-fm-caption{
+            display: none;
+          }
+          .npfeed-fm-offline-caption {
+            display: block;
+          }
+        }
+        &.npfeed-online{
+          .npfeed-chat-user-img{
+            &:before{
+              background-color: #4ad505;
+              border: 2px solid #4ad505;
+            }
+          }
+          .npfeed-fm-offline-caption{
+            display: none;
+          }
+        }
+      }
+    }
+    .npfeed-fm-offline-caption{
+      display: none;
+    }
+    .npfeed-fm-chat-box{
+      opacity: 0;
+      visibility: hidden;
+      box-shadow: 0 12px 20px 0 rgba(0, 0, 0, 0.2);
+      background-color: #fff;
+      border-radius: 10px;
+      transition: 0.5s;
+      width: 360px;
+      position: fixed;
+      right: 30px;
+      bottom: 0;
+      top: auto;
+      @media screen and (max-width: 767px) {
+        width: 320px;
+      }
+      @media only screen and (max-width : 320px) {
+        width: 260px;
+      }
+      .npfeed-fm-chat-close{
+        position: absolute;
+        top: 15px;
+        right: 0;
+        width: 25px;
+        height: 25px;
+        opacity: 0.4;
+        cursor: pointer;
+        display: flex;
+        &:before,
+        &:after{
+          content: "";
+          position: absolute;
+          width: 12px;
+          height: 2px;
+          background-color: var(--wpsn-chat-close-btn-color, #1d2129);
+          display: block;
+          border-radius: 2px
+        }
+        &:before{
+          transform: rotate(45deg);
+        }
+        &:after{
+          transform: rotate(-45deg);
+        }
+      }
+
+      .npfeed-fm-chat-header {
+        background-color: #f4f5f7;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        border-radius: 10px 10px 0 0;
+        .npfeed-chat-user-img{
+          flex: auto 0 0;
+        }
+        img{
+          width: 70px;
+          height: 70px;
+          object-fit: cover;
+          border-radius: 50%;
+          @media screen and (max-width: 767px) {
+            width: 50px;
+            height: 50px;
+          }
+          @media only screen and (max-width : 320px) {
+            width: 40px;
+            height: 40px;
+          }
+        }
+
+        text-align: left;
+        @media only screen and (max-width : 320px) {
+          padding: 20px 10px;
+          img{
+            width: 50px;
+            height: 50px;
+          }
+        }
+        .npfeed-fm-group-details{
+          padding-left: 15px;
+          @media only screen and (max-width : 320px) {
+            padding-left: 10px;
+          }
+          h3{
+            margin: 0;
+            padding: 0;
+            font-size: 18px;
+            line-height: 1.4;
+            font-weight: 700;
+            @media only screen and (max-width : 320px) {
+              font-size: 16px;
+            }
+          }
+          p{
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #000;
+            padding: 0;
+            font-weight: 400;
+            opacity: 0.8;
+          }
+        }
+
+      }
+      .npfeed-fm-chat-room{
+        padding: 30px 20px 20px;
+        .npfeed-fm-time{
+          font-size: 12px;
+          line-height: 1.5;
+          color: rgba(0, 0, 0, 0.4);
+          padding-bottom: 5px;
+          display: block;
+          text-align: center;
+        }
+        .npfeed-fm-conversation{
+          display: flex;
+          align-items: center;
+          .npfeed-fm-user-picture{
+            flex: auto 0 0;
+            img{
+              height: 40px;
+              width: 40px;
+              object-fit: cover;
+              border-radius: 50%;
+              margin-right: 10px;
+            }
+          }
+          .npfeed-fm-greeting-msg{
+            background-color: #f1f0f0;
+            border-radius: 10px;
+            padding: 10px 10px;
+            text-align: left;
+            max-width: 250px;
+            width: 100%;
+            display: none;
+            transition: 0.4s;
+            .npfeed-fm-msg-text,
+            p{
+              margin: 0;
+              padding: 0;
+              font-size: 14px;
+              line-height: 1.5;
+              color: #000000;
+            }
+          }
+        }
+        .npfeed-fm-chat-btn-wrapper{
+          margin: 30px 0 0;
+          .npfeed-channels{
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            .npfeed-channel-item{
+              margin-right: 8px;
+              &:last-child{
+                margin-right: 0;
+              }
+              a{
+                border-radius: 6px;
+                height: 50px;
+                width: 50px;
+                line-height: 60px;
+                padding: 0;
+                display: flex;
+                text-align: center;
+                @media screen and (max-width: 767px) {
+                  height: 40px;
+                  width: 40px;
+                  line-height: 50px;
+                }
+                img{
+                  height: 40px;
+                  width: auto;
+                  @media screen and (max-width: 767px) {
+                    height: 30px;
+                  }
+                }
+                &.messenger{
+                  @extend .messenger;
+                }
+                &.whatsapp{
+                  @extend .whatsapp;
+                }
+                &.telegram{
+                  @extend .telegram;
+                }
+                &.instagram{
+                  @extend .instagram;
+                }
+                &.instagram-dm{
+                  @extend .instagram-dm;
+                }
+                &.sms{
+                  @extend .sms;
+                }
+                &.twitter{
+                  @extend .twitter;
+                }
+                &.slack{
+                  @extend .slack;
+                }
+                &.microsoft-teams{
+                  @extend .microsoft-teams;
+                }
+                &.phone{
+                  @extend .phone;
+                }
+                &.email{
+                  @extend .email;
+                }
+                &.wechat{
+                  @extend .wechat;
+                }
+                &.line{
+                  @extend .line;
+                }
+                &.snapchat{
+                  @extend .snapchat;
+                }
+                &.linkedin{
+                  @extend .linkedin;
+                }
+                &.viber{
+                  @extend .viber;
+                }
+                &.fluent_forms{
+                  @extend .fluent_forms;
+                }
+              }
+            }
+          }
+          .npfeed-fm-multiple-btn{
+            font-size: 16px;
+            text-align: center;
+            display: block;
+            font-weight: 700;
+            padding-bottom: 10px;
+          }
+          .npfeed-fm-btn{
+            &.whatsapp{
+              svg{
+                .npfeed-path-1{
+                  fill: #ffffff;
+                }
+                .npfeed-path-2{
+                  fill: #ffffff;
+                }
+              }
+            }
+          }
+          .npfeed-fm-btn-icon{
+            a{
+              background-color: #0084ff;
+              display: flex;
+              padding: 10px 20px;
+              color: #fff;
+              justify-content: center;
+              border-radius: 10px;
+              font-size: 14px;
+              font-weight: 700;
+              text-decoration: none;
+              align-items: center;
+              cursor: pointer;
+              &:active,
+              &:focus{
+                outline: none;
+                box-shadow: none;
+              }
+              &:hover{
+                text-decoration: underline;
+                outline: none;
+              }
+              img{
+                height: 26px;
+                width: auto;
+              }
+              span{
+                padding-left: 10px;
+              }
+              .ff_form_modal{
+                .ff_modal_btn{
+                  height: 30px;
+                  width: 30px;
+                  line-height: initial;
+                  background-color: transparent;
+                  &::after{
+                    background-size: auto;
+                  }
+                }
+              }
+            }
+            .npfeed-prefilled-input-container{
+              display: flex;
+              align-items: center;
+              margin-top: 8px;
+              border-radius: 10px;
+              cursor: default;
+              background-color: #f4f5f7;
+              .npfeed-prefilled-input-container-inner{
+                flex: 1;
+                padding: 5px;
+                .npfeed-prefilled-input {
+                  flex: 1;
+                  border: none!important;
+                  outline: none;
+                  padding: 8px;
+                  border-radius: 15px;
+                  background-color: transparent!important;
+                  height: 40px;
+                  width: 100%;
+                  &:focus {
+                    border: none;
+                  }
+                }
+              }
+              .npfeed-prefilled-send-button {
+                border: none;
+                border-radius: 50%;
+                cursor: pointer;
+                background-color: #23D366;
+                margin-right:10px;
+                height: 30px;
+                width: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0;
+                svg {
+                  fill: white;
+                  height: 15px;
+                  width: 15px;
+                  margin-left: 4px;
+                }
+              }
+            }
+          }
+          p{
+            margin: 0;
+            padding: 10px 0 0;
+            font-size: 11px;
+            line-height: 1.5;
+            color: rgba(0, 0, 0, 0.4);
+            text-align: center;
+          }
+        }
+      }
+
+    }
+    .npfeed-fm-chat-bubble{
+      display: block;
+      position: relative;
+      //z-index: 999999;
+      right: 10px;
+      .npfeed-fm-bubble-btn{
+        background-color: #0084ff;
+        cursor: pointer;
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+        img{
+          height: 40px;
+          width: auto;
+        }
+        &.messenger{
+          @extend .messenger;
+        }
+        &.whatsapp{
+          @extend .whatsapp;
+        }
+        &.telegram{
+          @extend .telegram;
+        }
+        &.instagram{
+          @extend .instagram;
+        }
+        &.instagram-dm{
+          @extend .instagram-dm;
+        }
+        &.sms{
+          @extend .sms;
+        }
+        &.twitter{
+          @extend .twitter;
+        }
+        &.slack{
+          @extend .slack;
+        }
+        &.microsoft-teams{
+          @extend .microsoft-teams;
+        }
+        &.phone{
+          @extend .phone;
+        }
+        &.email{
+          @extend .email;
+        }
+        &.wechat{
+          @extend .wechat;
+        }
+        &.line{
+          @extend .line;
+        }
+        &.snapchat{
+          @extend .snapchat;
+        }
+        &.linkedin{
+          @extend .linkedin;
+        }
+        &.viber{
+          @extend .viber;
+        }
+        &.fluent_forms{
+          @extend .fluent_forms;
+        }
+        .npfeed-icon-whatsapp{
+          .npfeed-path-1{
+            fill: #ffffff;
+          }
+          .npfeed-path-2{
+            fill: #ffffff;
+          }
+        }
+        &.npfeed-fm-bubble-btn-has-text{
+          width: auto;
+          height: auto;
+          border-radius: 50px;
+          padding: 10px 20px;
+          img{
+            height: 30px;
+            width: auto;
+          }
+          span{
+            padding-left: 10px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+          }
+
+        }
+        .npfeed-path-1{
+          fill: #ffffff;
+        }
+        .npfeed-path-2{
+          fill: #0084ff;
+        }
+      }
+    }
+  .npfeed-channel-item{
+    margin-bottom: 10px;
+    position: relative;
+    &:hover{
+      .npfeed-channel-name{
+        visibility: visible;
+      }
+    }
+    .npfeed-channel-name{
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      font-size: 14px;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+      position: absolute;
+      z-index: 1;
+      top: 15px;
+      right: 70px;
+      &:after{
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent transparent black;
+      }
+    }
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
+  .ff_form_modal{
+    .ff_modal_btn{
+      position: relative;
+      z-index: 1;
+      text-indent: -999999999px;
+      border-radius: 6px;
+      height: 50px;
+      width: 50px;
+      line-height: 60px;
+      background-color: #34A853;
+      padding: 0;
+      box-shadow: none;
+      border: none;
+      cursor: pointer;
+      @media screen and (max-width: 767px) {
+        height: 40px;
+        width: 40px;
+        line-height: 40px;
+      }
+      &::after{
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        background-image: url('../../../images/svg/fluent_forms.svg');
+        z-index: 9999;
+        top: 0;
+        bottom: 0;
+        background-repeat: no-repeat;
+        background-size: 40px 40px;
+        object-fit: contain;
+        background-position: center;
+        @media screen and (max-width: 767px) {
+          background-size: 30px 30px;
+        }
+      }
+    }
+  }
+  .npfeed-channel-btn{
+    cursor: pointer;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 12px rgb(0 0 0 / 20%);
+    svg{
+      width: 30px;
+      height: 30px;
+    }
+    &.messenger{
+      background-color: #0084ff;
+      svg{
+        .npfeed-path-1{
+          fill: #ffffff;
+        }
+        .npfeed-path-2{
+          fill: #0084ff;
+        }
+      }
+    }
+    &.whatsapp{
+      background-color: #4FCE65;
+      svg{
+        .npfeed-path-1{
+          fill: #ffffff;
+        }
+        .npfeed-path-2{
+          fill: #ffffff;
+        }
+      }
+    }
+    &.telegram{
+      background-color: #0088cc;
+      svg{
+        .npfeed-path-1{
+          fill: #ffffff;
+        }
+        .npfeed-path-2{
+          fill: #ffffff;
+        }
+      }
+    }
+  }
+  .npfeed-channel-icon,
+  .npfeed-channels-icons{
+    position: fixed;
+    right: 30px;
+    bottom: -200px;
+    top: auto;
+    transition: 0.3s;
+    margin-bottom: 95px !important;
+  }
+  .npfeed-channels-icons{
+    opacity: 0;
+  }
+  .npfeed-channel-icon{
+    bottom: 0;
+    opacity: 1;
+  }
+  .npfeed-fm-chat-box-display{
+      //z-index: 9999999;
+      opacity: 1;
+      margin-bottom: 100px;
+      visibility: visible;
+  }
+
+  /* start fluent form integration css*/
+  &.npfeed-has-fluent-forms-widget{
+    .npfeed-fluentform-wrapper,
+    .fluentform{
+      display: none;
+    }
+    .npfeed-fm-chat-box .npfeed-fm-chat-room{
+      .npfeed-fm-conversation{
+        display: flex;
+      }
+      .npfeed-fm-chat-btn-wrapper{
+        display: block;
+      }
+    }
+
+    .npfeed-fluent-form-title{
+      display: none;
+      padding: 10px 20px;
+      margin: 0;
+      font-size: 21px;
+      border-bottom: 1px solid #e2d6d6;
+      color: #111;
+    }
+    &.npfeed-has-fluent-form{
+      &.npfeed-has-fluent-form-scrollbar{
+        .fluentform{
+          overflow-y: scroll;
+          height: 400px;
+        }
+        & ::-webkit-scrollbar {
+          width: 12px;
+          height: 12px;
+          overflow: visible;
+        }
+        & ::-webkit-scrollbar-button {
+          width: 0;
+          height: 0;
+        }
+        & ::-webkit-scrollbar-thumb {
+          background-color: rgba(0,0,0,0.2);
+          background-clip: padding-box;
+          border: solid transparent;
+          border-radius: 8px;
+          min-height: 8px;
+        }
+        & ::-webkit-scrollbar-track-piece {
+          background-clip: padding-box;
+          background: #fff;
+          border-left: 1px solid #f1f1f1;
+        }
+      }
+
+      .fluentform{
+        padding: 20px;
+        .frm-fluent-form{
+          padding: 0;
+        }
+        .ff_submit_btn_wrapper{
+          margin-bottom: 0;
+        }
+      }
+      .fluentform,
+      .npfeed-fluentform-wrapper{
+        display: block;
+      }
+      .npfeed-fluent-form-title{
+        display: block;
+      }
+      .npfeed-fm-chat-header,
+      .npfeed-fm-chat-box .npfeed-fm-chat-room .npfeed-fm-conversation{
+        display: none;
+      }
+      .npfeed-fm-chat-room{
+        padding-top: 0;
+      }
+      .npfeed-fm-chat-room{
+        .npfeed-fm-chat-btn-wrapper{
+          margin-top: 0;
+        }
+      }
+      .npfeed-fm-chat-box{
+        .npfeed-fm-chat-close{
+          display: block;
+        }
+      }
+      &.npfeed_has_ff_modal{
+        .npfeed-fluentform-wrapper{
+          display: none;
+        }
+        .npfeed-fm-chat-room{
+          padding-top: 30px;
+        }
+        .npfeed-fm-chat-btn-wrapper{
+          margin-top: 30px;
+        }
+        .npfeed-fm-chat-header,
+        .npfeed-fm-chat-box .npfeed-fm-chat-room .npfeed-fm-conversation{
+          display: flex !important;
+        }
+      }
+    }
+  }
+  /* end fluent form integration css*/
+
+  &.npfeed-chat-whatsapp{
+      .npfeed-fm-chat-close{
+        &:before,
+        &:after{
+          background-color: var(--wpsn-chat-close-btn-color, #fff);
+        }
+      }
+      .npfeed-fm-chat-header{
+        background-color: #1c6058;
+        .npfeed-fm-group-details{
+          h3, p {
+            color: #fff;
+
+          }
+        }
+      }
+      .npfeed-fm-chat-room{
+        padding: 0;
+        .npfeed-fm-conversation{
+          background-image: url("../../../images/chat-imgs/whatsapp-bg.png");
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          padding: 30px 20px 20px;
+          .npfeed-fm-time{
+            text-align: right;
+          }
+          .npfeed-fm-greeting-msg{
+            border-radius: 0 8px 8px;
+            position: relative;
+            &:after {
+              position: absolute;
+              left: -15px;
+              content: "";
+              top: 0;
+              width: 0;
+              height: 0;
+              border-right: 15px solid #f1f0f0;
+              border-bottom: 15px solid transparent;
+            }
+            h3{
+              margin: 0;
+              padding: 0 0 5px;
+              font-size: 14px;
+              line-height: 1.4;
+              font-weight: 500;
+              color: #1c6058;
+            }
+            .npfeed-fm-time{
+              text-align: right;
+              padding-bottom: 0;
+              display: inline-block;
+              float: right;
+              padding-top: 8px;
+            }
+          }
+        }
+        .npfeed-fm-chat-btn-wrapper{
+          margin: 0;
+          padding: 25px 20px;
+          .npfeed-fm-btn-icon{
+            a{
+              background-color: #00e676;
+              color: #ffffff;
+            }
+          }
+          p{
+            margin: 0;
+            padding: 10px 0 0;
+            font-size: 11px;
+            line-height: 1.5;
+            color: rgba(0, 0, 0, 0.4);
+            text-align: center;
+          }
+        }
+      }
+      .npfeed-fm-chat-bubble{
+        .npfeed-fm-bubble-btn{
+          background-color: #00e676;
+          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+          svg{
+            .npfeed-fm-bubble-btn-svg-path-1{
+              fill: #ffffff;
+            }
+            .npfeed-fm-bubble-btn-svg-path-2{
+              fill: #ffffff;
+            }
+
+          }
+          .npfeed-icon-messenger{
+            .npfeed-fm-bubble-btn-svg-path-2 {
+              fill: #4ee776;
+            }
+          }
+        }
+      }
+    }
+  &.npfeed-chat-telegram{
+    .npfeed-fm-chat-close{
+      &:before,
+      &:after{
+        background-color: var(--wpsn-chat-close-btn-color, #fff);
+      }
+    }
+    .npfeed-fm-chat-header{
+      background-color: #2ba7e9;
+      .npfeed-fm-group-details{
+        h3, p {
+          color: #fff;
+        }
+        p{
+          opacity: 1;
+        }
+      }
+    }
+    .npfeed-fm-chat-room{
+      padding: 0;
+      .npfeed-fm-conversation{
+        background-color: #f5f5f5;
+        padding: 30px 20px 20px;
+        .npfeed-fm-time{
+          text-align: right;
+        }
+        .npfeed-fm-greeting-msg{
+          background-color: #fff;
+          border-radius: 8px 8px 8px 0;
+          position: relative;
+          &:after {
+            position: absolute;
+            left: -15px;
+            content: "";
+            width: 0;
+            height: 0;
+            border-right: 15px solid #fff;
+            border-top: 15px solid transparent;
+            bottom: 0;
+          }
+          h3{
+            margin: 0;
+            padding: 0 0 5px;
+            font-size: 14px;
+            line-height: 1.4;
+            font-weight: 500;
+            color: #1c6058;
+          }
+          .npfeed-fm-time{
+            text-align: right;
+            padding-bottom: 0;
+            display: inline-block;
+            float: right;
+            padding-top: 8px;
+          }
+        }
+      }
+      .npfeed-fm-chat-btn-wrapper{
+        margin: 0;
+        padding: 25px 20px;
+        .npfeed-fm-btn-icon{
+          a{
+            background-color: #2ba7e9;
+
+            color: #ffffff;
+
+            svg{
+              path{
+                fill: #ffffff;
+              }
+            }
+
+          }
+        }
+        p{
+          margin: 0;
+          padding: 10px 0 0;
+          font-size: 11px;
+          line-height: 1.5;
+          color: rgba(0, 0, 0, 0.4);
+          text-align: center;
+        }
+      }
+    }
+    .npfeed-fm-chat-bubble{
+      .npfeed-fm-bubble-btn{
+        background-color: #2ba7e9;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+        svg{
+          .npfeed-fm-bubble-btn-svg-path-1{
+            fill: #ffffff;
+          }
+          .npfeed-fm-bubble-btn-svg-path-2{
+            fill: #ffffff;
+          }
+
+        }
+        .npfeed-icon-messenger{
+          .npfeed-fm-bubble-btn-svg-path-2 {
+            fill: #4ee776;
+          }
+        }
+
+      }
+    }
+  }
+  }
+
+  .npfeed-fm-chat{
+    background-color: #f1f0f0;
+    width: 100px;
+    line-height: 50px;
+    display: block;
+    border-radius: 50px;
+    .npfeed-fm-chat-bubbles{
+      text-align: center;
+      span{
+        display: inline-block;
+        background-color: #B6B5BA;
+        width: 10px;
+        height: 10px;
+        border-radius: 100%;
+        margin-right: 5px;
+        -webkit-animation: typing 2s infinite;
+        -moz-animation: typing 2s infinite;
+        -o-animation: typing 2s infinite;
+        animation: typing 2s infinite;
+        // SAFARI GLITCH
+        &:nth-child(1){
+          animation-delay: -1s;
+        }
+        &:nth-child(2){
+          animation-delay: -0.85s;
+        }
+        &:nth-child(3){
+          animation-delay: -0.7s;
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+@-webkit-keyframes typing{
+  10%{
+    transform: translateY(-10px);
+    background-color: #9E9DA2;
+  }
+  50%{
+    transform: translateY(0);
+    background-color: #B6B5BA;
+  }
+}
+@-moz-keyframes typing{
+  10%{
+    transform: translateY(-10px);
+    background-color: #9E9DA2;
+  }
+  50%{
+    transform: translateY(0);
+    background-color: #B6B5BA;
+  }
+}
+@-o-keyframes typing{
+  10%{
+    transform: translateY(-10px);
+    background-color: #9E9DA2;
+  }
+  50%{
+    transform: translateY(0);
+    background-color: #B6B5BA;
+  }
+}
+@keyframes typing{
+  10%{
+    transform: translateY(-10px);
+    background-color: #9E9DA2;
+  }
+  50%{
+    transform: translateY(0);
+    background-color: #B6B5BA;
+  }
+}
+.npfeed-ff-visibie{
+  display: block !important;
+  visibility: visible !important;
+}
+.npfeed-fluentform-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.fluentform {
+  width: 100%;
+  transition: height 0.5s ease-in-out;
+}
+
+.npfeed-fm-chat-wrapper .npfeed-has-fluent-form-scrollbar {
+  overflow-y: auto;
+}

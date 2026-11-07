@@ -1,0 +1,231 @@
+<?php
+/**
+ * Class NinjaPhotoFeed\App\Services\DataEncryption
+ *
+ * @copyright 2021 Google LLC
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache License 2.0
+ * @link      https://sitekit.withgoogle.com
+ */
+
+namespace NinjaPhotoFeed\App\Services;
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+/**
+ * Class responsible for encrypting and decrypting data.
+ *
+ * @since 3.9.1
+ * @access private
+ * @ignore
+ */
+class DataProtector {
+
+    /**
+     * Key to use for encryption.
+     *
+     * @since 3.9.1
+     * @var string
+     */
+    private $key;
+
+    /**
+     * Salt to use for encryption.
+     *
+     * @since 3.9.1
+     * @var string
+     */
+    private $salt;
+
+    /**
+     * Constructor.
+     *
+     * @since 3.9.1
+     */
+    public function __construct($key = '', $salt = '') {
+        $this->key  = $key ?: $this->get_default_key();
+        $this->salt = $salt ?: $this->get_default_salt();
+    }
+
+    /**
+     * Encrypts a value.
+     *
+     * @since 3.9.1
+     *
+     * @param string $value Value to encrypt.
+     * @return string|bool Encrypted value, or false on failure.
+     */
+    public function encrypt( $value ) {
+        if(!$value) {
+            return $value;
+        }
+
+        if ( ! extension_loaded( 'openssl' ) ) {
+            return $value;
+        }
+
+        $method = 'aes-256-ctr';
+        $ivlen  = openssl_cipher_iv_length( $method );
+        $iv     = openssl_random_pseudo_bytes( $ivlen );
+
+        $raw_value = openssl_encrypt( $value . $this->salt, $method, $this->key, 0, $iv );
+        if ( ! $raw_value ) {
+            return false;
+        }
+
+        return base64_encode( $iv . $raw_value ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
+    }
+
+    /**
+     * Decrypts a value.
+     *
+     * @since 3.9.1
+     *
+     * @param string $raw_value Value to decrypt.
+     * @return string|bool Decrypted value, or false on failure.
+     */
+    public function decrypt( $raw_value ) {
+
+        if(!$raw_value) {
+            return $raw_value;
+        }
+
+        if ( ! extension_loaded( 'openssl' ) ) {
+            return $raw_value;
+        }
+
+        $raw_value = base64_decode( $raw_value, true ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
+
+        $method = 'aes-256-ctr';
+        $ivlen  = openssl_cipher_iv_length( $method );
+
+        // Too short to be iv . ciphertext. maybe_encrypt() probes plaintext through here,
+        // and a short slice would reach openssl_decrypt() as an undersized IV and warn.
+        if ( false === $raw_value || strlen( $raw_value ) <= $ivlen ) {
+            return false;
+        }
+
+        $iv = substr( $raw_value, 0, $ivlen );
+
+        $raw_value = substr( $raw_value, $ivlen );
+
+        $value = openssl_decrypt( $raw_value, $method, $this->key, 0, $iv );
+        if ( ! $value || substr( $value, - strlen( $this->salt ) ) !== $this->salt ) {
+            return false;
+        }
+
+        return substr( $value, 0, - strlen( $this->salt ) );
+    }
+
+    public function maybe_encrypt( $raw_value ) {
+        $maybe_decrypted = $this->decrypt( $raw_value );
+
+        if ( $maybe_decrypted ) {
+            return $this->encrypt( $maybe_decrypted );
+        }
+
+        return $this->encrypt( $raw_value );
+    }
+
+    public function maybe_decrypt( $value ) {
+        if ( ! is_string( $value ) ) {
+            return $value;
+        }
+
+        if ( strpos( $value, '{' ) === 0 ) {
+            return $value;
+        }
+
+        $decrypted = $this->decrypt( $value );
+
+        if ( ! $decrypted ) {
+            return $value;
+        }
+
+        return $decrypted;
+    }
+
+    /**
+     * Encrypts the given token keys within a config array, leaving empty values untouched.
+     *
+     * @param array $config Token config (returned unchanged if not an array).
+     * @param array $keys   Keys to encrypt.
+     * @return array
+     */
+    public function maybe_encrypt_tokens( $config, $keys = array( 'access_token', 'refresh_token' ) ) {
+        if ( ! is_array( $config ) ) {
+            return $config;
+        }
+
+        foreach ( $keys as $key ) {
+            if ( ! empty( $config[ $key ] ) ) {
+                $config[ $key ] = $this->maybe_encrypt( $config[ $key ] );
+            }
+        }
+
+        return $config;
+    }
+
+    /**
+     * Decrypts the given token keys within a config array, leaving empty values untouched.
+     *
+     * @param array $config Token config (returned unchanged if not an array).
+     * @param array $keys   Keys to decrypt.
+     * @return array
+     */
+    public function maybe_decrypt_tokens( $config, $keys = array( 'access_token', 'refresh_token' ) ) {
+        if ( ! is_array( $config ) ) {
+            return $config;
+        }
+
+        foreach ( $keys as $key ) {
+            if ( ! empty( $config[ $key ] ) ) {
+                $config[ $key ] = $this->maybe_decrypt( $config[ $key ] );
+            }
+        }
+
+        return $config;
+    }
+
+
+    /**
+     * Gets the default encryption key to use.
+     *
+     * @since 3.9.1
+     *
+     * @return string Default (not user-based) encryption key.
+     */
+    private function get_default_key() {
+        if ( defined( 'NPFEED_ENCRYPTION_KEY' ) && '' !== NPFEED_ENCRYPTION_KEY ) {
+            return NPFEED_ENCRYPTION_KEY;
+        }
+
+        if ( defined( 'LOGGED_IN_KEY' ) && '' !== LOGGED_IN_KEY ) {
+            return LOGGED_IN_KEY;
+        }
+
+        // If this is reached, you're either not on a live site or have a serious security issue.
+        return 'das-ist-kein-geheimer-schluessel';
+    }
+
+    /**
+     * Gets the default encryption salt to use.
+     *
+     * @since 3.9.1
+     *
+     * @return string Encryption salt.
+     */
+    private function get_default_salt() {
+        if ( defined( 'NPFEED_ENCRYPTION_SALT' ) && '' !== NPFEED_ENCRYPTION_SALT ) {
+            return NPFEED_ENCRYPTION_SALT;
+        }
+
+        if ( defined( 'LOGGED_IN_SALT' ) && '' !== LOGGED_IN_SALT ) {
+            return LOGGED_IN_SALT;
+        }
+
+        // If this is reached, you're either not on a live site or have a serious security issue.
+        return 'das-ist-kein-geheimes-salz';
+    }
+}

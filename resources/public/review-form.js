@@ -1,0 +1,655 @@
+(function () {
+    'use strict';
+
+    /**
+     * Wire up every review form inside root that isn't wired up yet. An uninitialized
+     * form keeps its native POST submit, so forms added after page load must go
+     * through window.wpsrInitReviewForms().
+     *
+     * @param {Element|Document} root
+     */
+    function initReviewForms(root) {
+        var scope = root && root.querySelectorAll ? root : document;
+
+        scope.querySelectorAll('.npfeed-review-form').forEach(function (form) {
+            if (form.dataset.wpsrInitialized === 'true') return;
+            form.dataset.wpsrInitialized = 'true';
+
+            initTurnstile(form);
+            initRatingWidget(form);
+            initMediaPreview(form);
+            initFormSubmission(form);
+        });
+    }
+
+    window.wpsrInitReviewForms = initReviewForms;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        initReviewForms(document);
+    });
+
+    // Fail-safe for a form this script never saw: a plain page POST would lose
+    // the reviewer's details. Initialize it, then resubmit over AJAX.
+    document.addEventListener('submit', function (e) {
+        var form = e.target;
+        if (!form.classList || !form.classList.contains('npfeed-review-form')) return;
+        if (form.dataset.wpsrInitialized === 'true') return;
+
+        e.preventDefault();
+        initReviewForms(form.parentNode || document);
+
+        if (typeof form.requestSubmit === 'function') {
+            form.requestSubmit();
+        }
+    });
+
+    /**
+     * UUID v4 for an upload session. Falls back to crypto.getRandomValues() where
+     * crypto.randomUUID() is missing.
+     */
+    function generateUploadSessionId() {
+        if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+            return crypto.randomUUID();
+        }
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var n = crypto.getRandomValues(new Uint8Array(1))[0] & 15;
+            return (c === 'x' ? n : (n & 0x3 | 0x8)).toString(16);
+        });
+    }
+
+    function getI18n(key, fallback) {
+        if (typeof wpsrReviewForm !== 'undefined' && wpsrReviewForm.i18n && typeof wpsrReviewForm.i18n[key] === 'string') {
+            return wpsrReviewForm.i18n[key];
+        }
+
+        return fallback;
+    }
+
+    var wpsrTurnstileBootstrapTimeout = 10000;
+    var wpsrTurnstilePendingForms = [];
+    var wpsrTurnstileScript = null;
+    var wpsrTurnstileObserver = null;
+    var wpsrTurnstileTimeoutId = null;
+
+    function cleanupTurnstileBootstrapWatcher() {
+        if (wpsrTurnstileObserver) {
+            wpsrTurnstileObserver.disconnect();
+            wpsrTurnstileObserver = null;
+        }
+
+        if (wpsrTurnstileTimeoutId) {
+            clearTimeout(wpsrTurnstileTimeoutId);
+            wpsrTurnstileTimeoutId = null;
+        }
+    }
+
+    function flushTurnstileBootstrapFailure() {
+        var pendingForms = wpsrTurnstilePendingForms.slice();
+
+        wpsrTurnstilePendingForms = [];
+        cleanupTurnstileBootstrapWatcher();
+
+        pendingForms.forEach(function (pendingForm) {
+            handleTurnstileBootstrapFailure(pendingForm.form);
+        });
+    }
+
+    function markPendingTurnstileBootstrapFailure() {
+        flushTurnstileBootstrapFailure();
+    }
+
+    function renderPendingTurnstileForms() {
+        wpsrTurnstilePendingForms = wpsrTurnstilePendingForms.filter(function (pendingForm) {
+            return !pendingForm.renderWidgets();
+        });
+
+        if (!wpsrTurnstilePendingForms.length) {
+            cleanupTurnstileBootstrapWatcher();
+            return true;
+        }
+
+        return false;
+    }
+
+    function attachSharedTurnstileScript() {
+        var script = document.querySelector('script[src*="challenges.cloudflare.com/turnstile/"]');
+        if (!script || script === wpsrTurnstileScript) {
+            return;
+        }
+
+        wpsrTurnstileScript = script;
+
+        if (script.dataset.loaded === 'true' || (window.turnstile && typeof window.turnstile.render === 'function')) {
+            script.dataset.loaded = 'true';
+            renderPendingTurnstileForms();
+            return;
+        }
+
+        script.addEventListener('load', function () {
+            script.dataset.loaded = 'true';
+            renderPendingTurnstileForms();
+        }, { once: true });
+        script.addEventListener('error', function () {
+            flushTurnstileBootstrapFailure();
+        }, { once: true });
+    }
+
+    function ensureSharedTurnstileBootstrapWatcher() {
+        attachSharedTurnstileScript();
+
+        if (renderPendingTurnstileForms()) {
+            return;
+        }
+
+        if (!wpsrTurnstileObserver) {
+            wpsrTurnstileObserver = new MutationObserver(function () {
+                attachSharedTurnstileScript();
+                renderPendingTurnstileForms();
+            });
+
+            wpsrTurnstileObserver.observe(document.head || document.documentElement, {
+                childList: true,
+                subtree: true
+            });
+        }
+
+        if (!wpsrTurnstileTimeoutId) {
+            wpsrTurnstileTimeoutId = setTimeout(function () {
+                markPendingTurnstileBootstrapFailure();
+            }, wpsrTurnstileBootstrapTimeout);
+        }
+    }
+
+    function initTurnstile(form) {
+        var widgets = form.querySelectorAll('.cf-turnstile');
+        if (!widgets.length) {
+            return;
+        }
+
+        function renderWidgets() {
+            if (!window.turnstile || typeof window.turnstile.ready !== 'function' || typeof window.turnstile.render !== 'function') {
+                return false;
+            }
+
+            if (form.dataset.turnstileBootstrapFailed === '1') {
+                delete form.dataset.turnstileBootstrapFailed;
+            }
+
+            var submitBtn = form.querySelector('.npfeed-review-form-btn');
+            if (submitBtn && !form.classList.contains('npfeed-form-loading')) {
+                submitBtn.disabled = false;
+            }
+
+            var messagesEl = form.querySelector('.npfeed-review-form-messages');
+            if (messagesEl && messagesEl.dataset.wpsrTurnstileFailure === '1') {
+                messagesEl.innerHTML = '';
+                delete messagesEl.dataset.wpsrTurnstileFailure;
+            }
+
+            window.turnstile.ready(function () {
+                widgets.forEach(function (widget) {
+                    if (widget.dataset.widgetId) {
+                        return;
+                    }
+
+                    var widgetId = window.turnstile.render(widget, {
+                        sitekey: widget.getAttribute('data-sitekey') || '',
+                        theme: widget.getAttribute('data-theme') || 'auto',
+                        appearance: widget.getAttribute('data-appearance') || 'always',
+                        action: widget.getAttribute('data-action') || 'npfeed_review_form_submit'
+                    });
+
+                    widget.dataset.widgetId = widgetId;
+                });
+            });
+
+            return true;
+        }
+
+        if (renderWidgets()) {
+            return;
+        }
+
+        if (!wpsrTurnstilePendingForms.some(function (pendingForm) {
+            return pendingForm.form === form;
+        })) {
+            wpsrTurnstilePendingForms.push({
+                form: form,
+                renderWidgets: renderWidgets
+            });
+        }
+
+        ensureSharedTurnstileBootstrapWatcher();
+    }
+
+    function handleTurnstileBootstrapFailure(form) {
+        form.dataset.turnstileBootstrapFailed = '1';
+
+        var submitBtn = form.querySelector('.npfeed-review-form-btn');
+        if (submitBtn) {
+            submitBtn.disabled = true;
+        }
+
+        var messagesEl = form.querySelector('.npfeed-review-form-messages');
+        if (messagesEl) {
+            messagesEl.dataset.wpsrTurnstileFailure = '1';
+            showMessage(messagesEl, getI18n('captchaLoadFailed', 'Captcha could not load. Please refresh the page and try again.'), 'error');
+        }
+    }
+
+    function resetTurnstile(form) {
+        if (!window.turnstile || typeof window.turnstile.reset !== 'function') {
+            return;
+        }
+
+        form.querySelectorAll('.cf-turnstile').forEach(function (widget) {
+            var widgetId = widget.dataset.widgetId;
+            if (widgetId) {
+                window.turnstile.reset(widgetId);
+            }
+        });
+    }
+
+    function initRatingWidget(form) {
+        var ratingInputs = form.querySelectorAll('.npfeed-rating-input');
+
+        ratingInputs.forEach(function (container) {
+            var icons = container.querySelectorAll('.npfeed-rating-icon');
+            var hiddenInput = container.parentElement.querySelector('.npfeed-rating-value');
+
+            icons.forEach(function (icon) {
+                icon.setAttribute('tabindex', '0');
+                icon.setAttribute('role', 'radio');
+                icon.setAttribute('aria-checked', 'false');
+                icon.setAttribute('aria-label', 'Rating ' + icon.getAttribute('data-value'));
+
+                icon.addEventListener('mouseenter', function () {
+                    var val = parseInt(icon.getAttribute('data-value'));
+                    highlightIcons(icons, val, 'npfeed-rating-hover');
+                });
+
+                icon.addEventListener('mouseleave', function () {
+                    clearClass(icons, 'npfeed-rating-hover');
+                });
+
+                icon.addEventListener('click', function () {
+                    selectRating(icons, icon, hiddenInput);
+                });
+
+                icon.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        selectRating(icons, icon, hiddenInput);
+                    }
+                });
+            });
+        });
+    }
+
+    function selectRating(icons, selectedIcon, hiddenInput) {
+        var val = parseInt(selectedIcon.getAttribute('data-value'));
+        hiddenInput.value = val;
+        clearClass(icons, 'npfeed-rating-active');
+        highlightIcons(icons, val, 'npfeed-rating-active');
+
+        icons.forEach(function (icon) {
+            var iconVal = parseInt(icon.getAttribute('data-value'));
+            icon.setAttribute('aria-checked', iconVal <= val ? 'true' : 'false');
+        });
+    }
+
+    function highlightIcons(icons, upToValue, className) {
+        icons.forEach(function (icon) {
+            var val = parseInt(icon.getAttribute('data-value'));
+            if (val <= upToValue) {
+                icon.classList.add(className);
+            } else {
+                icon.classList.remove(className);
+            }
+        });
+    }
+
+    function clearClass(icons, className) {
+        icons.forEach(function (icon) {
+            icon.classList.remove(className);
+        });
+    }
+
+    function initMediaPreview(form) {
+        var fileInputs = form.querySelectorAll('.npfeed-field-media input[type="file"]');
+
+        fileInputs.forEach(function (input) {
+            var preview = input.parentElement.querySelector('.npfeed-media-preview');
+            if (!preview) return;
+
+            // Uploaded {fileUrl, token, previewEl}. Only these go with the submission, no binary data.
+            var uploadedFiles  = [];
+            // Together with uploadedFiles.length, enforces the cap across concurrent selections.
+            var pendingUploads = 0;
+            // Generated eagerly so every request in the first parallel batch shares one session.
+            var uploadSessionId = generateUploadSessionId();
+
+            var notice = document.createElement('p');
+            notice.className = 'npfeed-media-notice';
+            preview.parentElement.appendChild(notice);
+
+            function addPreviewItem(objectUrl, fileUrl) {
+                var wrapper = document.createElement('span');
+                wrapper.className = 'npfeed-media-preview-item';
+
+                var img = document.createElement('img');
+                img.src = objectUrl;
+
+                var removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.className = 'npfeed-media-remove';
+                removeBtn.setAttribute('aria-label', 'Remove image');
+                removeBtn.textContent = '\u00D7';
+                removeBtn.addEventListener('click', function () {
+                    wrapper.remove();
+                    // Abort an in-flight upload so its pending slot frees right away.
+                    if (typeof wrapper._abort === 'function') {
+                        wrapper._abort();
+                    }
+                    uploadedFiles = uploadedFiles.filter(function (f) {
+                        return f.fileUrl !== fileUrl;
+                    });
+                });
+
+                wrapper.appendChild(img);
+                wrapper.appendChild(removeBtn);
+                preview.appendChild(wrapper);
+                return wrapper;
+            }
+
+            input.addEventListener('change', function () {
+                var ajaxUrl      = (typeof wpsrReviewForm !== 'undefined' && wpsrReviewForm.ajaxUrl) ? wpsrReviewForm.ajaxUrl : '';
+                // Fallback so a localization timing gap doesn't drop uploads.
+                var uploadAction = (typeof wpsrReviewForm !== 'undefined' && wpsrReviewForm.uploadAction) ? wpsrReviewForm.uploadAction : 'npfeed_review_form_upload';
+                var formId       = form.getAttribute('data-form-id');
+                var nonce        = form.querySelector('[name="_npfeed_nonce"]');
+                var maxFiles     = parseInt(input.getAttribute('data-max-files') || 3, 10);
+                var maxSize      = parseInt(input.getAttribute('data-max-size') || 5, 10);
+                var newFiles     = Array.from(input.files);
+                notice.textContent = '';
+
+                newFiles.forEach(function (file) {
+                    if ((uploadedFiles.length + pendingUploads) >= maxFiles) {
+                        notice.textContent = getI18n('maxImagesAllowed', 'Maximum %d image(s) allowed.').replace('%d', maxFiles);
+                        return;
+                    }
+                    if (file.size > maxSize * 1024 * 1024) {
+                        notice.textContent = getI18n('fileSizeExceeded', 'Some files exceed the %dMB size limit.').replace('%d', maxSize);
+                        return;
+                    }
+
+                    pendingUploads++;
+
+                    var objectUrl  = URL.createObjectURL(file);
+                    var controller = new AbortController();
+                    var wrapper    = addPreviewItem(objectUrl, null);
+                    wrapper.classList.add('npfeed-media-uploading');
+                    wrapper._abort = function () { controller.abort(); };
+
+                    var formData = new FormData();
+                    formData.append('action',      uploadAction);
+                    formData.append('form_id',     formId);
+                    formData.append('_npfeed_nonce', nonce ? nonce.value : '');
+                    formData.append('file',        file);
+                    // Tells the server which media field's limits and types to enforce.
+                    formData.append('field_name',  input.getAttribute('name') || '');
+                    formData.append('upload_session_id', uploadSessionId);
+
+                    fetch(ajaxUrl, { method: 'POST', body: formData, credentials: 'same-origin', signal: controller.signal })
+                        .then(function (r) { return r.json(); })
+                        .then(function (result) {
+                            wrapper.classList.remove('npfeed-media-uploading');
+                            if (result.success && result.data && result.data.files && result.data.files[0]) {
+                                // Removed while the upload was in flight.
+                                if (!wrapper.isConnected) {
+                                    return;
+                                }
+                                var fileUrl  = result.data.files[0].file;
+                                var token    = result.data.files[0].token || '';
+                                uploadedFiles.push({ fileUrl: fileUrl, token: token, previewEl: wrapper });
+                                // Rebind remove with the real fileUrl.
+                                wrapper.querySelector('.npfeed-media-remove').addEventListener('click', function () {
+                                    uploadedFiles = uploadedFiles.filter(function (f) {
+                                        return f.fileUrl !== fileUrl;
+                                    });
+                                });
+                            } else {
+                                wrapper.remove();
+                                var errMsg = (result.data && result.data.errors && result.data.errors.file)
+                                    ? result.data.errors.file[0]
+                                    : getI18n('uploadFailed', 'Upload failed.');
+                                notice.textContent = errMsg;
+                            }
+                        })
+                        .catch(function (err) {
+                            // AbortError means the user removed the preview; no error message needed.
+                            if (err && err.name === 'AbortError') return;
+                            wrapper.remove();
+                            notice.textContent = getI18n('uploadRetry', 'Upload failed. Please try again.');
+                        })
+                        .finally(function () {
+                            pendingUploads--;
+                            URL.revokeObjectURL(objectUrl);
+                        });
+                });
+
+                // Reset so the same file can be picked again.
+                input.value = '';
+            });
+
+            // Raw URLs, kept for back-compat.
+            preview._getUploadedUrls = function () {
+                return uploadedFiles.map(function (f) { return f.fileUrl; });
+            };
+
+            // Signed tokens, preferred over raw URLs.
+            preview._getUploadedTokens = function () {
+                return uploadedFiles.map(function (f) { return f.token; });
+            };
+
+            preview._getSessionId = function () {
+                return uploadSessionId;
+            };
+
+            // A fresh session ID, so uploads after a reset don't reuse the claimed session.
+            preview._reset = function () {
+                uploadedFiles   = [];
+                uploadSessionId = generateUploadSessionId();
+                preview.innerHTML = '';
+                notice.textContent = '';
+            };
+        });
+    }
+
+    function initFormSubmission(form) {
+        // Prevents double-submission from rapid clicks before the button is disabled.
+        var wpsrSubmitting = false;
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (wpsrSubmitting) return;
+            wpsrSubmitting = true;
+            setTimeout(function () { wpsrSubmitting = false; }, 1500);
+
+            var formId = form.getAttribute('data-form-id');
+            var messagesEl = form.querySelector('.npfeed-review-form-messages');
+            var submitBtn = form.querySelector('.npfeed-review-form-btn');
+
+            if (!formId || !messagesEl || !submitBtn) return;
+
+            messagesEl.innerHTML = '';
+
+            if (form.querySelector('.npfeed-media-uploading')) {
+                showMessage(messagesEl, getI18n('uploadInProgress', 'File upload in progress. Please wait...'), 'error');
+                wpsrSubmitting = false;
+                return;
+            }
+
+            var ratingInput = form.querySelector('.npfeed-rating-value[required]');
+            if (ratingInput && !ratingInput.value) {
+                showMessage(messagesEl, getI18n('ratingRequired', 'Please select a rating.'), 'error');
+                wpsrSubmitting = false;
+                return;
+            }
+
+            if (form.dataset.turnstileBootstrapFailed === '1') {
+                showMessage(messagesEl, getI18n('captchaLoadFailed', 'Captcha could not load. Please refresh the page and try again.'), 'error');
+                wpsrSubmitting = false;
+                return;
+            }
+
+            form.classList.add('npfeed-form-loading');
+            submitBtn.disabled = true;
+            var originalText = submitBtn.textContent;
+            submitBtn.textContent = getI18n('submitting', 'Submitting...');
+
+            var ajaxUrl = (typeof wpsrReviewForm !== 'undefined' && wpsrReviewForm.ajaxUrl)
+                ? wpsrReviewForm.ajaxUrl
+                : '';
+            // Fallback so a localization timing gap between core and Pro releases can't block submission.
+            var action = (typeof wpsrReviewForm !== 'undefined' && wpsrReviewForm.action)
+                ? wpsrReviewForm.action
+                : 'npfeed_submit_review_form';
+
+            if (!ajaxUrl) {
+                showMessage(messagesEl, getI18n('configurationError', 'Configuration error. Please try again later.'), 'error');
+                resetButton(form, submitBtn, originalText);
+                return;
+            }
+
+            // Tokens go as a separate JSON map instead of relying on parse_str's bracket
+            // handling inside the URL-encoded data blob.
+            var mediaTokenMap = {};
+            form.querySelectorAll('.npfeed-field-media input[type="file"]').forEach(function (fileInput) {
+                var fieldName = fileInput.getAttribute('name');
+                if (!fieldName) return;
+                var previewEl = fileInput.parentElement.querySelector('.npfeed-media-preview');
+                if (previewEl && typeof previewEl._getUploadedTokens === 'function') {
+                    var tokens = previewEl._getUploadedTokens();
+                    if (tokens.length) {
+                        mediaTokenMap[fieldName] = tokens;
+                    }
+                }
+            });
+
+            var params = new URLSearchParams();
+            form.querySelectorAll('input, select, textarea').forEach(function (el) {
+                if (!el.name || el.disabled || el.type === 'file') return;
+                if ((el.type === 'checkbox' || el.type === 'radio') && !el.checked) return;
+                params.append(el.name, el.value);
+            });
+
+            var body = new FormData();
+            body.append('data', params.toString());
+            if (Object.keys(mediaTokenMap).length) {
+                body.append('npfeed_media_tokens', JSON.stringify(mediaTokenMap));
+            }
+
+            // One session ID per media field, so the server can claim each orphan-tracking bucket.
+            // Sent as a map because a repeated key would reach the server as only the last value.
+            var uploadSessionMap = {};
+            form.querySelectorAll('.npfeed-field-media input[type="file"]').forEach(function (fileInput) {
+                var fieldName = fileInput.getAttribute('name');
+                if (!fieldName) return;
+                var previewEl = fileInput.parentElement.querySelector('.npfeed-media-preview');
+                if (previewEl && typeof previewEl._getSessionId === 'function') {
+                    var sid = previewEl._getSessionId();
+                    if (sid) {
+                        uploadSessionMap[fieldName] = sid;
+                    }
+                }
+            });
+            var sessionFieldNames = Object.keys(uploadSessionMap);
+            if (sessionFieldNames.length) {
+                body.append('npfeed_upload_sessions', JSON.stringify(uploadSessionMap));
+                // Dual-write the legacy key so a Pro build predating the map still claims
+                // a session. The first media field is the one it would have claimed.
+                body.append('npfeed_upload_session_id', uploadSessionMap[sessionFieldNames[0]]);
+            }
+            body.append('action', action);
+            body.append('form_id', formId);
+
+            fetch(ajaxUrl + '?t=' + Date.now(), {
+                method: 'POST',
+                body: body,
+                credentials: 'same-origin'
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (result) {
+                // Gate on the WP AJAX envelope (success: true), not the HTTP status.
+                if (result && result.success === true) {
+                    var msg = (result.data && result.data.message) || getI18n('thankYou', 'Thank you for your review!');
+                    showMessage(messagesEl, msg, 'success');
+                    form.reset();
+                    resetTurnstile(form);
+                    form.querySelectorAll('.npfeed-media-preview').forEach(function (p) {
+                        if (typeof p._reset === 'function') {
+                            p._reset();
+                        } else {
+                            p.innerHTML = '';
+                        }
+                    });
+                    form.querySelectorAll('.npfeed-rating-active').forEach(function (icon) {
+                        icon.classList.remove('npfeed-rating-active');
+                        icon.setAttribute('aria-checked', 'false');
+                    });
+                } else {
+                    // Logical failures and non-2xx errors both carry result.errors: { field: ['msg'] }.
+                    var errors = (result && result.errors) || {};
+                    var errorItems = [];
+                    Object.keys(errors).forEach(function (field) {
+                        var msgs = errors[field];
+                        if (Array.isArray(msgs)) {
+                            msgs.forEach(function (m) { errorItems.push(m); });
+                        }
+                    });
+                    var errorMsg = errorItems.length
+                        ? errorItems[0]
+                        : getI18n('genericError', 'Something went wrong. Please try again.');
+                    showMessage(messagesEl, errorMsg, 'error', errorItems.slice(1));
+                }
+            })
+            .catch(function () {
+                showMessage(messagesEl, getI18n('networkError', 'Network error. Please check your connection and try again.'), 'error');
+            })
+            .finally(function () {
+                resetButton(form, submitBtn, originalText);
+            });
+        });
+    }
+
+    function resetButton(form, btn, text) {
+        form.classList.remove('npfeed-form-loading');
+        btn.disabled = false;
+        btn.textContent = text;
+    }
+
+    function showMessage(container, msg, type, errorItems) {
+        var div = document.createElement('div');
+        div.className = 'npfeed-review-form-message-' + type;
+        if (msg) {
+            var messageText = document.createElement('span');
+            messageText.textContent = msg;
+            div.appendChild(messageText);
+        }
+        if (Array.isArray(errorItems) && errorItems.length) {
+            var ul = document.createElement('ul');
+            errorItems.forEach(function (item) {
+                var li = document.createElement('li');
+                li.textContent = item;
+                ul.appendChild(li);
+            });
+            div.appendChild(ul);
+        }
+        container.innerHTML = '';
+        container.appendChild(div);
+    }
+})();

@@ -1,0 +1,74 @@
+// Shared by the two overlay-card templates, 3 and 4.
+
+// Avatars sit inside a post, where the shared media rules place every img absolutely.
+@mixin npfeed-ig-avatar($size, $ring, $min-width: auto) {
+  width: $size;
+  height: $size;
+  min-width: $min-width;
+  max-width: $size;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid $ring;
+  position: static;
+  transform: none;
+}
+
+// Caption panels that scroll inside a fixed-height overlay.
+@mixin npfeed-ig-overlay-scrollbar($thumb) {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  pointer-events: auto;
+  scrollbar-width: thin;
+  scrollbar-color: $thumb transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $thumb;
+    border-radius: 2px;
+  }
+}
+
+.npfeed-ig-feed-template3,
+.npfeed-ig-feed-template4 {
+  // elements/universel spaces the card inside the column; these two space the column itself,
+  // so the margin moves up one level.
+  .npfeed-column-gap-no_gap [class*="npfeed-col"] {
+    margin-bottom: 0;
+  }
+
+  @each $name, $space in (narrow: 10px, small: 20px, wide: 40px, wider: 50px) {
+    .npfeed-column-gap-#{$name} [class*="npfeed-col"] {
+      margin-bottom: $space;
+      > div {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.npfeed-ig-feed-template3.npfeed-instagram-masonry-activate .npfeed-ig-post-overlay-card,
+.npfeed-ig-feed-template4.npfeed-instagram-masonry-activate .npfeed-ig-post-pin-card {
+  height: initial;
+}
+
+// Masonry only staggers when each tile keeps its own height, so the aspect-ratio frame is dropped.
+.npfeed-ig-feed-wrapper.npfeed-instagram-masonry-activate .npfeed-ig-all-feed .npfeed-ig-post-media {
+  padding-top: 0;
+  img,
+  video {
+    position: static;
+    display: block;
+    width: 100%;
+    height: auto;
+    min-width: 0;
+    max-width: 100%;
+    transform: none;
+  }
+}
+
+// The hover zoom re-centres with translate(-50%, -50%), which shifts an in-flow image.
+.npfeed-ig-feed-template4.npfeed-instagram-masonry-activate .npfeed-ig-post-pin-card:is(:hover, :focus-within) .npfeed-ig-post-media :is(img, video) {
+  transform: none;
+}

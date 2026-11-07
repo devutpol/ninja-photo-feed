@@ -1,0 +1,468 @@
+@import './header';
+@import '../../elements/feed-popup';
+@import './follow_button';
+// After ./follow_button so the minimal layout's equal-weight button rules win.
+@import './header-layout-minimal';
+@import './header-layout-inline';
+@import "../../elements/instagram-widget";
+
+.npfeed-ig-feed-wrapper{
+  margin-bottom: 20px;
+}
+.npfeed-instagram-slider-activate{
+  .npfeed-ig-footer{
+    margin-top: 10px;
+  }
+  //.slick-list{
+  //  width: 100%;
+  //  .slick-track{
+  //    margin: 0;
+  //  }
+  //}
+}
+.npfeed-ig-post{
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+  &:has(a:focus) {
+    overflow: visible;
+  }
+  // :focus-within keeps the caption links and shoppable button keyboard-reachable.
+  &:hover,
+  &:focus-within{
+    .npfeed-ig-post-info{
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .npfeed-ig-shoppble-icon-top {
+      img {
+        visibility: hidden;
+      }
+    }
+  }
+  .npfeed-ig-playmode{
+    cursor: pointer;
+    display: block;
+    &:focus{
+      outline: 2px solid #72aee6;
+      outline-offset: 3px;
+    }
+  }
+
+  .npfeed-ig-post-info{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .npfeed-shoppable-button {
+      position: absolute;
+      border-radius: 4px;
+      background-color: transparent;
+      border: 1px solid #FFFFFF;
+      cursor: pointer;
+      color: #FFFFFF;
+      font-weight: 400;
+      font-size: 14px;
+      pointer-events: auto;
+      text-decoration: none;
+      padding: 8px 30px;
+      &:hover,
+      &:focus{
+        text-decoration: none;
+      }
+    }
+    .npfeed-ig-post-statistics{
+      display: flex;
+      align-items: center;
+      .npfeed-ig-post-single-statistic{
+        display: flex;
+        align-items: center;
+        margin-right: 15px;
+        &:last-child{
+          margin-right: 0;
+        }
+        span{
+          font-weight: 700;
+          font-size: 14px;
+        }
+        color: #fff;
+        svg{
+          height: 20px;
+          width: 20px;
+          fill: #fff;
+          margin-right: 5px;
+        }
+      }
+
+
+    }
+    .npfeed-ig-post-caption{
+      margin-top: 10px;
+      pointer-events: none;
+      p{
+        word-break: break-word;
+        color: #fff;
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.4;
+        @media screen and (max-width: 767px) {
+          font-size: 16px;
+        }
+        a{
+          cursor: pointer;
+          color: #00376b;
+          font-weight: 400;
+          pointer-events: auto;
+          text-decoration: none;
+          &:hover,
+          &:focus{
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+    .npfeed-ig-icon{
+      right: 10px;
+      position: absolute;
+      top: 10px;
+      svg{
+        path{
+          fill: #fff;
+        }
+      }
+    }
+  }
+
+  .npfeed-ig-shoppble-icon-top{
+    left: 10px;
+    position: absolute;
+    top: 10px;
+    img{
+      height: 18px;
+      width: 18px;
+      visibility: visible;
+      box-shadow: 0px 4px 11px 1px rgb(0 0 0 / 20%);
+    }
+  }
+
+}
+.npfeed-ig-footer{
+  justify-content: center;
+}
+.npfeed-ig-load-more.npfeed-load-more-default{
+  margin: 0;
+  background-color: #0095F6;
+  padding: 10px 20px;
+  max-width: initial;
+  width: auto;
+  height: auto;
+  &:hover{
+    background-color: #0a8bdf;
+  }
+}
+.npfeed-ig-post{
+  &.npfeed-image-ratio-frame34{
+    .npfeed-ig-post-media,
+    .npfeed-ig-feed-popup-media{
+      padding-top: 133.33333333%;
+    }
+  }
+  &.npfeed-image-ratio-frame45{
+    .npfeed-ig-post-media,
+    .npfeed-ig-feed-popup-media{
+      padding-top: 125%;
+    }
+  }
+}
+.npfeed-ig-post-media,
+.npfeed-ig-feed-popup-media{
+  position: relative;
+  overflow: hidden;
+  padding-top: 100%;
+  .npfeed-ig-post-type-icon{
+    background-image: url("../../../../images/icon/ig-media-type.png");
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 32px;
+    height: 32px;
+    background-repeat: no-repeat;
+    background-position: 0 -33px;
+    background-size: 65px 65px;
+
+    &.npfeed-ig-post-type-CAROUSEL_ALBUM{
+      background-position: 0 0;
+    }
+    &.npfeed-ig-post-type-VIDEO{
+      background-position: 0 -33px;
+    }
+  }
+
+  video,
+  img{
+    position: absolute;
+    width: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    min-width: 100%;
+    max-width: inherit;
+    object-fit: cover;
+  }
+}
+
+// Inline display mode is the only one that renders the native controls, and cover-cropping
+// puts the control bar's left half outside the card, where it cannot be clicked.
+// max-width overrides the base rule's `inherit`, which picks up whatever the theme put on the
+// wrapper and can shrink the frame.
+.npfeed-ig-post-media video[controls] {
+  top: 0;
+  left: 0;
+  transform: none;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  background-color: #000;
+}
+
+.npfeed-ig-feed-popup-media {
+  padding-top: initial;
+  a{
+    width: 100%;
+  }
+  .npfeed-ig-post-type-icon {
+    right: 15px;
+  }
+  img{
+    position: initial;
+    transform: initial;
+  }
+}
+
+/* this CSS to stop carousel layout image flashes */
+.npfeed-instagram-slider-activate .npfeed-ig-post-media {
+  display: none;
+}
+.npfeed-slider-before-init .npfeed-ig-post-media {
+  display: block;
+}
+.npfeed-instagram-slider-activate .npfeed-animated-background {
+  background: #f0f0f0;
+}
+.npfeed-slider-before-init .npfeed-animated-background {
+  animation-duration: 1.25s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: wpsrPlaceHolderShimmer;
+  animation-timing-function: linear;
+  background: darkgray;
+  background: linear-gradient(to right, #eeeeee 10%, #dddddd 18%, #eeeeee 33%);
+  background-size: 800px 104px;
+  height: 100px;
+  position: relative;
+}
+
+// Caption links sit on the dark hover overlay in Classic Grid (and Author Bar, which reuses it).
+.npfeed-ig-feed-template1 .npfeed-ig-post .npfeed-ig-post-info .npfeed-ig-post-caption p a{
+  color: #fff;
+  opacity: 0.85;
+}
+
+// Author row of templates 5 and 6, which reuse the markup of templates 2 and 1.
+.npfeed-ig-post-author{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  .npfeed-ig-post-author-avatar{
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 3px #dbdbdb;
+  }
+  .npfeed-ig-post-author-details{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    line-height: 1.25;
+  }
+  .npfeed-ig-post-author-name{
+    font-size: 14px;
+    font-weight: 600;
+    color: #262626;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .npfeed-ig-post-author-time{
+    font-size: 12px;
+    color: #8e8e8e;
+  }
+}
+
+.npfeed-ig-feed-template5{
+  .npfeed-ig-post{
+    border-radius: 12px;
+    border: 1px solid #efefef;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06);
+    .npfeed-ig-post-info{
+      padding: 10px 16px 16px;
+      align-items: flex-start;
+    }
+    .npfeed-shoppable-button{
+      margin: 12px 16px 0;
+      border-radius: 8px;
+    }
+    .npfeed-ig-post-info .npfeed-ig-post-caption p{
+      text-align: left;
+    }
+  }
+  .npfeed-ig-post-author{
+    padding: 14px 16px 0;
+  }
+}
+
+// List layout: one post per row. Card templates (Caption Card, Author Card) put the photo
+// beside the text; image-only templates simply stack.
+.npfeed-instagram-list-activate{
+  [class*="npfeed-col"]{
+    flex: 0 0 100%;
+    max-width: 100%;
+    width: 100%;
+  }
+  .npfeed-ig-post{
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &.npfeed-ig-feed-template2 .npfeed-ig-post{
+    max-width: 760px;
+    .npfeed-ig-post-info{
+      align-items: flex-start;
+    }
+    .npfeed-ig-post-info .npfeed-ig-post-caption p{
+      text-align: left;
+    }
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    grid-template-rows: auto auto 1fr;
+    align-items: start;
+    > :first-child{
+      grid-column: 1;
+      grid-row: 1 / -1;
+      position: relative;
+    }
+    .npfeed-shoppable-button{
+      margin: 16px 16px 0;
+      border-radius: 8px;
+    }
+    > :not(:first-child){
+      grid-column: 2;
+    }
+    @media screen and (max-width: 600px){
+      display: block;
+    }
+  }
+}
+
+.npfeed-ig-feed-template6{
+  .npfeed-ig-post{
+    border-radius: 10px;
+  }
+  .npfeed-ig-post-author{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 40px 12px 12px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.65));
+    pointer-events: none;
+    .npfeed-ig-post-author-avatar{
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9);
+    }
+    .npfeed-ig-post-author-name,
+    .npfeed-ig-post-author-time{
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+    }
+    .npfeed-ig-post-author-time{
+      opacity: 0.85;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference){
+  .npfeed-ig-feed-template5 .npfeed-ig-post,
+  .npfeed-ig-feed-template5 .npfeed-ig-post-media img,
+  .npfeed-ig-feed-template6 .npfeed-ig-post-media img,
+  .npfeed-ig-feed-template6 .npfeed-ig-post-author{
+    transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.45s ease, opacity 0.3s ease;
+  }
+  .npfeed-ig-feed-template6 .npfeed-ig-post .npfeed-ig-post-info > *{
+    transform: translateY(10px);
+    transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .npfeed-ig-feed-template5 .npfeed-ig-post:hover,
+  .npfeed-ig-feed-template5 .npfeed-ig-post:focus-within{
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px -10px rgba(16, 24, 40, 0.22);
+  }
+  .npfeed-ig-feed-template5 .npfeed-ig-post:hover .npfeed-ig-post-media img,
+  .npfeed-ig-feed-template6 .npfeed-ig-post:hover .npfeed-ig-post-media img{
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+  .npfeed-ig-feed-template6 .npfeed-ig-post:hover,
+  .npfeed-ig-feed-template6 .npfeed-ig-post:focus-within{
+    .npfeed-ig-post-author{
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    .npfeed-ig-post-info > *{
+      transform: translateY(0);
+    }
+  }
+}
+
+// Post time on Classic Grid's hover overlay and under Caption Card's image.
+.npfeed-ig-post .npfeed-ig-post-info .npfeed-ig-post-date{
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.85);
+}
+// Classic Grid centres the Buy button over the overlay, so the date moves to the bottom.
+.npfeed-ig-post .npfeed-ig-post-info .npfeed-shoppable-button ~ .npfeed-ig-post-date{
+  position: absolute;
+  bottom: 16px;
+  margin-top: 0;
+}
+.npfeed-ig-feed-template2 .npfeed-ig-post .npfeed-ig-post-info .npfeed-ig-post-date{
+  margin-top: 5px;
+  color: #737373;
+}

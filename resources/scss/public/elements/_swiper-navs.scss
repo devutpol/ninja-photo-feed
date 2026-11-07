@@ -1,0 +1,260 @@
+@import "../reviews-templates/layout-mixins";
+
+.npfeed-swiper-carousel-wrapper .npfeed-swiper-prev-next,
+.npfeed-feed-popup-carousel-wrapper .npfeed-swiper-prev-next{
+	background-color: #000;
+	height: 40px;
+	width: 40px;
+	position: absolute;
+	top: 50%;
+	margin-top: -25px;
+	border-radius: 50%;
+	z-index: 2;
+	text-transform: none;
+	transition: all 0.2s ease;
+	cursor: pointer;
+}
+.npfeed-swiper-carousel-wrapper .npfeed-swiper-pagination,
+.npfeed-feed-popup-carousel-wrapper .npfeed-swiper-pagination{
+	bottom: 0 !important;
+	left: 0;
+	right: 0;
+	@media screen and (max-width: 767px) {
+		bottom: initial !important;
+	}
+	span{
+		background-color: #000;
+		opacity: .2;
+		border-radius: 50%;
+		width: 10px;
+		height: 10px;
+		margin: 0 5px;
+		transition: .4s;
+		&:hover,
+		&:focus {
+			opacity: 1;
+		}
+		&:hover {
+			-webkit-transform: scale(1.3);
+			-ms-transform:  scale(1.3);
+			transform: scale(1.3);
+		}
+		&.swiper-pagination-bullet-active{
+			-webkit-transform: scale(1.3);
+			-ms-transform: scale(1.3);
+			transform: scale(1.3);
+			opacity: 1;
+		}
+	}
+}
+
+.npfeed-swiper-carousel-wrapper{
+	.npfeed-swiper-prev-next:after
+	{
+		font-size: 14px;
+	}
+	.npfeed-swiper-next{
+		right: -20px;
+		@media screen and (max-width: 767px) {
+			right: -10px;
+		}
+	}
+	.npfeed-swiper-prev{
+		left: -20px;
+		@media screen and (max-width: 767px) {
+			left: -10px;
+		}
+	}
+	.npfeed-swiper-next,
+	.npfeed-swiper-prev{
+		background-image: none;
+		background-color: #fff;
+		color: #909090;
+		box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.2);
+		&:after {
+			font-size: 16px;
+		}
+		&:hover,
+		&:focus{
+			box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.3);
+			background-color: #fff;
+		}
+	}
+}
+.npfeed-reviews-wrapper{
+	.npfeed-fixed-height .npfeed-row{
+		margin-left: -5px;
+		margin-right: -5px;
+		@media screen and (max-width: 767px) {
+			margin-left: 0;
+			margin-right: 0;
+		}
+	}
+	// Swiper clips at this padding, so the hidden neighbour cards' shadows used to end in a hard vertical
+	// line. The mask fades the padding out instead. Keep the edge under the default 20px slide gap, or
+	// the next card peeks in.
+	.npfeed-reviews-slider{
+		--npfeed-slider-edge: 18px;
+		padding-top: 30px;
+		padding-left: var(--npfeed-slider-edge);
+		padding-right: var(--npfeed-slider-edge);
+		@include npfeed-edge-fade(var(--npfeed-slider-edge));
+		@media screen and (max-width: 767px) {
+			--npfeed-slider-edge: 5px;
+		}
+	}
+}
+
+.npfeed-reviews-slider-wrapper-inner{
+	position: relative;
+	margin-left: -10px;
+	margin-right: -10px;
+	@media screen and (max-width: 767px) {
+		margin-left: 0;
+		margin-right: 0;
+		.npfeed-review-template {
+			margin-bottom: 0;
+		}
+	}
+}
+.npfeed-twitter-carousel{
+	.npfeed-twitter-wrapper-inner{
+		position: relative;
+	}
+}
+.npfeed-youtube-slider-activate .npfeed-yt-feed-wrapper-inner{
+	position: relative;
+	@media screen and (max-width: 767px) {
+		.npfeed-yt-video{
+			margin-bottom: 0;
+		}
+	}
+}
+.npfeed-facebook-feed-slider-activate{
+	.npfeed-fb-feed-item{
+		margin-bottom: 30px;
+	}
+}
+
+.npfeed-tiktok-feed-slider-activate{
+	.npfeed-tiktok-feed-item{
+		margin-bottom: 30px;
+		height: initial;
+	}
+}
+.npfeed-instagram-slider-activate .npfeed-ig-feed-wrapper-inner,
+.npfeed-facebook-feed-slider-activate .npfeed-fb-feed-wrapper-inner
+.npfeed-tiktok-feed-slider-activate .npfeed-tiktok-feed-wrapper-inner{
+	position: relative;
+	@media screen and (max-width: 1024px) {
+		.npfeed-swiper-pagination{
+			bottom: -5px !important;
+		}
+	}
+	@media screen and (max-width: 767px) {
+		.npfeed-swiper-pagination{
+			bottom: initial !important;
+		}
+		.npfeed-ig-post{
+			margin-bottom: 0;
+		}
+		.npfeed-fb-feed-item{
+			margin-bottom: 0;
+		}
+	}
+}
+
+.npfeed-reviews-slider .swiper-wrapper,
+.npfeed-twitter-feed-wrapper .swiper-wrapper,
+.npfeed-yt-feed-wrapper .swiper-wrapper,
+.npfeed-ig-feed-wrapper .swiper-wrapper,
+.npfeed-fb-feed-wrapper .swiper-wrapper
+{
+	margin-bottom: 10px;
+	.swiper-slide{
+		overflow: inherit !important;
+		&:focus {
+			outline: 2px solid black;
+		}
+	}
+}
+.npfeed-twitter-feed-wrapper{
+	.swiper-wrapper{
+		//margin-bottom: 40px;
+		//@media screen and (max-width: 767px) {
+		//		margin-bottom: 10px;
+		//}
+		.npfeed-twitter-tweet{
+			margin-bottom: 0;
+		}
+	}
+	&.npfeed-twitter-carousel{
+		.npfeed-twitter-footer{
+			margin-top: 30px;
+		}
+		.npfeed-swiper-pagination{
+		//	margin-bottom: 40px
+			bottom: inherit !important;
+		}
+	}
+}
+.npfeed-feed-popup-carousel-wrapper{
+	.npfeed-swiper-prev{
+		left: 5px;
+	}
+	.npfeed-swiper-next{
+		right: 5px;
+	}
+	.npfeed-swiper-pagination{
+		span{
+			background-color: #fff;
+			opacity: .4;
+			&.swiper-pagination-bullet-active{
+				opacity: 1;
+			}
+		}
+	}
+}
+
+/** fix elementor swiper css conflict **/
+.elementor-widget-container{
+	.npfeed-feed-wrap{
+		.swiper-button-next,
+		.swiper-button-prev {
+			position: absolute;
+			top: 50%;
+			margin-top: calc(0px - (var(--swiper-navigation-size) / 2));
+			z-index: 10;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.swiper-button-next:after,
+		.swiper-button-prev:after {
+			font-size: 26px;
+			text-transform: none !important;
+			letter-spacing: 0;
+			text-transform: none;
+			font-variant: initial;
+			line-height: 1;
+			font-family: ninja-photo-feed;
+		}
+
+		.swiper-button-prev:after,
+		.swiper-container-rtl .swiper-button-next:after {
+			content: "\63";
+		}
+
+		.swiper-button-next:after,
+		.swiper-container-rtl .swiper-button-prev:after {
+			content: "\62";
+		}
+	}
+}
+/** fix elementor pro swiper css conflict **/
+.npfeed_content .swiper-container:not(.swiper-container-initialized)>.swiper-wrapper,
+.npfeed_content .swiper:not(.swiper-initialized)>.swiper-wrapper {
+	overflow: unset;
+}

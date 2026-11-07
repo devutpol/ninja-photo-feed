@@ -1,0 +1,81 @@
+.npfeed-review-template {
+  &.npfeed-review-template-six{
+    margin-top: 0;
+    margin-left: 30px;
+    .npfeed-recommends {
+      justify-content: flex-start;
+    }
+    .npfeed-reviewer-image{
+      position: absolute;
+      top: 40px;
+      left: -25px;
+      .npfeed-reviewer-image-url{
+        display: block;
+      }
+      img{
+        max-height: 50px;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+      }
+      @media screen and (max-width: 1024px) {
+        left: -20px;
+        img{
+          max-height: 40px;
+        }
+      }
+    }
+  
+    @media screen and (max-width: 1024px) {
+      padding: 25px 15px;
+    }
+  
+    //.npfeed-review-header{
+    //  display: flex;
+    //  justify-content: space-between;
+    //  align-items: center;
+    //  padding-left: 15px;
+    //  padding-top: 15px;
+    //}
+  
+    .npfeed-review-info{
+      margin-right: auto;
+      text-align: inherit;
+      padding-left: 15px;
+      padding-top: 15px;
+      .npfeed-reviewer-name-url{
+        .npfeed-reviewer-name{
+          font-size: 15px;
+        }
+      }
+    }
+  
+    .npfeed-review-platform{
+      left: auto;
+      bottom: 15px;
+      right: 15px;
+      top: auto;
+      @media screen and (max-width: 1024px) {
+        top: 5px;
+        img{
+          max-height: 18px;
+        }
+      }
+    }
+    .npfeed-review-title {
+      margin-bottom: 5px;
+      margin-top: 0;
+    }
+    .npfeed-review-title,
+    .npfeed-review-content{
+      padding-left: 15px;
+    }
+    .npfeed-review-date{
+      padding-top: 5px;
+    }
+    .npfeed-review-images{
+      padding-left: 15px;
+    }
+  }
+}

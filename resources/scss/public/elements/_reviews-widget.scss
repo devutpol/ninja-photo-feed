@@ -1,0 +1,91 @@
+.widget_wpsn-widget{
+  & ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+    overflow: visible;
+  }
+  & ::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+  }
+  & ::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    background-clip: padding-box;
+    border: solid transparent;
+    border-radius: 8px;
+    min-height: 8px;
+  }
+  & ::-webkit-scrollbar-track-piece {
+    background-clip: padding-box;
+    background: #fff;
+    border-left: 1px solid #f1f1f1;
+  }
+  .npfeed-container{
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  :not(.npfeed-reviews-slider-wrapper){
+    &.npfeed-reviews-wrapper{
+      background-color: #fcfcfc;
+    }
+    .npfeed-fixed-height{
+      .npfeed-row{
+        &:nth-child(2){
+          height: auto;
+          padding: 10px;
+          overflow-y: scroll;
+          max-height: 400px;
+          overflow-x: hidden;
+          transition: height 100ms cubic-bezier(0.4, 0, 0.2, 1) 0s;
+        }
+      }
+    }
+  }
+
+  .npfeed-business-info{
+    flex-direction: column;
+    border-radius: 0 !important;
+    .npfeed-business-info-left{
+      flex: 0 0 100%;
+      margin-bottom: 5px;
+      .npfeed-business-info-logo{
+        justify-content: center;
+      }
+      .npfeed-rating-and-count{
+        display: block;
+        text-align: center;
+        .npfeed-total-rating{
+          font-size: 16px;
+        }
+        .npfeed-star svg{
+          height: 16px;
+          width: 16px;
+        }
+        .npfeed-total-reviews{
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  .npfeed-reviews-slider{
+    padding-top: 0;
+  }
+  .npfeed-reviews-slider-wrapper-inner{
+    .npfeed-review-template {
+      margin-bottom: 0;
+    }
+    .npfeed-swiper-pagination{
+      bottom: initial !important;
+    }
+    .npfeed-swiper-prev-next{
+      opacity: 0;
+      transition: 0.3s;
+    }
+    &:hover{
+      .npfeed-swiper-prev-next{
+        opacity: 1;
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+.npfeed-tiktok-feed-header.npfeed-tiktok-feed-header-layout-minimal{
+  .npfeed-tiktok-feed-user-profile-banner{
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+
+  .npfeed-tiktok-feed-user-info-wrapper{
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+
+    .npfeed-tiktok-feed-user-info-head{
+      justify-content: center;
+      gap: 32px;
+
+      .npfeed-tiktok-feed-header-info{
+        flex-grow: 0;
+
+        .npfeed-tiktok-feed-user-profile-pic img{
+          height: 70px;
+          padding: 3px;
+          border: 3px solid #FE2C55;
+          box-sizing: border-box;
+          box-shadow: none;
+          object-fit: cover;
+        }
+
+        .npfeed-tiktok-feed-user-info{
+          .npfeed-tiktok-feed-user-statistics span{
+            margin-right: 0;
+            & + span:before{
+              content: "•";
+              margin: 0 8px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+.npfeed-tiktok-feed-header-layout-minimal .npfeed-tiktok-feed-follow-button-group .npfeed-tiktok-feed-btn a{
+  border-radius: 8px;
+  box-shadow: none;
+  &:hover,
+  &:focus{
+    box-shadow: none;
+  }
+}

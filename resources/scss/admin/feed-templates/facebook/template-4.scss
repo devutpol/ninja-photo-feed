@@ -1,0 +1,650 @@
+$npfeed-fb-overlay-inset: 16px;
+$npfeed-fb-overlay-avatar: 38px;
+
+@mixin npfeed-fb-overlay-scrollbar($thumb) {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: $thumb transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $thumb;
+    border-radius: 2px;
+  }
+}
+
+// The glyph is a blue square with the "f" cut out, so over a photo the photo shows through
+// the letter. A white plate cut to the square sits behind it to fill the letter.
+@mixin npfeed-fb-overlay-brand-icon {
+  color: #0866ff;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.55));
+  // The plate is a neutral object next to the glyph, so RTL would otherwise reorder the two.
+  direction: ltr;
+  unicode-bidi: isolate;
+
+  // The square measures 438/512em, inset 37/512em, corner 82/512em. It sits on the baseline
+  // by way of the bottom margin, which is where an empty inline-block takes its baseline.
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 0.8555em;
+    height: 0.8555em;
+    margin-left: 0.0723em;
+    margin-bottom: 0.0723em;
+    border-radius: 0.1602em;
+    background: #fff;
+  }
+
+  // The glyph, back over the plate. icons.scss only fonts :before, so name the font here.
+  &::after {
+    content: "\72";
+    font-family: "ninja-photo-feed";
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-left: -0.9278em;
+  }
+}
+
+// The author bar in a small cell. Both breakpoints shrink the same five things and differ
+// only in the numbers, so each caller passes those and adds what is particular to its width.
+@mixin npfeed-fb-overlay-compact-bar($inset, $bar-gap, $user-gap, $avatar, $name, $time) {
+  .npfeed-fb-overlay-bottom {
+    left: $inset;
+    right: $inset;
+    bottom: $inset;
+    gap: $bar-gap;
+  }
+
+  .npfeed-fb-overlay-user {
+    gap: $user-gap;
+  }
+
+  .npfeed-fb-overlay-avatar {
+    width: $avatar;
+    height: $avatar;
+    min-width: $avatar;
+  }
+
+  .npfeed-fb-overlay-username {
+    font-size: $name;
+  }
+
+  .npfeed-fb-feed-time {
+    font-size: $time;
+  }
+}
+
+// A card that is not the 2x2 one gets a fraction of the width, so its text scales down.
+// Shared because the big card is 10n+1/10n+8 on desktop but 5n+1 in the tablet grid.
+@mixin npfeed-fb-overlay-small-card {
+  .npfeed-fb-overlay-text-body .npfeed-fb-feed-content {
+    font-size: 13px;
+  }
+  .npfeed-fb-overlay-username {
+    font-size: 14px;
+  }
+  .npfeed-fb-overlay-text {
+    padding: 16px;
+  }
+}
+
+.npfeed-fb-feed-template4 {
+  .npfeed-fb-overlay-card {
+    border-radius: 14px;
+
+    // template-1.scss styles .npfeed-fb-feed-item .npfeed-fb-feed-inner unscoped, so undo it here.
+    .npfeed-fb-feed-inner {
+      position: relative;
+      aspect-ratio: 1;
+      padding: 0;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 4px 12px rgba(16, 24, 40, 0.05);
+      background: #fff;
+      display: block;
+    }
+  }
+
+  .npfeed-fb-overlay-card {
+    .npfeed-fb-feed-inner > .npfeed-fb-feed-playmode {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .npfeed-fb-feed-inner .npfeed-fb-feed-image:not(.npfeed-fb-feed-url-summary-card-wrapper) {
+      height: 100%;
+      a,
+      a > div:not(.npfeed-fb-feed-video-play),
+      > div:not(.npfeed-fb-feed-video-play) {
+        height: 100%;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        max-height: none;
+        object-fit: cover;
+        border-radius: 0;
+      }
+
+      .npfeed-fb-feed-image-album {
+        display: none;
+      }
+    }
+
+    .npfeed-fb-feed-inner > .npfeed-fb-feed-playmode > div {
+      height: 100%;
+    }
+
+    .npfeed-fb-feed-inner .npfeed-fb-feed-video-preview {
+      height: 100%;
+      padding-top: 0;
+    }
+
+    .npfeed-fb-post-img {
+      transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+
+    // :focus-within keeps it reachable by keyboard, the way the hover panel already is.
+    &:hover,
+    &:focus-within {
+      .npfeed-fb-post-img {
+        transform: scale(1.04);
+      }
+
+      // Centred on negative margins, not a translate, so scale alone leaves it in place.
+      .npfeed-fb-feed-video-play {
+        transform: scale(1.06);
+      }
+    }
+  }
+
+  .npfeed-fb-overlay-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+      to top,
+      rgba(8, 10, 14, 0.9) 0%,
+      rgba(8, 10, 14, 0.82) 10%,
+      rgba(8, 10, 14, 0.6) 20%,
+      rgba(8, 10, 14, 0.32) 29%,
+      rgba(8, 10, 14, 0.1) 36%,
+      rgba(8, 10, 14, 0) 42%
+    );
+  }
+
+  .npfeed-fb-overlay-card:hover,
+  .npfeed-fb-overlay-card:focus-within {
+    .npfeed-fb-overlay-hover {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .npfeed-fb-overlay-hover {
+      transform: none;
+      transition-duration: 0.01ms;
+    }
+
+    .npfeed-fb-overlay-card {
+      .npfeed-fb-post-img,
+      .npfeed-fb-feed-video-play {
+        transition: none;
+      }
+
+      &:hover,
+      &:focus-within {
+        .npfeed-fb-post-img,
+        .npfeed-fb-feed-video-play {
+          transform: none;
+        }
+      }
+    }
+  }
+
+  .npfeed-fb-overlay-card:hover:not(:focus-within) .npfeed-fb-overlay-bottom {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .npfeed-fb-overlay-bottom:focus-within {
+    z-index: 5;
+  }
+
+  .npfeed-fb-overlay-card [tabindex]:focus-visible {
+    outline: 2px solid #1877f2;
+    outline-offset: -2px;
+    border-radius: 14px;
+  }
+
+  // Holds only the wash: the .npfeed-fb-overlay-text inside lays the card out.
+  .npfeed-fb-overlay-hover {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    // Same ink as the scrim it deepens, so the two read as one surface.
+    background-color: rgba(8, 10, 14, 0.82);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    // The card is a link; the overlay must not eat the click.
+    pointer-events: none;
+
+    // Without the blur a sharp photo reads straight through, so the wash is near-opaque.
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      background-color: rgba(8, 10, 14, 0.93);
+    }
+
+    // With no pointer events a scrollbar here could not be used, so a long message clips.
+    .npfeed-fb-overlay-text-body {
+      overflow: hidden;
+    }
+  }
+
+  // Author bar over the media
+
+  .npfeed-fb-overlay-bottom {
+    position: absolute;
+    left: $npfeed-fb-overlay-inset;
+    right: $npfeed-fb-overlay-inset;
+    bottom: $npfeed-fb-overlay-inset;
+    z-index: 3;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .npfeed-fb-overlay-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .npfeed-fb-overlay-avatar-wrapper {
+    line-height: 0;
+    flex: none;
+
+    a {
+      display: block;
+      line-height: 0;
+    }
+  }
+
+  .npfeed-fb-overlay-avatar {
+    width: $npfeed-fb-overlay-avatar;
+    height: $npfeed-fb-overlay-avatar;
+    min-width: $npfeed-fb-overlay-avatar;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #1877f2;
+    box-sizing: border-box;
+  }
+
+  .npfeed-fb-overlay-user-details {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .npfeed-fb-overlay-username {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #161616;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    span {
+      color: inherit;
+    }
+  }
+
+  // Nested, not top level: template1 emits .npfeed-fb-feed-time too, and it is the fallback
+  // that renders under this wrapper class when Pro cannot draw template4.
+  .npfeed-fb-overlay-user-details .npfeed-fb-feed-time,
+  .npfeed-fb-overlay-text-author .npfeed-fb-feed-time {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #646060;
+    // "3 weeks ago" breaks onto one word per line once the cell gets narrow.
+    white-space: nowrap;
+  }
+
+  .npfeed-fb-overlay-platform-icon {
+    line-height: 0;
+    flex: none;
+
+    // Same glyph and size as template 3's .npfeed-fb-card-platform-icon, on Meta's current blue.
+    .icon-facebook-square {
+      font-size: 24px;
+      color: #0866ff;
+    }
+  }
+
+  // The bar on the scrim and the hover panel are the same dark surface, so they carry the
+  // same furniture. Their ink is grouped the same way, below the light defaults it overrides.
+  .npfeed-fb-overlay-bottom,
+  .npfeed-fb-overlay-hover {
+    // The brand-blue ring reads as a dark blob against the scrim; white rings it instead.
+    .npfeed-fb-overlay-avatar {
+      border-color: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    .npfeed-fb-overlay-platform-icon .icon-facebook-square {
+      @include npfeed-fb-overlay-brand-icon;
+    }
+  }
+
+  // Video posts keep their title, so it sits just above the author bar.
+  // Scoped like the media rules above: template1 emits this class too.
+  .npfeed-fb-overlay-card .npfeed-fb-feed-video-info {
+    position: absolute;
+    left: $npfeed-fb-overlay-inset;
+    right: $npfeed-fb-overlay-inset;
+    bottom: $npfeed-fb-overlay-inset + $npfeed-fb-overlay-avatar + 8px;
+    z-index: 3;
+    max-height: 40px;
+    overflow: hidden;
+
+    h3 {
+      margin: 0;
+
+      a {
+        font-size: 13px;
+        line-height: 1.3;
+        // On the scrim, same as the author bar under it.
+        color: #fff;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+        text-decoration: none;
+      }
+    }
+  }
+
+  // Text card - what a post with no media gets
+
+  .npfeed-fb-overlay-text {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    // No background of its own, so the Item Box background control still shows through.
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+
+  .npfeed-fb-overlay-text-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 14px;
+    width: 100%;
+    max-height: 100%;
+    min-height: 0;
+
+    // Everything but the message keeps its size, so the message is what gives way.
+    > *:not(.npfeed-fb-overlay-text-body) {
+      flex: none;
+    }
+  }
+
+  .npfeed-fb-overlay-text-body {
+    @include npfeed-fb-overlay-scrollbar(rgba(22, 22, 22, 0.35));
+    // A long message scrolls in the space left over instead of pushing the author out.
+    flex: 0 1 auto;
+    min-height: 0;
+    width: 100%;
+
+    .npfeed-fb-feed-content {
+      font-size: 18px;
+      line-height: 1.4;
+      color: #111113;
+      opacity: 1;
+      margin: 0;
+      word-break: break-word;
+    }
+
+    .npfeed-fb-feed-url-summary-card-wrapper {
+      margin-top: 12px;
+      text-align: left;
+    }
+  }
+
+  .npfeed-fb-overlay-text-author {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+
+    .npfeed-fb-overlay-username {
+      font-size: 14px;
+    }
+  }
+
+  :where(.npfeed-fb-overlay-bottom, .npfeed-fb-overlay-hover) .npfeed-fb-overlay-username {
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  }
+
+  :where(.npfeed-fb-overlay-bottom) .npfeed-fb-overlay-user-details .npfeed-fb-feed-time,
+  :where(.npfeed-fb-overlay-hover) .npfeed-fb-overlay-text-author .npfeed-fb-feed-time {
+    color: #e3e6ea;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  }
+
+  :where(.npfeed-fb-overlay-hover) .npfeed-fb-overlay-text-body .npfeed-fb-feed-content {
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  }
+
+  // The mosaic belongs to this template, so it is not offered as a layout elsewhere.
+  .npfeed-fb-highlights-grid {
+    display: grid;
+    // The public npfeed-column-gap-* rules hang negative side margins off the element itself,
+    // which only npfeed-row wants. Without this the mosaic overhangs its container.
+    margin-left: 0;
+    margin-right: 0;
+    grid-template-columns: repeat(4, 1fr);
+    // dense is required: it is what lets card 7 drop under 6 and 9/10 backfill the last column.
+    grid-auto-flow: row dense;
+    // The Default option: no npfeed-column-gap-* class overrides it.
+    gap: 15px;
+    margin-bottom: 20px;
+
+    // 10-post cycle over 4 rows: 1 is the big card on the left, 8 the big card in the middle.
+    // Four columns need the room: below this a cell is narrower than a two-column phone cell.
+    @media screen and (min-width: 1200px) {
+      .npfeed-fb-highlight-item:nth-child(10n + 1) {
+        grid-column: 1 / span 2;
+        grid-row: span 2;
+      }
+
+      .npfeed-fb-highlight-item:nth-child(10n + 7) {
+        grid-column: 1;
+      }
+
+      // Card 7 is only held back for the big card 8 beside it. Only when 7 is the very last
+      // item is there no card 8; releasing it any earlier strands card 8 on its own row.
+      .npfeed-fb-highlight-item:nth-child(10n + 7):nth-last-child(1) {
+        grid-column: auto;
+      }
+
+      .npfeed-fb-highlight-item:nth-child(10n + 8) {
+        grid-column: 2 / span 2;
+        grid-row: span 2;
+      }
+    }
+
+    // Tablets: a quarter of the width leaves the author bar less room than a phone cell gets,
+    // so the mosaic drops to three columns. No fixed column, so dense backfills every hole.
+    @media screen and (min-width: 768px) and (max-width: 1199px) {
+      grid-template-columns: repeat(3, 1fr);
+
+      .npfeed-fb-highlight-item:nth-child(5n + 1) {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      grid-template-columns: repeat(2, 1fr);
+
+      .npfeed-fb-highlight-item:nth-child(5n + 1) {
+        grid-column: span 2;
+      }
+    }
+
+    // With no gap the cards butt together, so any rounding leaves notches between them.
+    &.npfeed-column-gap-no_gap {
+      gap: 0;
+
+      .npfeed-fb-feed-item,
+      .npfeed-fb-feed-inner {
+        border-radius: 0;
+      }
+    }
+    &.npfeed-column-gap-narrow {
+      gap: 5px;
+    }
+    &.npfeed-column-gap-small {
+      gap: 10px;
+    }
+    &.npfeed-column-gap-wide {
+      gap: 20px;
+    }
+    &.npfeed-column-gap-wider {
+      gap: 25px;
+    }
+  }
+
+  // The square ratio moves up to the grid cell. Rows are auto-sized, so without a ratio here
+  // the height: 100% chain below resolves against nothing and every row collapses.
+  // A 2x2 cell is two columns plus the gap wide, which is exactly two rows plus the gap tall.
+  .npfeed-fb-highlight-item {
+    min-width: 0;
+    aspect-ratio: 1;
+    display: flex;
+
+    .npfeed-fb-feed-item {
+      width: 100%;
+      margin-bottom: 0;
+    }
+
+    .npfeed-fb-overlay-card,
+    .npfeed-fb-feed-inner {
+      height: 100%;
+      aspect-ratio: auto;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .npfeed-fb-highlights-grid .npfeed-fb-highlight-item:not(:nth-child(10n + 1)):not(:nth-child(10n + 8)) {
+      @include npfeed-fb-overlay-small-card;
+    }
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1199px) {
+    .npfeed-fb-highlights-grid .npfeed-fb-highlight-item:not(:nth-child(5n + 1)) {
+      @include npfeed-fb-overlay-small-card;
+
+      // A third of a tablet is ~175px at the narrow end. The author bar keeps all three
+      // parts, but only at sizes that still leave the name room to read.
+      @include npfeed-fb-overlay-compact-bar(
+        $inset: 12px,
+        $bar-gap: 6px,
+        $user-gap: 6px,
+        $avatar: 28px,
+        $name: 13px,
+        $time: 11px
+      );
+
+      .npfeed-fb-overlay-platform-icon .icon-facebook-square {
+        font-size: 18px;
+      }
+    }
+  }
+
+}
+
+@media screen and (max-width: 767px) {
+  .npfeed-fb-feed-template4 {
+    .npfeed-fb-overlay-avatar {
+      width: 30px;
+      height: 30px;
+      min-width: 30px;
+    }
+    .npfeed-fb-overlay-username {
+      font-size: 14px;
+    }
+    .npfeed-fb-overlay-text-body .npfeed-fb-feed-content {
+      font-size: 14px;
+    }
+
+    // A small cell is half a phone wide, so the author bar has to give up its furniture
+    // or the name truncates to one letter and the date stacks a word per line.
+    .npfeed-fb-highlight-item:not(:nth-child(5n + 1)) {
+      @include npfeed-fb-overlay-compact-bar(
+        $inset: 8px,
+        $bar-gap: 4px,
+        $user-gap: 5px,
+        $avatar: 22px,
+        $name: 11px,
+        $time: 9px
+      );
+
+      // The ring is 2px at full size, which is a tenth of the avatar once it is this small.
+      .npfeed-fb-overlay-avatar {
+        border-width: 1.5px;
+      }
+
+      // A cell is ~115px here, and the icon plus its gap costs the name a fifth of that.
+      // The text card below already drops the same icon at this size for the same reason.
+      .npfeed-fb-overlay-bottom .npfeed-fb-overlay-platform-icon {
+        display: none;
+      }
+
+      .npfeed-fb-overlay-text {
+        padding: 12px;
+      }
+
+      .npfeed-fb-overlay-text-inner {
+        gap: 8px;
+      }
+
+      // A cell is ~115px here. The icon and avatar would leave the message no height at all,
+      // and the message is the whole point of the card.
+      .npfeed-fb-overlay-text-inner > .npfeed-fb-overlay-platform-icon,
+      .npfeed-fb-overlay-text-author .npfeed-fb-overlay-avatar-wrapper {
+        display: none;
+      }
+
+      .npfeed-fb-overlay-text-body .npfeed-fb-feed-content {
+        font-size: 11px;
+      }
+    }
+  }
+}

@@ -1,0 +1,124 @@
+// Marquee (templateType "marquee"): two rows of cards moving in opposite directions. Rows only
+// exist with Pro (ShortcodeHandler), so without it the template is a plain grid. Shared with the admin
+// preview, which renders each row's skin inside the track (hence display: contents below).
+@import "layout-mixins";
+
+.npfeed-marquee-row {
+  flex: 0 0 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 10px 0 20px;
+  @include npfeed-edge-fade(6%);
+
+  &.npfeed-marquee-ready {
+    overflow: hidden;
+  }
+}
+
+.npfeed-marquee-track {
+  display: flex;
+  align-items: stretch;
+  width: max-content;
+
+  > .npfeed-all-reviews {
+    display: contents;
+  }
+
+  // Margin, not gap: with a gap the -50% loop point would land half a gap off.
+  > [class*="npfeed-col-"],
+  > .npfeed-all-reviews > [class*="npfeed-col-"] {
+    @include npfeed-stretch-card;
+    flex: 0 0 min(var(--npfeed-marquee-card-width, 360px), 85vw);
+    width: min(var(--npfeed-marquee-card-width, 360px), 85vw);
+    max-width: none;
+    margin: 0 20px 0 0;
+    padding: 0;
+  }
+
+  .npfeed-review-template {
+    height: auto !important;
+    margin-bottom: 0;
+  }
+
+  @include npfeed-stretched-skins;
+
+  .npfeed-marquee-ready & {
+    animation: npfeed-marquee var(--npfeed-marquee-duration, 60s) linear infinite;
+  }
+
+  .npfeed-marquee-ready[data-direction="right"] & {
+    animation-direction: reverse;
+  }
+
+  .npfeed-marquee-row:hover &,
+  .npfeed-marquee-row:focus-within &,
+  .npfeed-marquee-paused & {
+    animation-play-state: paused;
+  }
+}
+
+.rtl .npfeed-marquee-ready .npfeed-marquee-track {
+  animation-name: npfeed-marquee-rtl;
+}
+
+@keyframes npfeed-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes npfeed-marquee-rtl {
+  to {
+    transform: translateX(50%);
+  }
+}
+
+// A copied card's video: the poster when the player has one, otherwise a plain dark frame.
+.npfeed-marquee-video-still {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 4px;
+  background: #111 center / cover no-repeat;
+}
+
+.npfeed-marquee-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin: 4px 0 0;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+
+  i {
+    font-family: "ninja-photo-feed";
+    font-style: normal;
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .npfeed-marquee-row.npfeed-marquee-ready {
+    overflow-x: auto;
+  }
+
+  .npfeed-marquee-ready .npfeed-marquee-track {
+    animation: none;
+  }
+
+  .npfeed-marquee-toggle {
+    display: none;
+  }
+}
