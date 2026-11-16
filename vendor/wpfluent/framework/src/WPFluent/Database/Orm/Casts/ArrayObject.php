@@ -4,7 +4,7 @@ namespace NinjaPhotoFeed\Framework\Database\Orm\Casts;
 
 use JsonSerializable;
 USE NinjaPhotoFeed\Framework\Support\Helper;
-use NinjaPhotoFeed\Framework\Support\ArrayableInterface;
+use NinjaPhotoFeed\Framework\Support\Contracts\ArrayableInterface;
 use ArrayObject as BaseArrayObject;
 
 class ArrayObject extends BaseArrayObject implements ArrayableInterface, JsonSerializable

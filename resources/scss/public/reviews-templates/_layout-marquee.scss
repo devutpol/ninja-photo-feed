@@ -58,9 +58,12 @@
   }
 }
 
+// Already written for RTL, so the generated -rtl.css must not flip it back.
+/*!rtl:begin:ignore*/
 .rtl .npfeed-marquee-ready .npfeed-marquee-track {
   animation-name: npfeed-marquee-rtl;
 }
+/*!rtl:end:ignore*/
 
 @keyframes npfeed-marquee {
   to {
@@ -68,11 +71,13 @@
   }
 }
 
+/*!rtl:begin:ignore*/
 @keyframes npfeed-marquee-rtl {
   to {
     transform: translateX(50%);
   }
 }
+/*!rtl:end:ignore*/
 
 // A copied card's video: the poster when the player has one, otherwise a plain dark frame.
 .npfeed-marquee-video-still {

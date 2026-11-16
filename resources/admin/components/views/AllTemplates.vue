@@ -64,7 +64,7 @@
              </div>
               <div class="npfeed-controls-filter">
                 <el-select class="npfeed-select-field-primary" v-model="filter_value" :placeholder="$t('All Platforms')" size="default" clearable
-                           v-if="Object.entries(validPlatforms).length" @change="getItems" style="width: 220px;">
+                           v-if="Object.entries(validPlatforms).length" @change="applyListFilters" style="width: 220px;">
                   <el-option
                       v-for="item in validPlatforms"
                       :key="item.value"
@@ -81,11 +81,11 @@
                 :placeholder="$t('Search...')"
                 size="default"
                 style="width: 200px;"
-                @keyup.enter="getItems()"
+                @keyup.enter="applyListFilters()"
                 @clear="handleClear"
                 clearable>
                 <template #prefix>
-                  <el-icon class="el-input__icon" @click="getItems()"><Search /></el-icon>
+                  <el-icon class="el-input__icon" @click="applyListFilters()"><Search /></el-icon>
                 </template>
               </el-input>
             </div>
@@ -104,7 +104,7 @@
 
                 <el-table-column :label="$t('ID')" width="70" prop="ID" sortable>
                   <template #default="scope">
-                    <span class="npfeed-item-id npfeed-item-editable" @click.prevent="handleRowAction('edit', scope.row)">#{{ scope.row.ID }}</span>
+                    <router-link class="npfeed-item-id npfeed-item-editable" :to="getEditLink(scope.row)">#{{ scope.row.ID }}</router-link>
                   </template>
                 </el-table-column>
 
@@ -114,11 +114,11 @@
                     show-overflow-tooltip
                 >
                   <template #default="scope" >
-                    <div class="npfeed-item-title-cell npfeed-item-editable" @click.prevent="handleRowAction('edit', scope.row)">
+                    <router-link class="npfeed-item-title-cell npfeed-item-editable" :to="getEditLink(scope.row)">
                       <strong class="npfeed-item-title npfeed-d-flex npfeed-flex-align-center">
-                        {{ $trimWords(scope.row.post_title, 3, true) }} <el-icon class="npfeed-ml-5 npfeed-display-on-hover"><Edit /></el-icon>
+                        <span dir="auto">{{ $trimWords(scope.row.post_title, 3, true) }}</span> <el-icon class="npfeed-ml-5 npfeed-display-on-hover"><Edit /></el-icon>
                       </strong>
-                    </div>
+                    </router-link>
                   </template>
                 </el-table-column>
 
@@ -162,7 +162,7 @@
                       <template #dropdown>
                         <el-dropdown-menu>
                           <el-dropdown-item command="edit" v-if="scope.row.platform_name">
-                            <el-icon><Edit /></el-icon> Edit
+                            <router-link class="npfeed-dropdown-link" :to="getEditLink(scope.row)" @click.stop><el-icon><Edit /></el-icon> Edit</router-link>
                           </el-dropdown-item>
                           <el-dropdown-item command="duplicate">
                             <el-icon><DocumentCopy /></el-icon> Duplicate

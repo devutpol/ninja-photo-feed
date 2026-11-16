@@ -11,6 +11,11 @@ use NinjaPhotoFeed\Framework\Database\Orm\SupportsPartialRelations;
 use NinjaPhotoFeed\Framework\Database\Orm\Relations\Concerns\ComparesRelatedModels;
 use NinjaPhotoFeed\Framework\Database\Orm\Relations\Concerns\SupportsDefaultModels;
 
+/**
+ * @template TRelatedModel of \NinjaPhotoFeed\Framework\Database\Orm\Model
+ *
+ * @extends HasOneOrMany<TRelatedModel>
+ */
 class HasOne extends HasOneOrMany implements SupportsPartialRelations
 {
     use ComparesRelatedModels, CanBeOneOfMany, SupportsDefaultModels;

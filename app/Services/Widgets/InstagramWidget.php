@@ -184,6 +184,7 @@ class InstagramWidget extends Widget_Base {
                 'size_units' => ['px', 'em', '%'],
                 'selectors' => [
                     '{{WRAPPER}} .npfeed-ig-header-info .npfeed-ig-header-statistics .npfeed-ig-header-statistic-item' => 'margin-right: {{SIZE}}{{UNIT}};',
+                    'body.rtl {{WRAPPER}} .npfeed-ig-header-info .npfeed-ig-header-statistics .npfeed-ig-header-statistic-item' => 'margin-right: 0; margin-left: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -510,6 +511,7 @@ class InstagramWidget extends Widget_Base {
                 'size_units' => ['px', 'em', '%'],
                 'selectors' => [
                     '{{WRAPPER}} .npfeed-ig-post-info .npfeed-ig-post-statistics .npfeed-ig-post-single-statistic' => 'margin-right: {{SIZE}}{{UNIT}};',
+                    'body.rtl {{WRAPPER}} .npfeed-ig-post-info .npfeed-ig-post-statistics .npfeed-ig-post-single-statistic' => 'margin-right: 0; margin-left: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -715,14 +717,14 @@ class InstagramWidget extends Widget_Base {
     protected function render() {
 
         $settings = $this->get_settings_for_display();
-        extract($settings);
-        if(!empty($instagram_template_list)){
+        $npfeed_template_id = absint(Arr::get($settings, 'instagram_template_list'));
+        if(!empty($npfeed_template_id)){
             // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Checking for editor context, not processing sensitive form data
             $postId = absint(Arr::get($_REQUEST, 'editor_post_id'));
             if ($postId) {
                 Helper::saveTemplateMeta($postId, 'ig');
             }
-            echo do_shortcode('[ninja_photo_feed id="' . $instagram_template_list . '" platform="instagram"]');
+            echo do_shortcode('[ninja_photo_feed id="' . $npfeed_template_id . '" platform="instagram"]');
         }
     }
 }

@@ -2,6 +2,7 @@
 defined('ABSPATH') or die;
 
 use NinjaPhotoFeed\Framework\Support\Arr;
+use NinjaPhotoFeed\App\Services\Helper as GlobalHelper;
 use NinjaPhotoFeed\App\Services\Platforms\Feeds\Instagram\Helper as InstagramHelper;
 
 //carousel
@@ -28,13 +29,14 @@ $npfeed_classes[] = $layout_type === 'masonry' ? 'npfeed-instagram-masonry-activ
 $npfeed_classes[] = $layout_type === 'list' ? 'npfeed-instagram-list-activate' : '';
 $npfeed_classes[] = InstagramHelper::getColorSchemeClass($feed_settings);
 $npfeed_desktop_column_number   = Arr::get($feed_settings, 'responsive_column_number.desktop');
+$npfeed_slider_pre_init_style   = $layout_type === 'carousel' && has_action('npfeed_loading_layout_carousel') ? GlobalHelper::getSliderPreInitStyle($npfeed_slider_data) : '';
 
 $npfeed_header_settings = $feed_settings['header_settings'];
 
 $npfeed_ig_header_layout_class = InstagramHelper::getHeaderLayoutClass($feed_settings);
 
 echo '<div id="npfeed-ig-feed-' . esc_attr($templateId) . '" class="' . esc_attr(implode(' ', $npfeed_classes)) . '" ' . esc_attr(implode(' ',
-        $npfeed_data_attrs)) . '  data-column="' . esc_attr($npfeed_desktop_column_number) . '">';
+        $npfeed_data_attrs)) . '  data-column="' . esc_attr($npfeed_desktop_column_number) . '"' . ($npfeed_slider_pre_init_style ? ' style="' . esc_attr($npfeed_slider_pre_init_style) . '"' : '') . '>';
 echo '<div class="npfeed-container npfeed-insta-feed-' . esc_attr($templateId) . '">';
 ?>
 
@@ -45,7 +47,7 @@ echo '<div class="npfeed-container npfeed-insta-feed-' . esc_attr($templateId) .
 
             <div class="npfeed-ig-header-info">
                 <?php if ($npfeed_header_settings['display_username'] === 'true' && Arr::get($header, 'username')) { ?>
-                    <div class="npfeed-ig-header-name">
+                    <div class="npfeed-ig-header-name" dir="auto">
                         <a target="_blank"
                            rel="noopener noreferrer"
                            href="<?php echo esc_url('https://www.instagram.com/' . $header['username']); ?>"
@@ -63,12 +65,12 @@ echo '<div class="npfeed-container npfeed-insta-feed-' . esc_attr($templateId) .
                 do_action('ninjaphotofeed/instagram_header_statistics', $header, $npfeed_header_settings, $translations);
                 ?>
                 <?php if (Arr::get($header, 'name') && $npfeed_header_settings['display_name'] === 'true') { ?>
-                    <h3 class="npfeed-ig-header-fullname">
+                    <h3 class="npfeed-ig-header-fullname" dir="auto">
                         <?php echo esc_html($header['name']); ?>
                     </h3>
                 <?php } ?>
                 <?php if ($npfeed_header_settings['display_description'] === 'true') { ?>
-                    <div class="npfeed-ig-header-description">
+                    <div class="npfeed-ig-header-description" dir="auto">
                         <?php if (!empty($npfeed_header_settings['custom_profile_bio_text'])) { ?>
                             <p> <?php echo wp_kses_post(nl2br($npfeed_header_settings['custom_profile_bio_text'])); ?></p>
                         <?php } ?>

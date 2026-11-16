@@ -431,6 +431,12 @@
       overflow: hidden;
     }
   }
+  // The excerpt is dir="auto" but the quote icon follows the card, so on RTL pages the gap stays on the right.
+  .rtl & .npfeed-notification-quote .npfeed-notification-excerpt{
+    padding-inline-start: 0;
+    /*!rtl:ignore*/
+    padding-right: 20px;
+  }
   .npfeed-notification-body{
     display: flex;
     align-items: center;

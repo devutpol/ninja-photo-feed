@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-08T18:40:32+00:00\n"
+"POT-Creation-Date: 2026-11-16T08:39:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: ninja-photo-feed\n"
@@ -102,20 +102,20 @@ msgstr ""
 msgid "Support"
 msgstr ""
 
-#: app/Hooks/Handlers/AdminMenuHandler.php:58
+#: app/Hooks/Handlers/AdminMenuHandler.php:57
 msgid "Instagram Feed"
 msgstr ""
 
-#: app/Hooks/Handlers/AdminMenuHandler.php:66
+#: app/Hooks/Handlers/AdminMenuHandler.php:65
 msgid "Templates"
 msgstr ""
 
-#: app/Hooks/Handlers/AdminMenuHandler.php:73
-#: app/Services/TranslationStrings.php:1077
+#: app/Hooks/Handlers/AdminMenuHandler.php:72
+#: app/Services/TranslationStrings.php:1080
 msgid "Settings"
 msgstr ""
 
-#: app/Hooks/Handlers/AdminMenuHandler.php:232
+#: app/Hooks/Handlers/AdminMenuHandler.php:231
 #: app/Http/Controllers/TemplatesController.php:42
 #: app/Services/Platforms/Feeds/Instagram/InstagramFeed.php:165
 #: app/Views/public/feeds-templates/instagram/elements/icon.php:3
@@ -171,7 +171,7 @@ msgid "Read less"
 msgstr ""
 
 #: app/Hooks/Handlers/ShortcodeHandler.php:426
-#: app/Services/TranslationStrings.php:1384
+#: app/Services/TranslationStrings.php:1388
 msgid "likes"
 msgstr ""
 
@@ -244,12 +244,12 @@ msgstr ""
 msgid "You are not allowed to update this item"
 msgstr ""
 
-#: app/Http/Controllers/Platforms/PlatformController.php:107
-#: app/Services/TranslationStrings.php:1115
+#: app/Http/Controllers/Platforms/PlatformController.php:113
+#: app/Services/TranslationStrings.php:1118
 msgid "Social Wall"
 msgstr ""
 
-#: app/Http/Controllers/Platforms/PlatformController.php:170
+#: app/Http/Controllers/Platforms/PlatformController.php:176
 msgid "Statuses updated successfully!"
 msgstr ""
 
@@ -337,7 +337,7 @@ msgstr ""
 #: app/Services/Helper.php:435
 #: app/Services/Helper.php:463
 #: app/Services/Helper.php:511
-#: app/Services/TranslationStrings.php:559
+#: app/Services/TranslationStrings.php:560
 msgid "Everywhere"
 msgstr ""
 
@@ -346,13 +346,13 @@ msgstr ""
 msgid "Untitled"
 msgstr ""
 
-#: app/Services/Helper.php:736
+#: app/Services/Helper.php:766
 #: app/Services/Platforms/PlatformErrorManager.php:426
 msgid "More Information"
 msgstr ""
 
 #. translators: %1$s is a link to the documentation for fixing the decryption issue.
-#: app/Services/Helper.php:740
+#: app/Services/Helper.php:770
 #, php-format
 msgid "Your access token could not be decrypted on this website. Need help? Visit our website for easy steps to prevent this issue in the future. %1$s."
 msgstr ""
@@ -489,7 +489,7 @@ msgstr ""
 
 #: app/Services/Platforms/Feeds/Instagram/Config.php:52
 #: app/Services/Platforms/Feeds/Instagram/Config.php:312
-#: app/Services/TranslationStrings.php:1258
+#: app/Services/TranslationStrings.php:1262
 msgid "User Name"
 msgstr ""
 
@@ -518,7 +518,7 @@ msgstr ""
 #: app/Services/Platforms/Feeds/Instagram/Config.php:72
 #: app/Services/Platforms/Feeds/Instagram/Config.php:258
 #: app/Services/Widgets/InstagramWidget.php:146
-#: app/Services/Widgets/InstagramWidget.php:442
+#: app/Services/Widgets/InstagramWidget.php:443
 msgid "Statistics"
 msgstr ""
 
@@ -529,7 +529,7 @@ msgstr ""
 #: app/Services/Platforms/Feeds/Instagram/Config.php:95
 #: app/Services/Platforms/Feeds/Instagram/Config.php:299
 #: app/Services/Widgets/InstagramWidget.php:175
-#: app/Services/Widgets/InstagramWidget.php:501
+#: app/Services/Widgets/InstagramWidget.php:502
 msgid "Spacing Between Item"
 msgstr ""
 
@@ -538,20 +538,20 @@ msgid "Full Name"
 msgstr ""
 
 #: app/Services/Platforms/Feeds/Instagram/Config.php:125
-#: app/Services/TranslationStrings.php:406
-#: app/Services/Widgets/InstagramWidget.php:224
+#: app/Services/TranslationStrings.php:407
+#: app/Services/Widgets/InstagramWidget.php:225
 msgid "Description"
 msgstr ""
 
 #: app/Services/Platforms/Feeds/Instagram/Config.php:142
 #: app/Services/TranslationStrings.php:610
-#: app/Services/Widgets/InstagramWidget.php:254
+#: app/Services/Widgets/InstagramWidget.php:255
 msgid "Follow Button"
 msgstr ""
 
 #: app/Services/Platforms/Feeds/Instagram/Config.php:158
 #: app/Services/Platforms/Feeds/Instagram/Config.php:498
-#: app/Services/Widgets/InstagramWidget.php:276
+#: app/Services/Widgets/InstagramWidget.php:277
 msgid "Button Background Color"
 msgstr ""
 
@@ -590,7 +590,7 @@ msgid "Background Color:"
 msgstr ""
 
 #: app/Services/Platforms/Feeds/Instagram/Config.php:218
-#: app/Services/Widgets/InstagramWidget.php:366
+#: app/Services/Widgets/InstagramWidget.php:367
 msgid "Content"
 msgstr ""
 
@@ -625,7 +625,7 @@ msgstr ""
 
 #: app/Services/Platforms/Feeds/Instagram/Config.php:406
 #: app/Services/TranslationStrings.php:877
-#: app/Services/Widgets/InstagramWidget.php:525
+#: app/Services/Widgets/InstagramWidget.php:527
 msgid "Pagination"
 msgstr ""
 
@@ -648,7 +648,7 @@ msgid "Item Content Box"
 msgstr ""
 
 #: app/Services/Platforms/Feeds/Instagram/Config.php:560
-#: app/Services/Widgets/InstagramWidget.php:623
+#: app/Services/Widgets/InstagramWidget.php:625
 msgid "Item Box"
 msgstr ""
 
@@ -886,7 +886,7 @@ msgid "An account (\"%1$s\") admin has deauthorized the app used to power this p
 msgstr ""
 
 #: app/Services/Platforms/PlatformManager.php:43
-#: app/Services/TranslationStrings.php:569
+#: app/Services/TranslationStrings.php:570
 msgid "Facebook"
 msgstr ""
 
@@ -924,7 +924,7 @@ msgid "Invalid auth payload data."
 msgstr ""
 
 #: app/Services/TranslationString.php:19
-#: app/Services/TranslationStrings.php:1149
+#: app/Services/TranslationStrings.php:1153
 msgid "Subscribers"
 msgstr ""
 
@@ -934,17 +934,17 @@ msgid "Following"
 msgstr ""
 
 #: app/Services/TranslationString.php:22
-#: app/Services/TranslationStrings.php:1276
+#: app/Services/TranslationStrings.php:1280
 msgid "Videos"
 msgstr ""
 
 #: app/Services/TranslationString.php:23
-#: app/Services/TranslationStrings.php:1282
+#: app/Services/TranslationStrings.php:1286
 msgid "Views"
 msgstr ""
 
 #: app/Services/TranslationString.php:24
-#: app/Services/TranslationStrings.php:1231
+#: app/Services/TranslationStrings.php:1235
 msgid "Tweets"
 msgstr ""
 
@@ -987,17 +987,17 @@ msgid "Comments"
 msgstr ""
 
 #: app/Services/TranslationString.php:34
-#: app/Services/TranslationStrings.php:1278
+#: app/Services/TranslationStrings.php:1282
 msgid "View on Facebook"
 msgstr ""
 
 #: app/Services/TranslationString.php:35
-#: app/Services/TranslationStrings.php:1279
+#: app/Services/TranslationStrings.php:1283
 msgid "View on Instagram"
 msgstr ""
 
 #: app/Services/TranslationString.php:36
-#: app/Services/TranslationStrings.php:1280
+#: app/Services/TranslationStrings.php:1284
 msgid "View on TikTok"
 msgstr ""
 
@@ -1027,7 +1027,7 @@ msgid "Going"
 msgstr ""
 
 #: app/Services/TranslationString.php:42
-#: app/Services/TranslationStrings.php:1291
+#: app/Services/TranslationStrings.php:1295
 msgid "Went"
 msgstr ""
 
@@ -1041,7 +1041,7 @@ msgid "All Platforms"
 msgstr ""
 
 #: app/Services/TranslationString.php:45
-#: app/Services/TranslationStrings.php:1114
+#: app/Services/TranslationStrings.php:1117
 msgid "Social Feeds"
 msgstr ""
 
@@ -1051,27 +1051,27 @@ msgid "Business Reviews"
 msgstr ""
 
 #: app/Services/TranslationString.php:47
-#: app/Services/TranslationStrings.php:1113
+#: app/Services/TranslationStrings.php:1116
 msgid "Social Chats"
 msgstr ""
 
 #: app/Services/TranslationString.php:48
-#: app/Services/TranslationStrings.php:1025
+#: app/Services/TranslationStrings.php:1028
 msgid "Search Platforms"
 msgstr ""
 
 #: app/Services/TranslationString.php:49
-#: app/Services/TranslationStrings.php:1021
+#: app/Services/TranslationStrings.php:1024
 msgid "Screen Options"
 msgstr ""
 
 #: app/Services/TranslationString.php:50
-#: app/Services/TranslationStrings.php:525
+#: app/Services/TranslationStrings.php:526
 msgid "Enabled"
 msgstr ""
 
 #: app/Services/TranslationString.php:51
-#: app/Services/TranslationStrings.php:408
+#: app/Services/TranslationStrings.php:409
 msgid "Disabled"
 msgstr ""
 
@@ -1086,22 +1086,22 @@ msgid "None Enabled"
 msgstr ""
 
 #: app/Services/TranslationString.php:54
-#: app/Services/TranslationStrings.php:1118
+#: app/Services/TranslationStrings.php:1121
 msgid "Some Enabled"
 msgstr ""
 
 #: app/Services/TranslationString.php:55
-#: app/Services/TranslationStrings.php:555
+#: app/Services/TranslationStrings.php:556
 msgid "Error Logs"
 msgstr ""
 
 #: app/Services/TranslationString.php:56
-#: app/Services/TranslationStrings.php:989
+#: app/Services/TranslationStrings.php:992
 msgid "Reset Error Logs"
 msgstr ""
 
 #: app/Services/TranslationString.php:57
-#: app/Services/TranslationStrings.php:1032
+#: app/Services/TranslationStrings.php:1035
 msgid "See All"
 msgstr ""
 
@@ -1110,7 +1110,7 @@ msgid "Would you like to clear all the errors stored in the error log"
 msgstr ""
 
 #: app/Services/TranslationString.php:59
-#: app/Services/TranslationStrings.php:1039
+#: app/Services/TranslationStrings.php:1042
 msgid "Select Bubble Icon"
 msgstr ""
 
@@ -2295,1063 +2295,1063 @@ msgid "Connected on"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:338
-msgid "Connecting..."
+msgid "Connecting a product won't import reviews already collected by FluentCart's built-in product reviews. Once connected, reviews will start appearing here as customers submit them through a WP Social Ninja review form (Reviews → Review Forms) targeting this product."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:339
-msgid "Connection"
+msgid "Connecting..."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:340
-msgid "Connects via Instagram"
+msgid "Connection"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:341
-msgid "Consumer Key(API Key)"
+msgid "Connects via Instagram"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:342
-msgid "Consumer Key(API Key):"
+msgid "Consumer Key(API Key)"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:343
-msgid "Consumer Secret(API Secret Key)"
+msgid "Consumer Key(API Key):"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:344
-msgid "Consumer Secret(API Secret Key):"
+msgid "Consumer Secret(API Secret Key)"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:345
-msgid "Contact Support"
+msgid "Consumer Secret(API Secret Key):"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:346
-msgid "Content Language"
+msgid "Contact Support"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:347
-msgid "Content Type"
+msgid "Content Language"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:348
-msgid "Continue"
+msgid "Content Type"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:349
-msgid "Copied to Clipboard!"
+msgid "Continue"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:350
-msgid "Copy the line, or only the number, and paste it below."
+msgid "Copied to Clipboard!"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:351
-msgid "Could not load Turnstile widget."
+msgid "Copy the line, or only the number, and paste it below."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:352
-msgid "Could not load categories"
+msgid "Could not load Turnstile widget."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:353
-msgid "Could not load categories. Please try again."
+msgid "Could not load categories"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:354
-msgid "Could not load existing categories."
+msgid "Could not load categories. Please try again."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:355
-msgid "Country"
+msgid "Could not load existing categories."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:356
-msgid "Create"
+msgid "Country"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:357
-msgid "Create Chat Widget"
+msgid "Create"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:358
-msgid "Create Date"
+msgid "Create Chat Widget"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:359
-msgid "Create Form"
+msgid "Create Date"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:360
-msgid "Create Template"
+msgid "Create Form"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:361
-msgid "Create a Chat Widget"
+msgid "Create Template"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:362
-msgid "Create a QR code that makes it easy for customers to leave reviews!"
+msgid "Create a Chat Widget"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:363
-msgid "Create a review form to start collecting reviews directly on your website."
+msgid "Create a QR code that makes it easy for customers to leave reviews!"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:364
-msgid "Create a stunning, fully customizable template to perfectly match your website’s style."
+msgid "Create a review form to start collecting reviews directly on your website."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:365
-msgid "Create and configure your notification popups that will be shown site-wide or on specific pages. You can create as many notification popups as you want."
+msgid "Create a stunning, fully customizable template to perfectly match your website’s style."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:366
-msgid "Create review forms, collect submissions, and moderate reviews — all from your site."
+msgid "Create and configure your notification popups that will be shown site-wide or on specific pages. You can create as many notification popups as you want."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:367
-msgid "Created"
+msgid "Create review forms, collect submissions, and moderate reviews — all from your site."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:368
-msgid "Creates an empty template only — you’ll need to manually create a review form, connect the Write a Review button, and turn on Main Review Hub yourself."
+msgid "Created"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:369
-msgid "Currently there is no custom reviews, You can add custom reviews from the below button."
+msgid "Creates an empty template only — you’ll need to manually create a review form, connect the Write a Review button, and turn on Main Review Hub yourself."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:370
-msgid "Custom"
+msgid "Currently there is no custom reviews, You can add custom reviews from the below button."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:371
-msgid "Custom Bio Text"
+msgid "Custom"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:372
-msgid "Custom Button Text"
+msgid "Custom Bio Text"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:373
-msgid "Custom Format"
+msgid "Custom Button Text"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:374
-msgid "Custom Notification Title"
+msgid "Custom Format"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:375
-msgid "Custom Number of Reviews Text"
+msgid "Custom Notification Title"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:376
-msgid "Custom Profile Photo"
+msgid "Custom Number of Reviews Text"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:377
-msgid "Custom Text/Translate"
+msgid "Custom Profile Photo"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:378
-msgid "Custom Title"
+msgid "Custom Text/Translate"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:379
-msgid "Custom Title Text"
+msgid "Custom Title"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:380
-msgid "Custom URL"
+msgid "Custom Title Text"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:381
-msgid "Custom Url"
+msgid "Custom URL"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:382
-msgid "Custom format"
+msgid "Custom Url"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:383
-msgid "Customize FluentCart Reviews Layout"
+msgid "Custom format"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:384
-msgid "Customize WooCommerce Reviews Layout"
+msgid "Customize FluentCart Reviews Layout"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:385
-msgid "Customize each section below"
+msgid "Customize WooCommerce Reviews Layout"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:386
-msgid "Dark"
+msgid "Customize each section below"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:387
-msgid "Dashed"
+msgid "Dark"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:388
-msgid "Date Range Type"
+msgid "Dashed"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:389
-msgid "Date:"
+msgid "Date Range Type"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:390
-msgid "Deactivate"
+msgid "Date:"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:391
-msgid "Deactivate this license?"
+msgid "Deactivate"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:392
-msgid "Decoration"
+msgid "Deactivate this license?"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:393
-msgid "Default"
+msgid "Decoration"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:394
-msgid "Default player design"
+msgid "Default"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:395
-msgid "Define the rating associated with the"
+msgid "Default player design"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:396
-msgid "Delay Between"
+msgid "Define the rating associated with the"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:397
-msgid "Delay before first notification. (Time should be in Millisecond.)"
+msgid "Delay Between"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:398
-msgid "Delay between each notification. (Time should be in Millisecond.)"
+msgid "Delay before first notification. (Time should be in Millisecond.)"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:399
-msgid "Delete"
+msgid "Delay between each notification. (Time should be in Millisecond.)"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:400
-msgid "Delete Category"
+msgid "Delete"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:401
-msgid "Delete QR Code"
+msgid "Delete Category"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:402
-msgid "Delete all Platform Data?"
+msgid "Delete QR Code"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:403
-msgid "Deliver Reports Every"
+msgid "Delete all Platform Data?"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:404
-msgid "Deprecated"
+msgid "Deliver Reports Every"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:405
+msgid "Deprecated"
+msgstr ""
+
+#: app/Services/TranslationStrings.php:406
 msgid "Descending"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:407
+#: app/Services/TranslationStrings.php:408
 msgid "Description More Button:"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:409
+#: app/Services/TranslationStrings.php:410
 msgid "Disapprove"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:410
+#: app/Services/TranslationStrings.php:411
 msgid "Disconnect"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:411
+#: app/Services/TranslationStrings.php:412
 msgid "Disconnect product"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:412
+#: app/Services/TranslationStrings.php:413
 msgid "Disconnect this product? Its reviews are kept and appear again if you reconnect it or a customer submits a new review. To delete reviews, go to All Reviews."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:413
+#: app/Services/TranslationStrings.php:414
 msgid "Dislikes Counter"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:414
+#: app/Services/TranslationStrings.php:415
 msgid "Display AI Summary"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:415
+#: app/Services/TranslationStrings.php:416
 msgid "Display AI Summary Icon"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:416
+#: app/Services/TranslationStrings.php:417
 msgid "Display Account Name"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:417
+#: app/Services/TranslationStrings.php:418
 msgid "Display Author Name"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:418
+#: app/Services/TranslationStrings.php:419
 msgid "Display Author Photo"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:419
+#: app/Services/TranslationStrings.php:420
 msgid "Display Avatar Image"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:420
+#: app/Services/TranslationStrings.php:421
 msgid "Display Banner"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:421
+#: app/Services/TranslationStrings.php:422
 msgid "Display Banner Image"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:422
+#: app/Services/TranslationStrings.php:423
 msgid "Display Bio Text"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:423
+#: app/Services/TranslationStrings.php:424
 msgid "Display Call to Action Button"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:424
+#: app/Services/TranslationStrings.php:425
 msgid "Display Caption"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:425
+#: app/Services/TranslationStrings.php:426
 msgid "Display Channel Name"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:426
+#: app/Services/TranslationStrings.php:427
 msgid "Display Chat Icon"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:427
+#: app/Services/TranslationStrings.php:428
 msgid "Display Close Button"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:428
+#: app/Services/TranslationStrings.php:429
 msgid "Display Comments"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:429
+#: app/Services/TranslationStrings.php:430
 msgid "Display Comments Count"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:430
+#: app/Services/TranslationStrings.php:431
 msgid "Display Comments Counter"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:431
+#: app/Services/TranslationStrings.php:432
 msgid "Display Comments User Photo"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:432
+#: app/Services/TranslationStrings.php:433
 msgid "Display Cover Photo"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:433
+#: app/Services/TranslationStrings.php:434
 msgid "Display Custom Notification Title"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:434
+#: app/Services/TranslationStrings.php:435
 msgid "Display Date"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:435
+#: app/Services/TranslationStrings.php:436
 msgid "Display Description"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:436
+#: app/Services/TranslationStrings.php:437
 msgid "Display Duration"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:437
+#: app/Services/TranslationStrings.php:438
 msgid "Display Event Location"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:438
+#: app/Services/TranslationStrings.php:439
 msgid "Display Event Meta"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:439
+#: app/Services/TranslationStrings.php:440
 msgid "Display Event Name"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:440
+#: app/Services/TranslationStrings.php:441
 msgid "Display Event Photo"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:441
+#: app/Services/TranslationStrings.php:442
 msgid "Display Follow Button"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:442
+#: app/Services/TranslationStrings.php:443
 msgid "Display Follow Counter"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:443
+#: app/Services/TranslationStrings.php:444
 msgid "Display Follower Counter"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:444
+#: app/Services/TranslationStrings.php:445
 msgid "Display Followers"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:445
+#: app/Services/TranslationStrings.php:446
 msgid "Display Followers Count"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:446
+#: app/Services/TranslationStrings.php:447
 msgid "Display Followers Counter"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:447
+#: app/Services/TranslationStrings.php:448
 msgid "Display Following"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:448
+#: app/Services/TranslationStrings.php:449
 msgid "Display For"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:449
+#: app/Services/TranslationStrings.php:450
 msgid "Display Full Name"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:450
+#: app/Services/TranslationStrings.php:451
 msgid "Display Gifs on Tweet"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:451
+#: app/Services/TranslationStrings.php:452
 msgid "Display Header"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:452
+#: app/Services/TranslationStrings.php:453
 msgid "Display Images on Tweet"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:453
+#: app/Services/TranslationStrings.php:454
 msgid "Display Like Action"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:454
+#: app/Services/TranslationStrings.php:455
 msgid "Display Like Button"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:455
+#: app/Services/TranslationStrings.php:456
 msgid "Display Like Counter"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:456
+#: app/Services/TranslationStrings.php:457
 msgid "Display Likes Count"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:457
+#: app/Services/TranslationStrings.php:458
 msgid "Display Likes Counter"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:458
+#: app/Services/TranslationStrings.php:459
 msgid "Display Location"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:459
+#: app/Services/TranslationStrings.php:460
 msgid "Display Logo"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:460
+#: app/Services/TranslationStrings.php:461
 msgid "Display Media in Timeline Feed"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:461
+#: app/Services/TranslationStrings.php:462
 msgid "Display Name"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:462
+#: app/Services/TranslationStrings.php:463
 msgid "Display Next Prev Arrows"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:463
+#: app/Services/TranslationStrings.php:464
 msgid "Display Page Name"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:464
+#: app/Services/TranslationStrings.php:465
 msgid "Display Photos & Videos in Popup:"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:465
+#: app/Services/TranslationStrings.php:466
 msgid "Display Platform Icon"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:466
+#: app/Services/TranslationStrings.php:467
 msgid "Display Play Icon"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:467
+#: app/Services/TranslationStrings.php:468
 msgid "Display Play Icon:"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:468
+#: app/Services/TranslationStrings.php:469
 msgid "Display Posts Count"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:469
+#: app/Services/TranslationStrings.php:470
 msgid "Display Profile Photo"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:470
+#: app/Services/TranslationStrings.php:471
 msgid "Display Quoted Tweet:"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:471
+#: app/Services/TranslationStrings.php:472
 msgid "Display Rating"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:472
+#: app/Services/TranslationStrings.php:473
 msgid "Display Read More"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:473
+#: app/Services/TranslationStrings.php:474
 msgid "Display Reply Action"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:474
+#: app/Services/TranslationStrings.php:475
 msgid "Display Retweet Action"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:475
+#: app/Services/TranslationStrings.php:476
 msgid "Display Retweeted Tweet"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:476
+#: app/Services/TranslationStrings.php:477
 msgid "Display Reviews in"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:477
+#: app/Services/TranslationStrings.php:478
 msgid "Display Share Button"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:478
+#: app/Services/TranslationStrings.php:479
 msgid "Display Shoppable Icon"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:479
+#: app/Services/TranslationStrings.php:480
 msgid "Display Sidebar"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:480
+#: app/Services/TranslationStrings.php:481
 msgid "Display Subscribe Button"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:481
+#: app/Services/TranslationStrings.php:482
 msgid "Display Subscriber Counter"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:482
+#: app/Services/TranslationStrings.php:483
 msgid "Display Title"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:483
+#: app/Services/TranslationStrings.php:484
 msgid "Display Tweet Text"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:484
+#: app/Services/TranslationStrings.php:485
 msgid "Display Tweets"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:485
+#: app/Services/TranslationStrings.php:486
 msgid "Display Username"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:486
+#: app/Services/TranslationStrings.php:487
 msgid "Display Verified Badge"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:487
+#: app/Services/TranslationStrings.php:488
 msgid "Display Video"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:488
+#: app/Services/TranslationStrings.php:489
 msgid "Display Videos Counter"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:489
+#: app/Services/TranslationStrings.php:490
 msgid "Display Videos on Tweet"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:490
+#: app/Services/TranslationStrings.php:491
 msgid "Display Views Count"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:491
+#: app/Services/TranslationStrings.php:492
 msgid "Display Views Counter"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:492
+#: app/Services/TranslationStrings.php:493
 msgid "Display X (Twitter) Card"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:493
+#: app/Services/TranslationStrings.php:494
 msgid "Display X (Twitter) Logo"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:494
+#: app/Services/TranslationStrings.php:495
 msgid "Display X (Twitter) Player Card"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:495
+#: app/Services/TranslationStrings.php:496
 msgid "Display Your Google Reviews"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:496
+#: app/Services/TranslationStrings.php:497
 msgid "Display Your TikTok Videos"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:497
+#: app/Services/TranslationStrings.php:498
 msgid "Display Your YouTube Videos"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:498
+#: app/Services/TranslationStrings.php:499
 msgid "Display each notification for * seconds. (Time should be in Millisecond.)"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:499
+#: app/Services/TranslationStrings.php:500
 msgid "Display posts with"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:500
+#: app/Services/TranslationStrings.php:501
 msgid "Don't have a license key?"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:501
+#: app/Services/TranslationStrings.php:502
 msgid "Done"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:502
+#: app/Services/TranslationStrings.php:503
 msgid "Dots"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:503
+#: app/Services/TranslationStrings.php:504
 msgid "Dotted"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:504
+#: app/Services/TranslationStrings.php:505
 msgid "Double"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:505
+#: app/Services/TranslationStrings.php:506
 msgid "Download Sample CSV"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:506
+#: app/Services/TranslationStrings.php:507
 msgid "Download the QR code and distribute as needed."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:507
+#: app/Services/TranslationStrings.php:508
 msgid "Drawer Style"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:508
+#: app/Services/TranslationStrings.php:509
 msgid "Duplicate"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:509
+#: app/Services/TranslationStrings.php:510
 msgid "Duplicate Message"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:510
+#: app/Services/TranslationStrings.php:511
 msgid "Edit"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:511
+#: app/Services/TranslationStrings.php:512
 msgid "Edit Manager"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:512
+#: app/Services/TranslationStrings.php:513
 msgid "Edit QR code"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:513
+#: app/Services/TranslationStrings.php:514
 msgid "Edit Template"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:514
+#: app/Services/TranslationStrings.php:515
 msgid "Edit promotional URL"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:515
+#: app/Services/TranslationStrings.php:516
 msgid "Emoji"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:516
+#: app/Services/TranslationStrings.php:517
 msgid "Enable AI Review Summarizer"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:517
+#: app/Services/TranslationStrings.php:518
 msgid "Enable Email Reports"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:518
+#: app/Services/TranslationStrings.php:519
 msgid "Enable External Links"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:519
+#: app/Services/TranslationStrings.php:520
 msgid "Enable Review Tagging"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:520
+#: app/Services/TranslationStrings.php:521
 msgid "Enable Schema.org Markup"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:521
+#: app/Services/TranslationStrings.php:522
 msgid "Enable Shoppable Feed"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:522
+#: app/Services/TranslationStrings.php:523
 msgid "Enable this option to generate and optimized images in multiple sizes using your WordPress local storage for improved performance"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:523
+#: app/Services/TranslationStrings.php:524
 msgid "Enable this option to generate and optimized images in multiple sizes using your WordPress local storage for improved performance."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:524
+#: app/Services/TranslationStrings.php:525
 msgid "Enable this option to use AI-powered review summarization feature. When disabled, the AI settings will be hidden but your configuration will be preserved."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:526
+#: app/Services/TranslationStrings.php:527
 msgid "Encryption Error"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:527
+#: app/Services/TranslationStrings.php:528
 msgid "End Time (Site Timezone)"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:528
+#: app/Services/TranslationStrings.php:529
 msgid "Ending soon"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:529
+#: app/Services/TranslationStrings.php:530
 msgid "Enter API Key"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:530
+#: app/Services/TranslationStrings.php:531
 msgid "Enter Album ID/ URL"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:531
+#: app/Services/TranslationStrings.php:532
 msgid "Enter Channel ID, Handle or Username. For example: @yourchannel or UCibcXdeKy8e04hYWf0Gz7ow"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:532
+#: app/Services/TranslationStrings.php:533
 msgid "Enter Custom URL"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:533
+#: app/Services/TranslationStrings.php:534
 msgid "Enter Custom Url"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:534
+#: app/Services/TranslationStrings.php:535
 msgid "Enter QR code name"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:535
+#: app/Services/TranslationStrings.php:536
 msgid "Enter Your WP Social Ninja Pro License Key to Get Started"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:536
+#: app/Services/TranslationStrings.php:537
 msgid "Enter a full URL that starts with http:// or https://"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:537
+#: app/Services/TranslationStrings.php:538
 msgid "Enter a valid URL starting with http:// or https://"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:538
+#: app/Services/TranslationStrings.php:539
 msgid "Enter any Playlist ID to display YouTube videos from a Playlist. You can find the ID of your YouTube Playlist from the URL."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:539
+#: app/Services/TranslationStrings.php:540
 msgid "Enter any hashtag to display posts from a hashtag."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:540
+#: app/Services/TranslationStrings.php:541
 msgid "Enter any search term or phrase. Separate multiple terms with commas."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:541
+#: app/Services/TranslationStrings.php:542
 msgid "Enter any video ID to display specific TikTok videos. Separate multiple video IDs with commas."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:542
+#: app/Services/TranslationStrings.php:543
 msgid "Enter any video ID to display specific YouTube videos. Separate multiple video IDs with commas. You can find the ID from the URL."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:543
+#: app/Services/TranslationStrings.php:544
 msgid "Enter hashtags using comma separator"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:544
+#: app/Services/TranslationStrings.php:545
 msgid "Enter keywords separated by commas (e.g. scam, fake, spam)"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:545
+#: app/Services/TranslationStrings.php:546
 msgid "Enter new category name"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:546
+#: app/Services/TranslationStrings.php:547
 msgid "Enter your Booking.com hotel ID"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:547
+#: app/Services/TranslationStrings.php:548
 msgid "Enter your Cloudflare Turnstile secret key. It will be stored securely."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:548
+#: app/Services/TranslationStrings.php:549
 msgid "Enter your Cloudflare Turnstile site key."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:549
+#: app/Services/TranslationStrings.php:550
 msgid "Enter your business URL to get your reviews:"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:550
+#: app/Services/TranslationStrings.php:551
 msgid "Enter your playlist id"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:551
+#: app/Services/TranslationStrings.php:552
 msgid "Enter your search term"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:552
+#: app/Services/TranslationStrings.php:553
 msgid "Enter your video id using comma separator"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:553
+#: app/Services/TranslationStrings.php:554
 msgid "Equal Height"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:554
+#: app/Services/TranslationStrings.php:555
 msgid "Error"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:556
+#: app/Services/TranslationStrings.php:557
 msgid "Event Type"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:557
+#: app/Services/TranslationStrings.php:558
 msgid "Events"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:558
+#: app/Services/TranslationStrings.php:559
 msgid "Events Access Token"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:560
+#: app/Services/TranslationStrings.php:561
 msgid "Ex: 1"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:561
+#: app/Services/TranslationStrings.php:562
 msgid "Excellent"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:562
+#: app/Services/TranslationStrings.php:563
 msgid "Exclude Pages to Hide Chat"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:563
+#: app/Services/TranslationStrings.php:564
 msgid "Exclude Pages to Hide Notification"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:564
+#: app/Services/TranslationStrings.php:565
 msgid "Existing category"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:565
+#: app/Services/TranslationStrings.php:566
 msgid "Experiences"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:566
+#: app/Services/TranslationStrings.php:567
 msgid "Expired"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:567
+#: app/Services/TranslationStrings.php:568
 msgid "Expires"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:568
+#: app/Services/TranslationStrings.php:569
 msgid "Export"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:570
+#: app/Services/TranslationStrings.php:571
 msgid "Facebook Access Token"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:571
+#: app/Services/TranslationStrings.php:572
 msgid "Facebook Event Default"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:572
+#: app/Services/TranslationStrings.php:573
 msgid "Facebook Page ID"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:573
+#: app/Services/TranslationStrings.php:574
 msgid "Failed to complete setup. Please try again."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:574
+#: app/Services/TranslationStrings.php:575
 msgid "Failed to skip setup"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:575
+#: app/Services/TranslationStrings.php:576
 msgid "Fallback Average Rating"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:576
+#: app/Services/TranslationStrings.php:577
 msgid "Fallback Total Rating"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:577
+#: app/Services/TranslationStrings.php:578
 msgid "Fast"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:578
+#: app/Services/TranslationStrings.php:579
 msgid "Feature Grid"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:579
+#: app/Services/TranslationStrings.php:580
 msgid "Feed"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:580
+#: app/Services/TranslationStrings.php:581
 msgid "Feed Issue Email Reports"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:581
+#: app/Services/TranslationStrings.php:582
 msgid "Feed Settings"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:582
+#: app/Services/TranslationStrings.php:583
 msgid "Feed Type"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:583
+#: app/Services/TranslationStrings.php:584
 msgid "Feeds Per Page"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:584
+#: app/Services/TranslationStrings.php:585
 msgid "Feeds Platforms"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:585
+#: app/Services/TranslationStrings.php:586
 msgid "Fetch Feeds"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:586
+#: app/Services/TranslationStrings.php:587
 msgid "Fetch Videos"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:587
+#: app/Services/TranslationStrings.php:588
 msgid "Fetch the latest reviews now"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:588
+#: app/Services/TranslationStrings.php:589
 msgid "Fetch the latest reviews now. Syncs are limited, and reviews also update automatically."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:589
+#: app/Services/TranslationStrings.php:590
 msgid "Filter by Business/Product"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:590
+#: app/Services/TranslationStrings.php:591
 msgid "Filter by Category"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:591
+#: app/Services/TranslationStrings.php:592
 msgid "Filters"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:592
+#: app/Services/TranslationStrings.php:593
 msgid "Filters by Minimum Rating"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:593
+#: app/Services/TranslationStrings.php:594
 msgid "First Name Only (John)"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:594
+#: app/Services/TranslationStrings.php:595
 msgid "First Name and Initial of Last Name (John W.)"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:595
+#: app/Services/TranslationStrings.php:596
 msgid "Float Bottom Left"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:596
+#: app/Services/TranslationStrings.php:597
 msgid "Float Bottom Right"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:597
+#: app/Services/TranslationStrings.php:598
 msgid "Float Left Bottom"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:598
+#: app/Services/TranslationStrings.php:599
 msgid "Float Right Bottom"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:599
+#: app/Services/TranslationStrings.php:600
 msgid "Float Top Left"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:600
+#: app/Services/TranslationStrings.php:601
 msgid "Float Top Right"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:601
-msgid "FluentCart Product"
-msgstr ""
-
 #: app/Services/TranslationStrings.php:602
-msgid "FluentCart is not active. Reviews will fall back to generic mode until reactivated."
-msgstr ""
-
-#: app/Services/TranslationStrings.php:603
 msgid "Fluent Form Shortcode ID"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:604
+#: app/Services/TranslationStrings.php:603
 msgid "Fluent Forms"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:605
+#: app/Services/TranslationStrings.php:604
 msgid "Fluent Forms will only display on your site's preview/live pages/posts."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:606
+#: app/Services/TranslationStrings.php:605
 msgid "FluentCRM Review Tagging"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:607
+#: app/Services/TranslationStrings.php:606
 msgid "FluentCart"
 msgstr ""
 
+#: app/Services/TranslationStrings.php:607
+msgid "FluentCart Product"
+msgstr ""
+
 #: app/Services/TranslationStrings.php:608
-msgid "Connecting a product won't import reviews already collected by FluentCart's built-in product reviews. Once connected, reviews will start appearing here as customers submit them through a WP Social Ninja review form (Reviews → Review Forms) targeting this product."
+msgid "FluentCart is not active. Reviews will fall back to generic mode until reactivated."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:609
@@ -4717,1612 +4717,1628 @@ msgid "Recommended · One-click setup"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:972
-msgid "Redirect to YouTube"
+msgid "Reconnect"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:973
-msgid "Redirecting to"
+msgid "Reconnect required"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:974
-msgid "Refresh"
+msgid "Reconnect your accounts"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:975
-msgid "Regenerate AI Summary"
+msgid "Redirect to YouTube"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:976
-msgid "Relative"
+msgid "Redirecting to"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:977
-msgid "Remind me later"
+msgid "Refresh"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:978
-msgid "Remove"
+msgid "Regenerate AI Summary"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:979
-msgid "Remove Category"
+msgid "Relative"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:980
-msgid "Remove promotional URL"
+msgid "Remind me later"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:981
-msgid "Rename"
+msgid "Remove"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:982
-msgid "Rename or delete the categories used across your reviews."
+msgid "Remove Category"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:983
-msgid "Renew License"
+msgid "Remove promotional URL"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:984
-msgid "Renew your license to keep receiving plugin updates, new features and support."
+msgid "Rename"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:985
-msgid "Require Login"
+msgid "Rename or delete the categories used across your reviews."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:986
-msgid "Required"
+msgid "Renew License"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:987
-msgid "Reset"
+msgid "Renew your license to keep receiving plugin updates, new features and support."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:988
-msgid "Reset All"
+msgid "Require Login"
+msgstr ""
+
+#: app/Services/TranslationStrings.php:989
+msgid "Required"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:990
-msgid "Reset Local Images"
+msgid "Reset"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:991
-msgid "Reset every style on this template to its default? Nothing changes on your site until you click Save."
-msgstr ""
-
-#: app/Services/TranslationStrings.php:992
-msgid "Resize sidebar"
+msgid "Reset All"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:993
-msgid "Retry"
+msgid "Reset Local Images"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:994
-msgid "Retweeted"
+msgid "Reset every style on this template to its default? Nothing changes on your site until you click Save."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:995
-msgid "Reuse the design and the layers (call to action, email capture) of one of your Fluent Player videos for these testimonials."
+msgid "Resize sidebar"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:996
-msgid "Reuse the design and the layers (call to action, email capture) of one of your Fluent Player videos for this feed."
+msgid "Retry"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:997
-msgid "Review"
+msgid "Retweeted"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:998
-msgid "Review Forms"
+msgid "Reuse the design and the layers (call to action, email capture) of one of your Fluent Player videos for these testimonials."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:999
-msgid "Review Publishing Mode"
+msgid "Reuse the design and the layers (call to action, email capture) of one of your Fluent Player videos for this feed."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1000
-msgid "Review Publishing Settings"
+msgid "Review"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1001
-msgid "Review Spotlight"
+msgid "Review Forms"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1002
-msgid "Review Target"
+msgid "Review Publishing Mode"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1003
-msgid "Review Template"
+msgid "Review Publishing Settings"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1004
-msgid "Review navigation"
+msgid "Review Spotlight"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1005
-msgid "Review the latest validation feedback before saving your configuration."
+msgid "Review Target"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1006
-msgid "Reviewer"
+msgid "Review Template"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1007
-msgid "Reviews"
+msgid "Review navigation"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1008
-msgid "Reviews Image Optimization (Recommended)"
+msgid "Review the latest validation feedback before saving your configuration."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1009
-msgid "Reviews Per Page"
+msgid "Reviewer"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1010
-msgid "Reviews Platforms"
+msgid "Reviews"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1011
-msgid "Reviews with a rating below this value will be sent to moderation instead of being published automatically."
+msgid "Reviews Image Optimization (Recommended)"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1012
-msgid "Rooms"
+msgid "Reviews Per Page"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1013
-msgid "Rotating Card"
+msgid "Reviews Platforms"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1014
-msgid "Rows"
+msgid "Reviews with a rating below this value will be sent to moderation instead of being published automatically."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1015
-msgid "Save"
+msgid "Rooms"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1016
-msgid "Save Settings"
+msgid "Rotating Card"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1017
-msgid "Saving"
+msgid "Rows"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1018
-msgid "Schema Type"
+msgid "Save"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1019
-msgid "Schema.org Markup"
+msgid "Save Settings"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1020
-msgid "Score Slider"
+msgid "Saving"
+msgstr ""
+
+#: app/Services/TranslationStrings.php:1021
+msgid "Schema Type"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1022
-msgid "Scroll Speed"
+msgid "Schema.org Markup"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1023
-msgid "Scroll to review widget"
+msgid "Score Slider"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1024
-msgid "Search"
+#: app/Services/TranslationStrings.php:1025
+msgid "Scroll Speed"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1026
-msgid "Search Term"
+msgid "Scroll to review widget"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1027
-msgid "Search covers the review text and title, plus the reviewer name only when Name Format shows full names. Your Minimum Rating still applies."
-msgstr ""
-
-#: app/Services/TranslationStrings.php:1028
-msgid "Search reviews, press enter"
+msgid "Search"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1029
-msgid "Search your hotel on Booking.com"
+msgid "Search Term"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1030
-msgid "Search..."
+msgid "Search covers the review text and title, plus the reviewer name only when Name Format shows full names. Your Minimum Rating still applies."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1031
-msgid "Secret Key"
+msgid "Search reviews, press enter"
+msgstr ""
+
+#: app/Services/TranslationStrings.php:1032
+msgid "Search your hotel on Booking.com"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1033
-msgid "See All reviews"
+msgid "Search..."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1034
-msgid "See More"
-msgstr ""
-
-#: app/Services/TranslationStrings.php:1035
-msgid "Select"
+msgid "Secret Key"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1036
-msgid "Select AI summary style"
+msgid "See All reviews"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1037
-msgid "Select Account"
+msgid "See More"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1038
-msgid "Select Accounts"
+msgid "Select"
+msgstr ""
+
+#: app/Services/TranslationStrings.php:1039
+msgid "Select AI summary style"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1040
-msgid "Select Data Type"
+msgid "Select Account"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1041
-msgid "Select Event Pages"
-msgstr ""
-
-#: app/Services/TranslationStrings.php:1042
-msgid "Select Feed"
+msgid "Select Accounts"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1043
-msgid "Select File"
+msgid "Select Data Type"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1044
-msgid "Select Import Type"
+msgid "Select Event Pages"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1045
-msgid "Select Language"
+msgid "Select Feed"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1046
-msgid "Select Pages"
+msgid "Select File"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1047
-msgid "Select Platform"
+msgid "Select Import Type"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1048
-msgid "Select Platforms"
+msgid "Select Language"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1049
-msgid "Select Review Form"
+msgid "Select Pages"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1050
-msgid "Select Source"
+msgid "Select Platform"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1051
-msgid "Select a category"
+msgid "Select Platforms"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1052
-msgid "Select a date of the"
+msgid "Select Review Form"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1053
-msgid "Select a form"
+msgid "Select Source"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1054
-msgid "Select a product to connect"
+msgid "Select a category"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1055
-msgid "Select a product to fetch reviews"
+msgid "Select a date of the"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1056
-msgid "Select a redirect page"
+msgid "Select a form"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1057
-msgid "Select a tag"
+msgid "Select a product to connect"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1058
-msgid "Select an Option"
+msgid "Select a product to fetch reviews"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1059
-msgid "Select an User Account"
+msgid "Select a redirect page"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1060
-msgid "Select or Upload Video"
+msgid "Select a tag"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1061
-msgid "Select the AI platform"
+msgid "Select an Option"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1062
-msgid "Select the URL you need to redirect to."
+msgid "Select an User Account"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1063
-msgid "Select your X (Twitter) feed template"
+msgid "Select or Upload Video"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1064
-msgid "Select your business type:"
+msgid "Select the AI platform"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1065
-msgid "Select your facebook feed template"
+msgid "Select the URL you need to redirect to."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1066
-msgid "Select your instagram feed template"
+msgid "Select your X (Twitter) feed template"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1067
-msgid "Select your tiktok feed template"
+msgid "Select your business type:"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1068
-msgid "Select your youtube feed template"
+msgid "Select your facebook feed template"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1069
-msgid "Selected Templates:"
+msgid "Select your instagram feed template"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1070
-msgid "Separate multiple hashtags with commas. ex: #wp, #npfeed"
+msgid "Select your tiktok feed template"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1071
-msgid "Separate multiple words or hashtags using commas. ex: #hashtag1,word1,#hashtag2,word2"
+msgid "Select your youtube feed template"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1072
-msgid "Separate multiple words or hashtags using commas. ex: #hashtag1,word1,word2,#hashtag2"
+msgid "Selected Templates:"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1073
-msgid "Set Up Review Hub"
+msgid "Separate multiple hashtags with commas. ex: #wp, #npfeed"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1074
-msgid "Set the Time Schedule"
+msgid "Separate multiple words or hashtags using commas. ex: #hashtag1,word1,#hashtag2,word2"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1075
-msgid "Set the minimum number of characters required. Shorter reviews will be sent for moderation."
+msgid "Separate multiple words or hashtags using commas. ex: #hashtag1,word1,word2,#hashtag2"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1076
-msgid "Setting Up..."
+msgid "Set Up Review Hub"
+msgstr ""
+
+#: app/Services/TranslationStrings.php:1077
+msgid "Set the Time Schedule"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1078
-msgid "Share Button"
+msgid "Set the minimum number of characters required. Shorter reviews will be sent for moderation."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1079
-msgid "Share Button Position"
-msgstr ""
-
-#: app/Services/TranslationStrings.php:1080
-msgid "Share:"
+msgid "Setting Up..."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1081
-msgid "Shared Link"
+msgid "Share Button"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1082
-msgid "Shared Posts"
+msgid "Share Button Position"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1083
-msgid "Shoppable Feed"
+msgid "Share:"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1084
-msgid "Shoppable Hashtag"
+msgid "Shared Link"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1085
-msgid "Shoppable Settings"
+msgid "Shared Posts"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1086
-msgid "Shoppable by Hashtags"
+msgid "Shoppable Feed"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1087
-msgid "ShortCode"
+msgid "Shoppable Hashtag"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1088
-msgid "Shortcode"
+msgid "Shoppable Settings"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1089
-msgid "Shortcode copied to clipboard"
+msgid "Shoppable by Hashtags"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1090
-msgid "Show Chat Popup"
+msgid "ShortCode"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1091
-msgid "Show Instagram, Facebook, YouTube, X (Twitter) and TikTok posts together in a single feed."
+msgid "Shortcode"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1092
-msgid "Show Label (Works on chat box)"
+msgid "Shortcode copied to clipboard"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1093
-msgid "Show Layers at Video End"
+msgid "Show Chat Popup"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1094
-msgid "Show Online/Offline"
+msgid "Show Instagram, Facebook, YouTube, X (Twitter) and TikTok posts together in a single feed."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1095
-msgid "Show Posts Within a Date Range"
+msgid "Show Label (Works on chat box)"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1096
-msgid "Show Review Images"
+msgid "Show Layers at Video End"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1097
-msgid "Show posts containing these words or hashtags"
+msgid "Show Online/Offline"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1098
-msgid "Show reviews containing these words"
+msgid "Show Posts Within a Date Range"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1099
-msgid "Show settings"
+msgid "Show Review Images"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1100
-msgid "Single Album"
+msgid "Show posts containing these words or hashtags"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1101
-msgid "Single Photo"
+msgid "Show reviews containing these words"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1102
-msgid "Site Key"
+msgid "Show settings"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1103
-msgid "Site key is required."
+msgid "Single Album"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1104
-msgid "Size"
+msgid "Single Photo"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1105
-msgid "Skipping setup..."
+msgid "Site Key"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1106
-msgid "Slider"
+msgid "Site key is required."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1107
-msgid "Slides to Scroll"
+msgid "Size"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1108
-msgid "Slides to Scroll :"
+msgid "Skipping setup..."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1109
-msgid "Slides to Show"
+msgid "Slider"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1110
-msgid "Slides to Show :"
+msgid "Slides to Scroll"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1111
-msgid "Slow"
+msgid "Slides to Scroll :"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1112
+msgid "Slides to Show"
+msgstr ""
+
+#: app/Services/TranslationStrings.php:1113
+msgid "Slides to Show :"
+msgstr ""
+
+#: app/Services/TranslationStrings.php:1114
+msgid "Slow"
+msgstr ""
+
+#: app/Services/TranslationStrings.php:1115
 msgid "Small"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1116
+#: app/Services/TranslationStrings.php:1119
 msgid "Soft Background"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1117
+#: app/Services/TranslationStrings.php:1120
 msgid "Solid"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1119
-msgid "Something is wrong!"
-msgstr ""
-
-#: app/Services/TranslationStrings.php:1120
-msgid "Source"
-msgstr ""
-
-#: app/Services/TranslationStrings.php:1121
-msgid "Source Display"
-msgstr ""
-
 #: app/Services/TranslationStrings.php:1122
-msgid "Source ID"
+msgid "Some connected accounts use an older authorization app. Reconnect each one below to keep it updating."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1123
-msgid "Source Invalid"
+msgid "Something is wrong!"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1124
-msgid "Source Type"
+msgid "Source"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1125
-msgid "Sources"
+msgid "Source Display"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1126
-msgid "Space between slide"
+msgid "Source ID"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1127
-msgid "Space between slide:"
+msgid "Source Invalid"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1128
-msgid "Spam"
+msgid "Source Type"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1129
-msgid "Spam Protection"
+msgid "Sources"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1130
-msgid "Specific"
+msgid "Space between slide"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1131
-msgid "Specific Video Playlist"
+msgid "Space between slide:"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1132
-msgid "Specific Videos"
+msgid "Spam"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1133
-msgid "Spotlight Hero"
+msgid "Spam Protection"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1134
-msgid "Spread"
+msgid "Specific"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1135
-msgid "Standard"
+msgid "Specific Video Playlist"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1136
-msgid "Star"
+msgid "Specific Videos"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1137
-msgid "Star Rating Click Behavior"
+msgid "Spotlight Hero"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1138
-msgid "Start Time (Site Timezone)"
+msgid "Spread"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1139
-msgid "Start by creating a template to design your perfect layout."
+msgid "Standard"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1140
-msgid "Start from a blank template"
+msgid "Star"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1141
-msgid "State/Region"
+msgid "Star Rating Click Behavior"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1142
-msgid "Status"
+msgid "Start Time (Site Timezone)"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1143
-msgid "Street Address"
+msgid "Start by creating a template to design your perfect layout."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1144
-msgid "Style"
+msgid "Start from a blank template"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1145
-msgid "Submissions will appear under All Testimonials. Changing the target does not move reviews already collected by this form."
+msgid "State/Region"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1146
-msgid "Subscribe"
+msgid "Status"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1147
-msgid "Subscribe Button"
+msgid "Street Address"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1148
-msgid "Subscribe Button Position"
+msgid "Style"
+msgstr ""
+
+#: app/Services/TranslationStrings.php:1149
+msgid "Submissions will appear under All Testimonials. Changing the target does not move reviews already collected by this form."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1150
-msgid "Subscribers Counter"
+msgid "Subscribe"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1151
-msgid "Subscription"
+msgid "Subscribe Button"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1152
-msgid "Subtitle"
-msgstr ""
-
-#: app/Services/TranslationStrings.php:1153
-msgid "Subtitle Text"
+msgid "Subscribe Button Position"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1154
-msgid "Success Message"
+msgid "Subscribers Counter"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1155
-msgid "Successfully Connected"
+msgid "Subscription"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1156
-msgid "Summary Style"
+msgid "Subtitle"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1157
-msgid "Sync All Reviews"
+msgid "Subtitle Text"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1158
-msgid "Syncing..."
+msgid "Success Message"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1159
-msgid "Tag Name"
+msgid "Successfully Connected"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1160
-msgid "Template"
+msgid "Summary Style"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1161
-msgid "Template 1"
+msgid "Sync All Reviews"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1162
-msgid "Template 2"
+msgid "Syncing..."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1163
-msgid "Template ID:"
+msgid "Tag Name"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1164
-msgid "Template Title:"
+msgid "Template"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1165
-msgid "Terms & Conditions"
+msgid "Template 1"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1166
-msgid "Testimonial"
+msgid "Template 2"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1167
-msgid "Text Typing Animation"
+msgid "Template ID:"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1168
-msgid "Text-Top Card"
+msgid "Template Title:"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1169
-msgid "The AI Review Summarizer needs WP Social Ninja Pro. Your saved configuration is kept."
+msgid "Terms & Conditions"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1170
-msgid "The Feeds per Page is only visible on preview and live pages/posts, not in the WordPress Editor's editing mode."
+msgid "Testimonial"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1171
-msgid "The FluentCRM tag applied to the contact. Reference this exact tag name in your FluentCRM automation condition."
+msgid "Text Typing Animation"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1172
-msgid "The Load More button will only display on your site's preview/live pages/posts."
+msgid "Text-Top Card"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1173
-msgid "The Posts per Page is only visible on preview and live pages/posts, not in the WordPress Editor's editing mode."
+msgid "The AI Review Summarizer needs WP Social Ninja Pro. Your saved configuration is kept."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1174
-msgid "The Reviews per Page is only visible on preview and live pages/posts, not in the WordPress Editor’s editing mode."
+msgid "The Feeds per Page is only visible on preview and live pages/posts, not in the WordPress Editor's editing mode."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1175
-msgid "The WP SOCIAL NINJA plugin requires \"read only\" access to your X (Twitter) account in order to retrieve data from the X (Twitter) API. Our plugin is only able to read your account public data and never ever edit or write to your X (Twitter) account data in any way."
+msgid "The FluentCRM tag applied to the contact. Reference this exact tag name in your FluentCRM automation condition."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1176
-msgid "The X (Twitter) cards will only display on your site's preview/live pages/posts not while you're in editing mode in the WordPress Editor."
+msgid "The Load More button will only display on your site's preview/live pages/posts."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1177
-msgid "The X (Twitter) player cards will only display on your site's preview/live pages/posts not while you're in editing mode in the WordPress Editor."
+msgid "The Posts per Page is only visible on preview and live pages/posts, not in the WordPress Editor's editing mode."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1178
-msgid "The higher the number, the higher the priority."
+msgid "The Reviews per Page is only visible on preview and live pages/posts, not in the WordPress Editor’s editing mode."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1179
-msgid "The image shown before the video plays. Without one an uploaded video starts as a black box."
+msgid "The WP SOCIAL NINJA plugin requires \"read only\" access to your X (Twitter) account in order to retrieve data from the X (Twitter) API. Our plugin is only able to read your account public data and never ever edit or write to your X (Twitter) account data in any way."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1180
-msgid "The key you enter replaces the one this site currently uses."
+msgid "The X (Twitter) cards will only display on your site's preview/live pages/posts not while you're in editing mode in the WordPress Editor."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1181
-msgid "The more priority you give, it will match for the condition and show on your appropriate pages"
+msgid "The X (Twitter) player cards will only display on your site's preview/live pages/posts not while you're in editing mode in the WordPress Editor."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1182
-msgid "The name your widgets show. A pasted b_hotel_id line fills it."
+msgid "The higher the number, the higher the priority."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1183
-msgid "Theme"
+msgid "The image shown before the video plays. Without one an uploaded video starts as a black box."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1184
-msgid "Theme: Auto"
+msgid "The key you enter replaces the one this site currently uses."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1185
-msgid "Theme: Dark"
+msgid "The more priority you give, it will match for the condition and show on your appropriate pages"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1186
-msgid "Theme: Light"
+msgid "The name your widgets show. A pasted b_hotel_id line fills it."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1187
-msgid "This YouTube connection uses our previous authorization app, which we will retire soon. Click Connect new account → OAuth 2.0 → Connect YouTube Channel and sign in with the same Google account to switch. Your templates and settings stay as they are."
+msgid "Theme"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1188
-msgid "This input field allows you to set how many videos to retrieve from the YouTube API. Max: 200"
+msgid "Theme: Auto"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1189
-msgid "This license has been disabled."
+msgid "Theme: Dark"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1190
-msgid "This message is only visible to admins."
+msgid "Theme: Light"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1191
-msgid "This model is not one your selected platform offers here, so AI summaries use the Default model. Pick a listed model to choose one yourself."
+msgid "This YouTube connection uses our previous authorization app, which we will retire soon. Click Connect new account → OAuth 2.0 → Connect YouTube Channel and sign in with the same Google account to switch. Your templates and settings stay as they are."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1192
-msgid "This model is not one your selected platform offers here. Pick a listed model to be sure AI summaries keep running."
+msgid "This input field allows you to set how many videos to retrieve from the YouTube API. Max: 200"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1193
-msgid "This product has its own template selected under Product Data → WP Social Ninja, which overrides your global Main Review Hub setting."
+msgid "This license has been disabled."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1194
-msgid "This search and sort bar works on your live site, not in this editor. It is shown here so you can see where it appears."
+msgid "This message is only visible to admins."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1195
-msgid "This site will stop receiving plugin updates until a license is activated again."
+msgid "This model is not one your selected platform offers here, so AI summaries use the Default model. Pick a listed model to choose one yourself."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1196
-msgid "This will activate the selected templates."
+msgid "This model is not one your selected platform offers here. Pick a listed model to be sure AI summaries keep running."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1197
-msgid "This will allow the plugin to connect to the X (Twitter) API"
+msgid "This product has its own template selected under Product Data → WP Social Ninja, which overrides your global Main Review Hub setting."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1198
-msgid "This will clear all images associated with this platform"
+msgid "This search and sort bar works on your live site, not in this editor. It is shown here so you can see where it appears."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1199
-msgid "This will clear all images stored locally for the Reviews platform."
+msgid "This site will stop receiving plugin updates until a license is activated again."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1200
-msgid "This will clear all links cached data that have X (Twitter) Cards."
+msgid "This will activate the selected templates."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1201
-msgid "This will create copies of the selected templates."
+msgid "This will allow the plugin to connect to the X (Twitter) API"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1202
-msgid "This will deactivate the selected templates."
+msgid "This will clear all images associated with this platform"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1203
-msgid "Thumbnail (150*150)"
+msgid "This will clear all images stored locally for the Reviews platform."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1204
-msgid "Thumbnail (80*80)"
+msgid "This will clear all links cached data that have X (Twitter) Cards."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1205
-msgid "Thumbs"
+msgid "This will create copies of the selected templates."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1206
-msgid "TikTok returns only the first 150 characters of a caption, so words or hashtags beyond that point cannot be matched."
+msgid "This will deactivate the selected templates."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1207
-msgid "Timeline"
+msgid "Thumbnail (150*150)"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1208
-msgid "Timeline Feed"
+msgid "Thumbnail (80*80)"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1209
-msgid "Title"
+msgid "Thumbs"
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1210
-msgid "Title Text"
+msgid "TikTok returns only the first 150 characters of a caption, so words or hashtags beyond that point cannot be matched."
 msgstr ""
 
 #: app/Services/TranslationStrings.php:1211
+msgid "Timeline"
+msgstr ""
+
+#: app/Services/TranslationStrings.php:1212
+msgid "Timeline Feed"
+msgstr ""
+
+#: app/Services/TranslationStrings.php:1213
+msgid "Title"
+msgstr ""
+
+#: app/Services/TranslationStrings.php:1214
+msgid "Title Text"
+msgstr ""
+
+#: app/Services/TranslationStrings.php:1215
 msgid "To"
 msgstr ""
 
 #. translators: the placeholders are values the admin screen fills in at runtime; keep each one.
-#: app/Services/TranslationStrings.php:1213
+#: app/Services/TranslationStrings.php:1217
 #, php-format
 msgid "To configure %1$s and %2$s settings, go to"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1214
+#: app/Services/TranslationStrings.php:1218
 msgid "To use the AI Review Summarizer feature, you need to have an API key from whichever AI platform you plan to use."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1215
+#: app/Services/TranslationStrings.php:1219
 msgid "Top Left"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1216
+#: app/Services/TranslationStrings.php:1220
 msgid "Top Right"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1217
+#: app/Services/TranslationStrings.php:1221
 msgid "Total Feed"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1218
+#: app/Services/TranslationStrings.php:1222
 msgid "Transform"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1219
+#: app/Services/TranslationStrings.php:1223
 msgid "Translation Settings"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1220
+#: app/Services/TranslationStrings.php:1224
 msgid "Trim Caption Words"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1221
+#: app/Services/TranslationStrings.php:1225
 msgid "Trim Description Words"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1222
+#: app/Services/TranslationStrings.php:1226
 msgid "Trim Excerpt Words"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1223
+#: app/Services/TranslationStrings.php:1227
 msgid "Trim Title Words"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1224
+#: app/Services/TranslationStrings.php:1228
 msgid "Tripadvisor"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1225
+#: app/Services/TranslationStrings.php:1229
 msgid "Turnstile"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1226
+#: app/Services/TranslationStrings.php:1230
 msgid "Turnstile Settings"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1227
+#: app/Services/TranslationStrings.php:1231
 msgid "Turnstile keys are managed from Global Review Settings."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1228
+#: app/Services/TranslationStrings.php:1232
 msgid "Turnstile settings cleared successfully."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1229
+#: app/Services/TranslationStrings.php:1233
 msgid "Turnstile settings could not be cleared."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1230
+#: app/Services/TranslationStrings.php:1234
 msgid "Turnstile settings validated and saved successfully."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1232
+#: app/Services/TranslationStrings.php:1236
 msgid "Type post id and press enter.."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1233
+#: app/Services/TranslationStrings.php:1237
 msgid "Type something and press enter...."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1234
+#: app/Services/TranslationStrings.php:1238
 msgid "Type the property name exactly as it appears on Booking.com and pick it from the list."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1235
+#: app/Services/TranslationStrings.php:1239
 msgid "Type to search products..."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1236
+#: app/Services/TranslationStrings.php:1240
 msgid "Type video id and press enter.."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1237
+#: app/Services/TranslationStrings.php:1241
 msgid "Types of Posts"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1238
+#: app/Services/TranslationStrings.php:1242
 #: app/Services/Widgets/InstagramWidget.php:119
 #: app/Services/Widgets/InstagramWidget.php:167
-#: app/Services/Widgets/InstagramWidget.php:216
-#: app/Services/Widgets/InstagramWidget.php:246
-#: app/Services/Widgets/InstagramWidget.php:289
-#: app/Services/Widgets/InstagramWidget.php:399
-#: app/Services/Widgets/InstagramWidget.php:475
-#: app/Services/Widgets/InstagramWidget.php:534
+#: app/Services/Widgets/InstagramWidget.php:217
+#: app/Services/Widgets/InstagramWidget.php:247
+#: app/Services/Widgets/InstagramWidget.php:290
+#: app/Services/Widgets/InstagramWidget.php:400
+#: app/Services/Widgets/InstagramWidget.php:476
+#: app/Services/Widgets/InstagramWidget.php:536
 msgid "Typography"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1239
+#: app/Services/TranslationStrings.php:1243
 msgid "URL"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1240
+#: app/Services/TranslationStrings.php:1244
 msgid "Unavailable"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1241
+#: app/Services/TranslationStrings.php:1245
 msgid "Underline"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1242
+#: app/Services/TranslationStrings.php:1246
 msgid "Underline Overline"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1243
+#: app/Services/TranslationStrings.php:1247
 msgid "Upcoming"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1244
+#: app/Services/TranslationStrings.php:1248
 msgid "Update"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1245
+#: app/Services/TranslationStrings.php:1249
 msgid "Update WP Social Ninja Pro to choose an AI platform and model. Your saved configuration is kept."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1246
+#: app/Services/TranslationStrings.php:1250
 msgid "Updates & Support"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1247
+#: app/Services/TranslationStrings.php:1251
 msgid "Upgrade to pro to display unlimited Instagram Post."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1248
+#: app/Services/TranslationStrings.php:1252
 msgid "Upload"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1249
+#: app/Services/TranslationStrings.php:1253
 msgid "Upload Custom Banner"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1250
+#: app/Services/TranslationStrings.php:1254
 msgid "Upload a avatar or image of the"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1251
+#: app/Services/TranslationStrings.php:1255
 msgid "Upload author website logo. Use a 120x120 pixel square image"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1252
+#: app/Services/TranslationStrings.php:1256
 msgid "Uppercase"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1253
+#: app/Services/TranslationStrings.php:1257
 msgid "Use WP Social Ninja as the primary interface for managing all reviews"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1254
+#: app/Services/TranslationStrings.php:1258
 msgid "Use a 120x120 pixel square image"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1255
+#: app/Services/TranslationStrings.php:1259
 msgid "Use this video"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1256
+#: app/Services/TranslationStrings.php:1260
 msgid "User Account"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1257
+#: app/Services/TranslationStrings.php:1261
 msgid "User Email Address"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1259
+#: app/Services/TranslationStrings.php:1263
 msgid "User Timeline"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1260
+#: app/Services/TranslationStrings.php:1264
 msgid "Username"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1261
+#: app/Services/TranslationStrings.php:1265
 msgid "Validate & Save"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1262
+#: app/Services/TranslationStrings.php:1266
 msgid "Validate the preview and save this Turnstile configuration for all native forms, or disconnect it completely."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1263
+#: app/Services/TranslationStrings.php:1267
 msgid "Validation Preview"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1264
+#: app/Services/TranslationStrings.php:1268
 msgid "Validation Status"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1265
+#: app/Services/TranslationStrings.php:1269
 msgid "Verified Badge Tooltip Text"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1266
+#: app/Services/TranslationStrings.php:1270
 msgid "Verified Customer"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1267
+#: app/Services/TranslationStrings.php:1271
 msgid "Verified Purchase Required"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1268
+#: app/Services/TranslationStrings.php:1272
 msgid "Verify License"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1269
+#: app/Services/TranslationStrings.php:1273
 msgid "Vertical"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1270
+#: app/Services/TranslationStrings.php:1274
 msgid "Vertical Mode? :"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1271
+#: app/Services/TranslationStrings.php:1275
 msgid "Video"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1272
+#: app/Services/TranslationStrings.php:1276
 msgid "Video Grid"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1273
+#: app/Services/TranslationStrings.php:1277
 msgid "Video ID"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1274
+#: app/Services/TranslationStrings.php:1278
 msgid "Video Loop"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1275
+#: app/Services/TranslationStrings.php:1279
 msgid "Video preview"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1277
+#: app/Services/TranslationStrings.php:1281
 msgid "Videos Only"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1281
+#: app/Services/TranslationStrings.php:1285
 msgid "View video on TikTok"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1283
+#: app/Services/TranslationStrings.php:1287
 msgid "Views Counter"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1284
+#: app/Services/TranslationStrings.php:1288
 msgid "WP Social Ninja does not manage or post to your Facebook account. It only reads the public content you approve. Tokens and data are stored on your own site — our connection service only passes the authorization through and never stores your data."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1285
+#: app/Services/TranslationStrings.php:1289
 msgid "We could not verify this license."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1286
-msgid "We've upgraded the secure connection WP Social Ninja uses for Google Reviews and YouTube. Your current connection still works, but it uses our previous authorization app, which we'll retire soon. Reconnect once to switch to the new app and keep your reviews and videos updating. It takes less than a minute, and your templates and settings stay as they are."
+#: app/Services/TranslationStrings.php:1290
+msgid "We have moved Custom Feed for TikTok to a new TikTok app. Click Reconnect next to each marked account and sign in with the same TikTok account, otherwise its feed will stop updating. The account then shows as a new account. Select it in each TikTok template that uses the old account, then remove the old account."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1287
+#: app/Services/TranslationStrings.php:1291
 msgid "We've upgraded the secure connection WP Social Ninja uses for Google Reviews. Your current connection still works, but it uses our previous authorization app, which we'll retire soon. Reconnect once to switch to the new app and keep your reviews updating. It takes less than a minute, and your templates and settings stay as they are."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1288
+#: app/Services/TranslationStrings.php:1292
 msgid "We've upgraded the secure connection WP Social Ninja uses for YouTube. Your current connection still works, but it uses our previous authorization app, which we'll retire soon. Reconnect once to switch to the new app and keep your videos updating. It takes less than a minute, and your templates and settings stay as they are."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1289
+#: app/Services/TranslationStrings.php:1293
 msgid "Weight"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1290
+#: app/Services/TranslationStrings.php:1294
 msgid "Welcome Message"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1292
+#: app/Services/TranslationStrings.php:1296
 msgid "WhatsApp Message Context"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1293
+#: app/Services/TranslationStrings.php:1297
 msgid "When enabled, approved reviews will tag the matching FluentCRM contact."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1294
+#: app/Services/TranslationStrings.php:1298
 msgid "When to Display Online"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1295
+#: app/Services/TranslationStrings.php:1299
 msgid "Where would you like to import the reviews?"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1296
+#: app/Services/TranslationStrings.php:1300
 msgid "Wide"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1297
+#: app/Services/TranslationStrings.php:1301
 msgid "Wider"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1298
+#: app/Services/TranslationStrings.php:1302
 msgid "WooCommerce"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1299
+#: app/Services/TranslationStrings.php:1303
 msgid "WooCommerce Product"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1300
+#: app/Services/TranslationStrings.php:1304
 msgid "WooCommerce is not active. Reviews will fall back to generic mode until reactivated."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1301
+#: app/Services/TranslationStrings.php:1305
 msgid "WooCommerce product details"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1302
+#: app/Services/TranslationStrings.php:1306
 msgid "Would you like to clear all the errors stored in the error log?"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1303
+#: app/Services/TranslationStrings.php:1307
 msgid "Write a Review"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1304
+#: app/Services/TranslationStrings.php:1308
 msgid "X (Twitter) App"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1305
+#: app/Services/TranslationStrings.php:1309
 msgid "X (Twitter) Configuration"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1306
+#: app/Services/TranslationStrings.php:1310
 msgid "Yelp"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1307
+#: app/Services/TranslationStrings.php:1311
 msgid "Yes"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1308
+#: app/Services/TranslationStrings.php:1312
 msgid "Yes, Deactivate"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1309
+#: app/Services/TranslationStrings.php:1313
 msgid "You are in a grace period, so everything keeps working for now. Updates and support will end soon - renew your license to keep them."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1310
+#: app/Services/TranslationStrings.php:1314
 msgid "You can add custom reviews manually by selecting the button below."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1311
+#: app/Services/TranslationStrings.php:1315
 msgid "You can add sources to get custom reviews easily, click below button to add sources."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1312
+#: app/Services/TranslationStrings.php:1316
 msgid "You can find the ID of your TikTok video from the URL."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1313
+#: app/Services/TranslationStrings.php:1317
 msgid "You can find the post ID by viewing the post on Facebook and copying the ID number from the end of the URL."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1314
+#: app/Services/TranslationStrings.php:1318
 msgid "You can find the post ID by viewing the post on Instagram and copying the ID number from the end of the URL."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1315
+#: app/Services/TranslationStrings.php:1319
 msgid "You can find the post ID by viewing the post on TikTok and copying the ID number from the end of the URL."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1316
+#: app/Services/TranslationStrings.php:1320
 msgid "You can find the post ID by viewing the post on X (Twitter) and copying the ID number from the end of the URL."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1317
+#: app/Services/TranslationStrings.php:1321
 msgid "You can find the video ID by viewing the video on YouTube and copying the ID number from the end of the URL."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1318
+#: app/Services/TranslationStrings.php:1322
 msgid "You can use this setting to hide posts that contain certain specific words or hashtags in the caption."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1319
+#: app/Services/TranslationStrings.php:1323
 msgid "You can use this setting to show posts that contain certain specific words or hashtags in the caption."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1320
+#: app/Services/TranslationStrings.php:1324
 msgid "You can use this {review_rating} shortcode to show dynamic value in a text. Ex: Just left us a {review_rating} star review."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1321
+#: app/Services/TranslationStrings.php:1325
 msgid "You can use this {reviews_count} shortcode to show dynamic value in a text. Ex: Read our {reviews_count} Reviews"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1322
+#: app/Services/TranslationStrings.php:1326
 msgid "You can use this {total_reviews} shortcode to show dynamic value in a text. Ex: Based on {total_reviews} Reviews."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1323
+#: app/Services/TranslationStrings.php:1327
 msgid "You haven’t added any testimonials. Add one now to start showcasing them in your template."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1324
+#: app/Services/TranslationStrings.php:1328
 msgid "You see a line like b_hotel_id: '62665', b_hotel_name: 'Your Hotel'. Check that the name is your hotel."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1325
+#: app/Services/TranslationStrings.php:1329
 msgid "You will be redirected to WP Social Ninja, then to Facebook to approve access."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1326
+#: app/Services/TranslationStrings.php:1330
 msgid "You will be redirected to WP Social Ninja, then to Google to approve access."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1327
+#: app/Services/TranslationStrings.php:1331
 msgid "You will be redirected to WP Social Ninja, then to Instagram to approve access."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1328
+#: app/Services/TranslationStrings.php:1332
 msgid "You will be redirected to WP Social Ninja, then to TikTok to approve access."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1329
+#: app/Services/TranslationStrings.php:1333
 msgid "You will be redirected to our authentication portal. This may take up to 5 seconds."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1330
+#: app/Services/TranslationStrings.php:1334
 msgid "YouTube:"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1331
+#: app/Services/TranslationStrings.php:1335
 msgid "Your"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1332
+#: app/Services/TranslationStrings.php:1336
 msgid "Your Account"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1333
+#: app/Services/TranslationStrings.php:1337
 msgid "Your Authorized Businesses List"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1334
+#: app/Services/TranslationStrings.php:1338
 msgid "Your Connected Account"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1335
+#: app/Services/TranslationStrings.php:1339
 msgid "Your Connected Account:"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1336
+#: app/Services/TranslationStrings.php:1340
 msgid "Your Connected Accounts"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1337
+#: app/Services/TranslationStrings.php:1341
 msgid "Your Connected Business Accounts"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1338
+#: app/Services/TranslationStrings.php:1342
 msgid "Your Connected FluentCart Products"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1339
+#: app/Services/TranslationStrings.php:1343
 msgid "Your Connected WooCommerce Products"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1340
+#: app/Services/TranslationStrings.php:1344
 msgid "Your Location List"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1341
+#: app/Services/TranslationStrings.php:1345
 msgid "Your all chat widgets are here"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1342
+#: app/Services/TranslationStrings.php:1346
 msgid "Your all popups are here"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1343
+#: app/Services/TranslationStrings.php:1347
 msgid "Your all reviews are here"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1344
+#: app/Services/TranslationStrings.php:1348
 msgid "Your all templates are here"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1345
+#: app/Services/TranslationStrings.php:1349
 msgid "Your all testimonials are here"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1346
+#: app/Services/TranslationStrings.php:1350
 msgid "Your business info is empty!!"
 msgstr ""
 
 #. translators: the placeholders are values the admin screen fills in at runtime; keep each one.
-#: app/Services/TranslationStrings.php:1348
+#: app/Services/TranslationStrings.php:1352
 #, php-format
 msgid "Your license expired on %s"
 msgstr ""
 
 #. translators: the placeholders are values the admin screen fills in at runtime; keep each one.
-#: app/Services/TranslationStrings.php:1350
+#: app/Services/TranslationStrings.php:1354
 #, php-format
 msgid "Your license expires in %d days"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1351
+#: app/Services/TranslationStrings.php:1355
 msgid "Your license expires today."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1352
+#: app/Services/TranslationStrings.php:1356
 msgid "Your license has expired."
 msgstr ""
 
 #. translators: the placeholders are values the admin screen fills in at runtime; keep each one.
-#: app/Services/TranslationStrings.php:1354
+#: app/Services/TranslationStrings.php:1358
 #, php-format
 msgid "Your license will not renew on its own. It expires on %s."
 msgstr ""
 
 #. translators: the placeholders are values the admin screen fills in at runtime; keep each one.
-#: app/Services/TranslationStrings.php:1356
+#: app/Services/TranslationStrings.php:1360
 #, php-format
 msgid "Your subscription is not active (%s)"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1357
+#: app/Services/TranslationStrings.php:1361
 msgid "and only the first image will display for"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1358
+#: app/Services/TranslationStrings.php:1362
 msgid "cached feeds data and retrieve new feeds."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1359
+#: app/Services/TranslationStrings.php:1363
 msgid "carousel posts."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1360
+#: app/Services/TranslationStrings.php:1364
 msgid "characters"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1361
+#: app/Services/TranslationStrings.php:1365
 msgid "clear cache after that length of time and retrieve new feeds again."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1362
+#: app/Services/TranslationStrings.php:1366
 msgid "clicking this button will clear all"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1363
+#: app/Services/TranslationStrings.php:1367
 msgid "e.g. 62665"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1364
+#: app/Services/TranslationStrings.php:1368
 msgid "e.g. Hotel Adlon Kempinski Berlin"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1365
+#: app/Services/TranslationStrings.php:1369
 msgid "e.g. Restart Accommodations Rome"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1366
+#: app/Services/TranslationStrings.php:1370
 msgid "ex: -15 days"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1367
+#: app/Services/TranslationStrings.php:1371
 msgid "ex: now"
 msgstr ""
 
 #. translators: the placeholders are values the admin screen fills in at runtime; keep each one.
-#: app/Services/TranslationStrings.php:1369
+#: app/Services/TranslationStrings.php:1373
 #, php-format
 msgid "expired %d days ago"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1370
+#: app/Services/TranslationStrings.php:1374
 msgid "expired 1 day ago"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1371
+#: app/Services/TranslationStrings.php:1375
 msgid "expires today"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1372
+#: app/Services/TranslationStrings.php:1376
 msgid "feed automatically,"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1373
+#: app/Services/TranslationStrings.php:1377
 msgid "feed."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1374
+#: app/Services/TranslationStrings.php:1378
 msgid "feeds are temporarily cached by our plugin in your WordPress database."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1375
+#: app/Services/TranslationStrings.php:1379
 msgid "followers"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1376
+#: app/Services/TranslationStrings.php:1380
 msgid "from real customers"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1377
+#: app/Services/TranslationStrings.php:1381
 msgid "in"
 msgstr ""
 
 #. translators: the placeholders are values the admin screen fills in at runtime; keep each one.
-#: app/Services/TranslationStrings.php:1379
+#: app/Services/TranslationStrings.php:1383
 #, php-format
 msgid "in %d days"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1380
+#: app/Services/TranslationStrings.php:1384
 msgid "in 1 day"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1381
+#: app/Services/TranslationStrings.php:1385
 msgid "information"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1382
+#: app/Services/TranslationStrings.php:1386
 msgid "is active, but you don't have any published products yet. Add a product in FluentCart, then come back here to connect it."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1383
+#: app/Services/TranslationStrings.php:1387
 msgid "is active, but you don't have any published products yet. Add a product in WooCommerce, then come back here to connect it."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1385
+#: app/Services/TranslationStrings.php:1389
 msgid "looks like a match"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1386
+#: app/Services/TranslationStrings.php:1390
 msgid "multiple images."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1387
+#: app/Services/TranslationStrings.php:1391
 msgid "multiple platforms"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1388
+#: app/Services/TranslationStrings.php:1392
 msgid "on"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1389
+#: app/Services/TranslationStrings.php:1393
 msgid "or"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1390
+#: app/Services/TranslationStrings.php:1394
 msgid "plugin is installed and activated to connect product reviews."
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1391
+#: app/Services/TranslationStrings.php:1395
 msgid "review hub"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1392
+#: app/Services/TranslationStrings.php:1396
 msgid "reviews"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1393
+#: app/Services/TranslationStrings.php:1397
 msgid "saved reviews would be replaced"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1394
+#: app/Services/TranslationStrings.php:1398
 msgid "to configure your settings first!"
 msgstr ""
 
-#: app/Services/TranslationStrings.php:1395
+#: app/Services/TranslationStrings.php:1399
 msgid "{count} platforms"
 msgstr ""
 
@@ -6344,60 +6360,60 @@ msgstr ""
 
 #: app/Services/Widgets/InstagramWidget.php:106
 #: app/Services/Widgets/InstagramWidget.php:154
-#: app/Services/Widgets/InstagramWidget.php:203
-#: app/Services/Widgets/InstagramWidget.php:233
-#: app/Services/Widgets/InstagramWidget.php:263
-#: app/Services/Widgets/InstagramWidget.php:374
-#: app/Services/Widgets/InstagramWidget.php:450
-#: app/Services/Widgets/InstagramWidget.php:542
+#: app/Services/Widgets/InstagramWidget.php:204
+#: app/Services/Widgets/InstagramWidget.php:234
+#: app/Services/Widgets/InstagramWidget.php:264
+#: app/Services/Widgets/InstagramWidget.php:375
+#: app/Services/Widgets/InstagramWidget.php:451
+#: app/Services/Widgets/InstagramWidget.php:544
 msgid "Text Color"
 msgstr ""
 
-#: app/Services/Widgets/InstagramWidget.php:194
+#: app/Services/Widgets/InstagramWidget.php:195
 msgid "FullName"
 msgstr ""
 
-#: app/Services/Widgets/InstagramWidget.php:297
+#: app/Services/Widgets/InstagramWidget.php:298
 msgid "Box"
 msgstr ""
 
-#: app/Services/Widgets/InstagramWidget.php:306
+#: app/Services/Widgets/InstagramWidget.php:307
 msgid "Background Color"
 msgstr ""
 
-#: app/Services/Widgets/InstagramWidget.php:319
-#: app/Services/Widgets/InstagramWidget.php:425
-#: app/Services/Widgets/InstagramWidget.php:576
-#: app/Services/Widgets/InstagramWidget.php:665
+#: app/Services/Widgets/InstagramWidget.php:320
+#: app/Services/Widgets/InstagramWidget.php:426
+#: app/Services/Widgets/InstagramWidget.php:578
+#: app/Services/Widgets/InstagramWidget.php:667
 msgid "Padding"
 msgstr ""
 
-#: app/Services/Widgets/InstagramWidget.php:339
-#: app/Services/Widgets/InstagramWidget.php:597
-#: app/Services/Widgets/InstagramWidget.php:686
+#: app/Services/Widgets/InstagramWidget.php:340
+#: app/Services/Widgets/InstagramWidget.php:599
+#: app/Services/Widgets/InstagramWidget.php:688
 msgid "Border Radius"
 msgstr ""
 
-#: app/Services/Widgets/InstagramWidget.php:386
+#: app/Services/Widgets/InstagramWidget.php:387
 msgid "Hashtag Color"
 msgstr ""
 
-#: app/Services/Widgets/InstagramWidget.php:407
-#: app/Services/Widgets/InstagramWidget.php:483
-#: app/Services/Widgets/InstagramWidget.php:564
-#: app/Services/Widgets/InstagramWidget.php:653
+#: app/Services/Widgets/InstagramWidget.php:408
+#: app/Services/Widgets/InstagramWidget.php:484
+#: app/Services/Widgets/InstagramWidget.php:566
+#: app/Services/Widgets/InstagramWidget.php:655
 msgid "Margin"
 msgstr ""
 
-#: app/Services/Widgets/InstagramWidget.php:462
+#: app/Services/Widgets/InstagramWidget.php:463
 msgid "Icon Color"
 msgstr ""
 
-#: app/Services/Widgets/InstagramWidget.php:555
-#: app/Services/Widgets/InstagramWidget.php:644
+#: app/Services/Widgets/InstagramWidget.php:557
+#: app/Services/Widgets/InstagramWidget.php:646
 msgid "Background"
 msgstr ""
 
-#: app/Services/Widgets/InstagramWidget.php:631
+#: app/Services/Widgets/InstagramWidget.php:633
 msgid "Platform Icon Color"
 msgstr ""

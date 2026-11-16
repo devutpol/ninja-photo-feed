@@ -6,7 +6,8 @@ jQuery(document).ready(function ($) {
         init() {
             let that = this;
 
-            $('.npfeed-loader').addClass('npfeed-loading');
+            // Sliders are laid out before JS runs, so covering them would only flash the posts away.
+            $('.npfeed-loader').not('.npfeed-facebook-feed-slider-activate .npfeed-loader, .npfeed-tiktok-feed-slider-activate .npfeed-loader').addClass('npfeed-loading');
             setTimeout(function(){
                 jQuery('.npfeed-loader').removeClass('npfeed-loading');
             }, 500);
@@ -348,11 +349,10 @@ jQuery(document).ready(function ($) {
                         swiper = new swipedUp(id + ' .swiper-container', sliderOptions);
                     }
 
-                    $('.npfeed-feed-wrap').addClass('npfeed-slider-before-init');
+                    // Slides are already laid out before Swiper starts, so the shimmer overlay has nothing left to hide.
+                    $('.npfeed-ig-post-media, .npfeed-yt-video-preview .npfeed-animated-background, .npfeed-tiktok-feed-image .npfeed-animated-background, .npfeed-fb-feed-image .npfeed-animated-background').removeClass('npfeed-animated-background');
 
-                    setTimeout(() => {
-                        $('.npfeed-ig-post-media, .npfeed-yt-video-preview .npfeed-animated-background, .npfeed-tiktok-feed-image .npfeed-animated-background, .npfeed-fb-feed-image .npfeed-animated-background').removeClass('npfeed-animated-background');
-                    }, 2000);
+                    $('.npfeed-feed-wrap').addClass('npfeed-slider-before-init');
 
                     if (sliderSettings.autoplay === 'true' && swiper) {
                         let container = $(id).find('.swiper-container');
@@ -374,9 +374,12 @@ jQuery(document).ready(function ($) {
                         });
 
                         container.on('keydown', '.swiper-slide', function (e) {
-                            if (e.key === 'ArrowLeft') {
+                            // In RTL the next slide sits to the left, so the arrow keys swap.
+                            const wpsrPrevKey = swiper.rtlTranslate ? 'ArrowRight' : 'ArrowLeft';
+                            const wpsrNextKey = swiper.rtlTranslate ? 'ArrowLeft' : 'ArrowRight';
+                            if (e.key === wpsrPrevKey) {
                                 swiper.slidePrev();
-                            } else if (e.key === 'ArrowRight') {
+                            } else if (e.key === wpsrNextKey) {
                                 swiper.slideNext();
                             }
                         });

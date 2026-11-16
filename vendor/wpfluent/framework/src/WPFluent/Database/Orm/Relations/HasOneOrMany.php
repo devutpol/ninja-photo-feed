@@ -12,6 +12,8 @@ use NinjaPhotoFeed\Framework\Database\Orm\Relations\Concerns\SupportsInverseRela
 
 /**
  * @template TRelatedModel of Model
+ *
+ * @extends Relation<TRelatedModel>
  */
 abstract class HasOneOrMany extends Relation
 {

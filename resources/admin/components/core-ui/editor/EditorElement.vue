@@ -250,6 +250,7 @@
             <el-select
                 v-if="field.type === 'select'"
                 v-model="localValue"
+                @change="handleChange"
                 placeholder="Select"
                 size="small"
                 :filterable="field.isFilterable ? true : false"
@@ -283,6 +284,7 @@
         <div class="npfeed-editor-inside-right" v-if="field.type === 'multiple_select'">
             <el-select
                 v-model="localValue"
+                @change="field.pro_handler && setAccount($event)"
                 placeholder="Select"
                 size="large"
                 :disabled="field.disabled"
@@ -317,6 +319,7 @@
         <div class="npfeed-editor-inside-right" v-if="field.type === 'dynamic_select'">
         <el-select
             v-model="localValue"
+            @change="handleChange"
             placeholder="Select"
             size="small"
             :multiple="field.multiple"
@@ -365,7 +368,7 @@
           <el-checkbox v-model="localValue" @change="$emit('on-change')">
             <h3 class="npfeed-sub-heading">{{ field.label }}</h3>
           </el-checkbox>
-          <el-tooltip style="margin-left: 10px" v-if="field.checkboxTooltip" class="item" effect="dark" placement="right-start">
+          <el-tooltip style="margin-inline-start: 10px" v-if="field.checkboxTooltip" class="item" effect="dark" placement="right-start">
             <template #content><div v-html="field.checkboxTooltipText"></div></template>
             <el-icon><InfoFilled /></el-icon>
           </el-tooltip>
@@ -588,28 +591,6 @@ export default {
 
         handleDevice(val, activeDevice) {
             this.$emit('handleDevice', val, activeDevice);
-        },
-
-        handleSelectChange(val) {
-            this.$emit('update:modelValue', val);
-            if (this.field.event === 'on_change') {
-                this.$emit('on-change');
-            }
-        },
-
-        handleMultipleSelectChange(val) {
-            if (this.field.pro_handler) {
-                this.setAccount(val);
-            } else {
-                this.$emit('update:modelValue', val);
-            }
-        },
-
-        handleDynamicSelectChange(val) {
-            this.$emit('update:modelValue', val);
-            if (this.field.event === 'on_change') {
-                this.$emit('on-change');
-            }
         }
     },
 

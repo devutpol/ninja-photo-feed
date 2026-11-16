@@ -5,16 +5,15 @@ namespace NinjaPhotoFeed\Framework\Foundation;
 use NinjaPhotoFeed\Framework\Container\Contracts\BindingResolutionException;
 
 /**
- * @method static db();
- * @method static view();
- * @method static events();
- * @method static config();
- * @method static request();
- * @method static response();
- * @method static encrypter();
- * @method static validator();
+ * @method static \NinjaPhotoFeed\Framework\Database\DatabaseManager db()
+ * @method static \NinjaPhotoFeed\Framework\View\View view()
+ * @method static \NinjaPhotoFeed\Framework\Events\Dispatcher events()
+ * @method static \NinjaPhotoFeed\Framework\Foundation\Config config()
+ * @method static \NinjaPhotoFeed\Framework\Http\Request\Request request()
+ * @method static \NinjaPhotoFeed\Framework\Http\Response\Response response()
+ * @method static \NinjaPhotoFeed\Framework\Encryption\Encrypter encrypter()
+ * @method static \NinjaPhotoFeed\Framework\Validator\Validator validator()
  */
-
 class App
 {
     /**

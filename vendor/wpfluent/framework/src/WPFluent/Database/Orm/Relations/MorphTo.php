@@ -5,10 +5,16 @@ namespace NinjaPhotoFeed\Framework\Database\Orm\Relations;
 use BadMethodCallException;
 use NinjaPhotoFeed\Framework\Support\Helper;
 use NinjaPhotoFeed\Framework\Database\Orm\Model;
+use NinjaPhotoFeed\Framework\Http\Request\CurrentUser;
 use NinjaPhotoFeed\Framework\Database\Orm\Builder;
 use NinjaPhotoFeed\Framework\Database\Orm\Collection;
 use NinjaPhotoFeed\Framework\Database\Orm\Relations\Concerns\InteractsWithDictionary;
 
+/**
+ * @template TRelatedModel of \NinjaPhotoFeed\Framework\Database\Orm\Model
+ *
+ * @extends BelongsTo<TRelatedModel>
+ */
 class MorphTo extends BelongsTo
 {
     use InteractsWithDictionary;
@@ -232,6 +238,10 @@ class MorphTo extends BelongsTo
      */
     public function associate($model)
     {
+        if ($model instanceof CurrentUser) {
+            $model = $model->forRelation();
+        }
+
         if ($model instanceof Model) {
             $foreignKey = $this->ownerKey && $model->{$this->ownerKey}
                             ? $this->ownerKey

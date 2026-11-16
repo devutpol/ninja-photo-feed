@@ -177,7 +177,7 @@ class ShortcodeHandler
         do_action('ninjaphotofeed/before_display_instagram_feed', $account_ids);
 
         if (!empty($template_meta['error_message'])) {
-            return apply_filters('ninjaphotofeed/display_frontend_error_message', $platform, $template_meta['error_message']);
+            return wp_kses((string) apply_filters('ninjaphotofeed/display_frontend_error_message', $platform, $template_meta['error_message']), GlobalHelper::frontendErrorAllowedHtml());
         }
 
         $feed = (new InstagramFeed())->getTemplateMeta($template_meta, $templateId);
@@ -235,9 +235,9 @@ class ShortcodeHandler
         $hashtags = Arr::get($settings, 'feed_settings.source_settings.hash_tags');
 
         if (Arr::get($error_message, 'error_message')) {
-            $html .= apply_filters('ninjaphotofeed/display_frontend_error_message', $platform, $error_message['error_message'], $account_ids, $hashtags);
+            $html .= wp_kses((string) apply_filters('ninjaphotofeed/display_frontend_error_message', $platform, $error_message['error_message'], $account_ids, $hashtags), GlobalHelper::frontendErrorAllowedHtml());
         } else {
-            $html .= apply_filters('ninjaphotofeed/display_frontend_error_message', $platform, $error_message, $account_ids, $hashtags);
+            $html .= wp_kses((string) apply_filters('ninjaphotofeed/display_frontend_error_message', $platform, $error_message, $account_ids, $hashtags), GlobalHelper::frontendErrorAllowedHtml());
         }
 
         $html .= $app->view->make('public.feeds-templates.instagram.header', array(
@@ -270,7 +270,7 @@ class ShortcodeHandler
 
                 // No renderer ran, so the filter handed back the array it was given.
                 $html .= is_string($npfeed_pro_html)
-                    ? $npfeed_pro_html
+                    ? wp_kses($npfeed_pro_html, GlobalHelper::feedTemplateAllowedHtml())
                     : $app->view->make($templateMapping['template1'], $template_body_data);
             } else {
                 $html .= $app->view->make($file, $template_body_data);

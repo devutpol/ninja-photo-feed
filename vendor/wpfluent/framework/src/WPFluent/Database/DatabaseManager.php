@@ -5,6 +5,9 @@ namespace NinjaPhotoFeed\Framework\Database;
 use BadMethodCallException;
 use NinjaPhotoFeed\Framework\Support\Arr;
 
+/**
+ * @mixin \NinjaPhotoFeed\Framework\Database\Query\WPDBConnection
+ */
 class DatabaseManager
 {
     protected $resolver;

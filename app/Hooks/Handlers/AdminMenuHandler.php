@@ -49,8 +49,7 @@ class AdminMenuHandler
             $dashboardPermission,
             'ninjaphotofeed.php',
             array($this, 'render'),
-            $this->getIcon(),
-            25
+            $this->getIcon()
         );
 
         if (in_array('npfeed_manage_platforms', $permission)) {

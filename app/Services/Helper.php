@@ -643,10 +643,40 @@ class Helper
     }
 
     /**
-     * Print internal content (not user input) without escaping.
+     * Markup the admin-only frontend error box may contain.
      */
-    public static function printInternalString( $string ) {
-        echo $string; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+    public static function frontendErrorAllowedHtml()
+    {
+        return [
+            'div'    => ['class' => true],
+            'span'   => ['class' => true],
+            'strong' => [],
+            'br'     => [],
+            'a'      => ['href' => true, 'target' => true],
+        ];
+    }
+
+    /**
+     * Markup a feed template rendered by a filter callback may contain: post HTML plus the feed's icons and media.
+     */
+    public static function feedTemplateAllowedHtml()
+    {
+        $npfeed_allowed = wp_kses_allowed_html('post');
+
+        $npfeed_allowed['a']['tabindex'] = true;
+        $npfeed_allowed['svg'] = [
+            'class' => true, 'width' => true, 'height' => true, 'viewbox' => true, 'fill' => true, 'xmlns' => true,
+            'aria-hidden' => true, 'aria-label' => true, 'role' => true, 'focusable' => true,
+        ];
+        $npfeed_allowed['path'] = ['d' => true, 'fill' => true, 'fill-rule' => true, 'clip-rule' => true];
+        $npfeed_allowed['video'] = [
+            'class' => true, 'src' => true, 'poster' => true, 'controls' => true, 'loop' => true, 'muted' => true,
+            'autoplay' => true, 'playsinline' => true, 'webkit-playsinline' => true, 'preload' => true,
+            'width' => true, 'height' => true,
+        ];
+        $npfeed_allowed['source'] = ['src' => true, 'type' => true];
+
+        return $npfeed_allowed;
     }
 
     public static function customEncodeEmoji($content) {
@@ -822,6 +852,35 @@ class Helper
     public static function isMaskedApiKey($value)
     {
         return is_string($value) && strpos($value, self::API_KEY_MASK_PREFIX) === 0;
+    }
+
+    /**
+     * Inline CSS variables that size feed carousel slides before Swiper starts, mirroring `carouselOptions()` in helper.js.
+     *
+     * @param array $slider_data
+     * @return string
+     */
+    public static function getSliderPreInitStyle($slider_data = [])
+    {
+        if (empty($slider_data)) {
+            return '';
+        }
+
+        $npfeed_slides = array(
+            'desktop' => absint(Arr::get($slider_data, 'responsive_slides_to_show.desktop', 1)),
+            'tablet'  => absint(Arr::get($slider_data, 'responsive_slides_to_show.tablet', 2)),
+            'mobile'  => absint(Arr::get($slider_data, 'responsive_slides_to_show.mobile', 1)),
+        );
+
+        $npfeed_style = '';
+        foreach ($npfeed_slides as $npfeed_device => $npfeed_count) {
+            $npfeed_style .= '--npfeed-slides-' . $npfeed_device . ':' . max(1, $npfeed_count) . ';';
+        }
+
+        $npfeed_gap = Arr::get($slider_data, 'spaceBetween');
+        $npfeed_style .= '--npfeed-slide-gap:' . ($npfeed_gap === '' || $npfeed_gap === null ? 20 : absint($npfeed_gap)) . 'px;';
+
+        return $npfeed_style;
     }
 
 }

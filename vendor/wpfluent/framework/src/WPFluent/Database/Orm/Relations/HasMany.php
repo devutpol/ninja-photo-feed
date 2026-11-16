@@ -4,6 +4,11 @@ namespace NinjaPhotoFeed\Framework\Database\Orm\Relations;
 
 use NinjaPhotoFeed\Framework\Database\Orm\Collection;
 
+/**
+ * @template TRelatedModel of \NinjaPhotoFeed\Framework\Database\Orm\Model
+ *
+ * @extends HasOneOrMany<TRelatedModel>
+ */
 class HasMany extends HasOneOrMany
 {
     /**

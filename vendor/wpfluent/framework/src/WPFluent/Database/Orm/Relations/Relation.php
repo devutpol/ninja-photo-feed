@@ -5,9 +5,9 @@ namespace NinjaPhotoFeed\Framework\Database\Orm\Relations;
 use Closure;
 use NinjaPhotoFeed\Framework\Support\Arr;
 use NinjaPhotoFeed\Framework\Support\Helper;
-use NinjaPhotoFeed\Framework\Support\ForwardsCalls;
-use NinjaPhotoFeed\Framework\Support\MacroableTrait;
-use NinjaPhotoFeed\Framework\Support\HelperFunctionsTrait;
+use NinjaPhotoFeed\Framework\Support\Concerns\ForwardsCalls;
+use NinjaPhotoFeed\Framework\Support\Concerns\MacroableTrait;
+use NinjaPhotoFeed\Framework\Support\Concerns\HelperFunctionsTrait;
 use NinjaPhotoFeed\Framework\Database\Orm\Model;
 use NinjaPhotoFeed\Framework\Database\Orm\Builder;
 use NinjaPhotoFeed\Framework\Database\Orm\Collection;
@@ -17,6 +17,8 @@ use NinjaPhotoFeed\Framework\Database\MultipleRecordsFoundException;
 
 /**
  * @mixin \NinjaPhotoFeed\Framework\Database\Orm\Builder
+ *
+ * @template TRelatedModel of \NinjaPhotoFeed\Framework\Database\Orm\Model
  */
 abstract class Relation
 {

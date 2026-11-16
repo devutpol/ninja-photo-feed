@@ -48,6 +48,12 @@ class PlatformController extends Controller
             $customNotices = [];
         }
 
+        if ($notices->isReconnectSnoozed()) {
+            $customNotices = array_filter($customNotices, function ($notice) {
+                return !is_array($notice) || !isset($notice['group']) || $notice['group'] !== 'reconnect';
+            });
+        }
+
         wp_send_json_success([
             'displayNotice' => empty($hasAdminErrors) && $notices->getNoticesStatus(),
             'displayOptInNotice'  => empty($hasAdminErrors) && $displayOptInNotice,

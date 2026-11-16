@@ -6,6 +6,11 @@ use NinjaPhotoFeed\Framework\Support\Helper;
 use NinjaPhotoFeed\Framework\Database\Orm\Model;
 use NinjaPhotoFeed\Framework\Database\Orm\Builder;
 
+/**
+ * @template TRelatedModel of \NinjaPhotoFeed\Framework\Database\Orm\Model
+ *
+ * @extends HasOneOrMany<TRelatedModel>
+ */
 abstract class MorphOneOrMany extends HasOneOrMany
 {
     /**

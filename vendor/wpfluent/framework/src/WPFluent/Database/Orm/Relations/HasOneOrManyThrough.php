@@ -4,7 +4,7 @@ namespace NinjaPhotoFeed\Framework\Database\Orm\Relations;
 
 use Closure;
 use NinjaPhotoFeed\Framework\Support\Helper;
-use NinjaPhotoFeed\Framework\Support\ArrayableInterface;
+use NinjaPhotoFeed\Framework\Support\Contracts\ArrayableInterface;
 use NinjaPhotoFeed\Framework\Database\Orm\Builder;
 use NinjaPhotoFeed\Framework\Database\Orm\Collection;
 use NinjaPhotoFeed\Framework\Database\Orm\Model;
@@ -19,6 +19,8 @@ use NinjaPhotoFeed\Framework\Database\UniqueConstraintViolationException;
  * @template TIntermediateModel of Model
  * @template TDeclaringModel of Model
  * @template TResult
+ *
+ * @extends Relation<TRelatedModel>
  */
 abstract class HasOneOrManyThrough extends Relation
 {

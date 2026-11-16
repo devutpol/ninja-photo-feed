@@ -14,6 +14,8 @@ use NinjaPhotoFeed\Framework\Database\Orm\Relations\Concerns\SupportsDefaultMode
 /**
  * @template TRelatedModel of Model
  * @template TDeclaringModel of Model
+ *
+ * @extends MorphOneOrMany<TRelatedModel>
  */
 class MorphOne extends MorphOneOrMany implements SupportsPartialRelations
 {
@@ -59,7 +61,7 @@ class MorphOne extends MorphOneOrMany implements SupportsPartialRelations
     /**
      * Add constraints for inner join subselect for one of many relationships.
      *
-     * @param  \NinjaPhotoFeed\Framework\Database\Orm\Builder<TRelatedModel>  $query
+     * @param  \NinjaPhotoFeed\Framework\Database\Orm\Builder  $query
      * @param  string|null  $column
      * @param  string|null  $aggregate
      * @return void

@@ -37,5 +37,8 @@ spl_autoload_register(function ($class) {
     return false;
 });
 
+// The framework's composer "files" entry; core gets it from composer, this build has no composer autoloader.
+require_once __DIR__ . '/wpfluent/framework/src/WPFluent/Support/Polyfills/loader.php';
+
 // Load globals file
 require_once __DIR__ . '/../boot/globals.php';

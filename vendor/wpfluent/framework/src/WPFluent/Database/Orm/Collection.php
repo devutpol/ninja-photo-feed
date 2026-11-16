@@ -5,7 +5,7 @@ namespace NinjaPhotoFeed\Framework\Database\Orm;
 use LogicException;
 use NinjaPhotoFeed\Framework\Support\Arr;
 use NinjaPhotoFeed\Framework\Support\Str;
-use NinjaPhotoFeed\Framework\Support\ArrayableInterface;
+use NinjaPhotoFeed\Framework\Support\Contracts\ArrayableInterface;
 use NinjaPhotoFeed\Framework\Support\Collection as BaseCollection;
 use NinjaPhotoFeed\Framework\Database\Orm\Relations\Concerns\InteractsWithDictionary;
 

@@ -21,6 +21,7 @@
 @import "elements/dark-mode";
 @import "elements/photo-upload";
 @import "elements/video-upload";
+@import "elements/rtl";
 
 @import "template-editor/edit-view";
 @import "template-editor/docs";
@@ -53,5 +54,9 @@
 @import "feed-templates/instagram/color-schemes";
 
 
+
+// Element Plus is imported here, not from JS, so rtlcss can mirror it. Last, so it keeps winning ties as it did when injected.
+// No .css extension: Sass inlines it; a plain CSS @import after other rules is dropped by css-loader.
+@import "element-plus/dist/index";
 
 @import "admin-all-templates-overrides";

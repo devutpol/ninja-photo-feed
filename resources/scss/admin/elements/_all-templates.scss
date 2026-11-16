@@ -267,11 +267,25 @@
         width: 28px;
         height: 28px;
       }
+      // A real link so Cmd/Ctrl/middle-click can open the editor in a new tab; drop the WP admin link look.
+      a.npfeed-item-editable{
+        color: var(--npfeed-heading-text, #0E121B);
+        text-decoration: none;
+        &:focus{
+          box-shadow: none;
+          outline: none;
+        }
+        &:focus-visible{
+          outline: 2px solid var(--npfeed-primary-btn-bg, #5525D9);
+          outline-offset: 2px;
+          border-radius: var(--npfeed-radius-sm, 4px);
+        }
+      }
       .npfeed-item-editable{
         cursor: pointer;
         text-transform: capitalize;
         &:hover,
-        &:focus {
+        &:focus-visible {
           text-decoration: underline;
           color: var(--npfeed-primary-btn-bg, #5525D9);
         }
@@ -620,7 +634,6 @@
   position: relative;
   .npfeed-text-modal-content {
     display: inline;
-    margin-right: 5px;
     p{
       margin: 0;
       padding: 0;
@@ -628,6 +641,8 @@
     }
   }
   .npfeed-read-more {
+    // The gap sits on the link: the text is its own dir="auto" run, so a margin on it lands at its start, not here.
+    margin-inline-start: 5px;
     color: var(--npfeed-primary-btn-bg, #5525D9);
     text-decoration: none;
     cursor: pointer;

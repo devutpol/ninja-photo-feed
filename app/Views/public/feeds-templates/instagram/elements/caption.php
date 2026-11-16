@@ -1,7 +1,7 @@
 <?php defined('ABSPATH') or die;
 
 if ($caption) { ?>
-    <div class="npfeed-ig-post-caption">
+    <div class="npfeed-ig-post-caption" dir="auto">
         <p class="npfeed-ig-post-caption-text">
             <?php
             $npfeed_caption = preg_replace(

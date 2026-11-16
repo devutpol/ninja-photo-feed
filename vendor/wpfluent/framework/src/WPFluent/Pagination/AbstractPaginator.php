@@ -7,9 +7,9 @@ use NinjaPhotoFeed\Framework\Foundation\App;
 use NinjaPhotoFeed\Framework\Support\Arr;
 use NinjaPhotoFeed\Framework\Support\Str;
 use NinjaPhotoFeed\Framework\Support\Helper;
-use NinjaPhotoFeed\Framework\Support\Tappable;
+use NinjaPhotoFeed\Framework\Support\Concerns\Tappable;
 use NinjaPhotoFeed\Framework\Support\Collection;
-use NinjaPhotoFeed\Framework\Support\ForwardsCalls;
+use NinjaPhotoFeed\Framework\Support\Concerns\ForwardsCalls;
 
 /**
  * @mixin \NinjaPhotoFeed\Framework\Support\Collection
@@ -435,6 +435,8 @@ abstract class AbstractPaginator
      */
     public function setPath($path)
     {
+        // A path that doesn't start with http:// or https:// (any case) is
+        // relative: prefix it with the current request's URL.
         if (!preg_match('/^https?:\/\//i', $path)) {
             $path = App::make('request')->url() . '/' . trim($path, '/');
         }

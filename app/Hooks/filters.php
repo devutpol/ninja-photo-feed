@@ -86,7 +86,7 @@ if (defined('WP_ROCKET_VERSION')) {
     });
 
     add_filter('rocket_exclude_defer_js', function ($defers) {
-        $defers[] = str_replace(ABSPATH, '/', WP_PLUGIN_DIR) . '/ninja-photo-feed/assets/js/(.*).js';
+        $defers[] = wp_parse_url(NINJAPHOTOFEED_URL . 'assets/js/', PHP_URL_PATH) . '(.*).js';
         return $defers;
     });
 }
@@ -128,10 +128,10 @@ add_filter('ninjaphotofeed/display_frontend_error_message', function ($platform,
         return false;
     }
 
-    if (!empty($error_message)) {
+    if (!empty($error_message) && is_scalar($error_message)) {
         return '<div class="npfeed_frontend_errors">
-            <span>' . __('This error message is only visible to WordPress admins', 'ninja-photo-feed') . '</span><br/>
-            <strong>' . $error_message . '</strong>
+            <span>' . esc_html__('This error message is only visible to WordPress admins', 'ninja-photo-feed') . '</span><br/>
+            <strong>' . wp_kses((string) $error_message, ['a' => ['href' => [], 'target' => []]]) . '</strong>
        </div>';
     }
 

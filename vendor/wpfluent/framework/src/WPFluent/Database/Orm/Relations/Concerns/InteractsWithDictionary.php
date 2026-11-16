@@ -2,7 +2,7 @@
 
 namespace NinjaPhotoFeed\Framework\Database\Orm\Relations\Concerns;
 
-use NinjaPhotoFeed\Framework\Support\InvalidArgumentException;
+use InvalidArgumentException;
 
 trait InteractsWithDictionary
 {
@@ -12,7 +12,7 @@ trait InteractsWithDictionary
      * @param  mixed  $attribute
      * @return mixed
      *
-     * @throws \NinjaPhotoFeed\Framework\Support\InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     protected function getDictionaryKey($attribute)
     {

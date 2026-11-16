@@ -5,6 +5,11 @@ namespace NinjaPhotoFeed\Framework\Database\Orm\Relations;
 use NinjaPhotoFeed\Framework\Database\Orm\Collection;
 use NinjaPhotoFeed\Framework\Database\Orm\Relations\Concerns\InteractsWithDictionary;
 
+/**
+ * @template TRelatedModel of \NinjaPhotoFeed\Framework\Database\Orm\Model
+ *
+ * @extends HasOneOrManyThrough<TRelatedModel, \NinjaPhotoFeed\Framework\Database\Orm\Model, \NinjaPhotoFeed\Framework\Database\Orm\Model, mixed>
+ */
 class HasManyThrough extends HasOneOrManyThrough
 {
     use InteractsWithDictionary;

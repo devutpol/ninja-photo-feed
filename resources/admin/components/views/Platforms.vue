@@ -27,7 +27,7 @@
                     <instagram-config
                         v-if="instagramSettingModal"
                         :instagramModal="instagramSettingModal"
-                        :access_token.sync="verificationData"
+                        v-model:access_token="verificationData"
                         :credentials_type="credentialsType"
                         :expires_in="expiresIn"
                         @instagram_settings="handleInstagramModal"

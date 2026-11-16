@@ -7,8 +7,8 @@ use ArrayAccess;
 use JsonSerializable;
 use IteratorAggregate;
 use NinjaPhotoFeed\Framework\Support\Collection;
-use NinjaPhotoFeed\Framework\Support\JsonableInterface;
-use NinjaPhotoFeed\Framework\Support\ArrayableInterface;
+use NinjaPhotoFeed\Framework\Support\Contracts\JsonableInterface;
+use NinjaPhotoFeed\Framework\Support\Contracts\ArrayableInterface;
 use NinjaPhotoFeed\Framework\Pagination\AbstractPaginator;
 use NinjaPhotoFeed\Framework\Pagination\LengthAwarePaginatorInterface;
 
@@ -89,11 +89,11 @@ class LengthAwarePaginator extends AbstractPaginator implements ArrayableInterfa
             });
         })->prepend([
             'url' => $this->previousPageUrl(),
-            'label' => function_exists('__') ? __('pagination.previous') : 'Previous',
+            'label' => __('&laquo; Previous'),
             'active' => false,
         ])->push([
             'url' => $this->nextPageUrl(),
-            'label' => function_exists('__') ? __('pagination.next') : 'Next',
+            'label' => __('Next &raquo;'),
             'active' => false,
         ]);
     }

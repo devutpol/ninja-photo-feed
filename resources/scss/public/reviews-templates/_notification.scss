@@ -1,5 +1,8 @@
+// The corner is a user setting (notification_position), so it stays physical in RTL; one marker per declaration.
 .npfeed-reviews-wrapper.npfeed-reviews-layout-notification{
+  /*!rtl:ignore*/
   left: 20px !important;
+  /*!rtl:ignore*/
   right: initial !important;
   top: initial !important;
   bottom: -200px;
@@ -13,7 +16,9 @@
     border-radius: 10px 10px;
     visibility: visible !important;
     &.npfeed-float_right_bottom{
+      /*!rtl:ignore*/
       right: 20px !important;
+      /*!rtl:ignore*/
       left: auto !important;
     }
     .npfeed-business-info-right .npfeed-write-review-modal-wrapper{
@@ -36,12 +41,16 @@
     }
   }
   &.deactivate{
+    /*!rtl:ignore*/
     left: 20px !important;
+    /*!rtl:ignore*/
     right: initial !important;
     top: initial !important;
     opacity: 0;
     &.npfeed-float_right_bottom{
+      /*!rtl:ignore*/
       right: 20px !important;
+      /*!rtl:ignore*/
       left: auto !important;
     }
   }
@@ -71,6 +80,7 @@
 .npfeed-reviews-notification-card-wrapper{
   position: fixed;
   bottom: -200px;
+  /*!rtl:ignore*/
   left: 20px;
   z-index: 99999999;
   background-color: #fff;
@@ -93,9 +103,12 @@
     cursor: pointer;
   }
   &.npfeed-float_right_bottom{
+    /*!rtl:ignore*/
     right: 20px;
+    /*!rtl:ignore*/
     left: auto;
     @media only screen and (max-width : 320px) {
+      /*!rtl:ignore*/
       right: 15px;
     }
   }
@@ -448,6 +461,12 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
+  }
+  // The excerpt is dir="auto" but the quote icon follows the card, so on RTL pages the gap stays on the right.
+  .rtl & .npfeed-notification-quote .npfeed-notification-excerpt{
+    padding-inline-start: 0;
+    /*!rtl:ignore*/
+    padding-right: 20px;
   }
   .npfeed-notification-body{
     display: flex;

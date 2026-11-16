@@ -6,9 +6,12 @@ use stdClass;
 use ArrayAccess;
 use ArrayIterator;
 use NinjaPhotoFeed\Framework\Support\Helper;
-use NinjaPhotoFeed\Framework\Support\MacroableTrait;
-use NinjaPhotoFeed\Framework\Support\EnumeratesValues;
-use NinjaPhotoFeed\Framework\Support\CanBeEscapedWhenCastToString;
+use NinjaPhotoFeed\Framework\Support\Concerns\MacroableTrait;
+use NinjaPhotoFeed\Framework\Support\Concerns\EnumeratesValues;
+use NinjaPhotoFeed\Framework\Support\Contracts\CanBeEscapedWhenCastToString;
+use NinjaPhotoFeed\Framework\Support\Contracts\Enumerable;
+use NinjaPhotoFeed\Framework\Support\Exceptions\ItemNotFoundException;
+use NinjaPhotoFeed\Framework\Support\Exceptions\MultipleItemsFoundException;
 
 class Collection implements ArrayAccess, CanBeEscapedWhenCastToString, Enumerable
 {
@@ -1234,8 +1237,8 @@ class Collection implements ArrayAccess, CanBeEscapedWhenCastToString, Enumerabl
      * @param  mixed  $value
      * @return mixed
      *
-     * @throws \NinjaPhotoFeed\Framework\Support\ItemNotFoundException
-     * @throws \NinjaPhotoFeed\Framework\Support\MultipleItemsFoundException
+     * @throws \NinjaPhotoFeed\Framework\Support\Exceptions\ItemNotFoundException
+     * @throws \NinjaPhotoFeed\Framework\Support\Exceptions\MultipleItemsFoundException
      */
     public function sole($key = null, $operator = null, $value = null)
     {
@@ -1264,7 +1267,7 @@ class Collection implements ArrayAccess, CanBeEscapedWhenCastToString, Enumerabl
      * @param  mixed  $value
      * @return mixed
      *
-     * @throws \NinjaPhotoFeed\Framework\Support\ItemNotFoundException
+     * @throws \NinjaPhotoFeed\Framework\Support\Exceptions\ItemNotFoundException
      */
     public function firstOrFail($key = null, $operator = null, $value = null)
     {

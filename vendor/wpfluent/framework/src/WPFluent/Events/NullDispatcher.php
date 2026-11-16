@@ -2,7 +2,7 @@
 
 namespace NinjaPhotoFeed\Framework\Events;
 
-use NinjaPhotoFeed\Framework\Support\ForwardsCalls;
+use NinjaPhotoFeed\Framework\Support\Concerns\ForwardsCalls;
 use NinjaPhotoFeed\Framework\Events\DispatcherInterface;
 
 class NullDispatcher implements DispatcherInterface

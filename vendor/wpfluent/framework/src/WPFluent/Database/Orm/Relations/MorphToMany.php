@@ -7,6 +7,12 @@ use NinjaPhotoFeed\Framework\Support\Collection;
 use NinjaPhotoFeed\Framework\Database\Orm\Model;
 use NinjaPhotoFeed\Framework\Database\Orm\Builder;
 
+/**
+ * @template TRelatedModel of \NinjaPhotoFeed\Framework\Database\Orm\Model
+ * @template TDeclaringModel of \NinjaPhotoFeed\Framework\Database\Orm\Model
+ *
+ * @extends BelongsToMany<TRelatedModel, TDeclaringModel>
+ */
 class MorphToMany extends BelongsToMany
 {
     /**

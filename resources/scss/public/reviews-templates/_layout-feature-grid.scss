@@ -161,10 +161,13 @@ $npfeed-feature-grid-featured: ".npfeed-all-reviews > :nth-child(4n + 1) .npfeed
   }
 }
 
+// Already written for RTL, so the generated -rtl.css must not flip it back.
+/*!rtl:begin:ignore*/
 .rtl .npfeed-reviews-layout-style-feature_grid.npfeed-reviews-template-grid1 #{$npfeed-feature-grid-featured}::before {
   right: auto;
   left: 15px;
 }
+/*!rtl:end:ignore*/
 
 // grid10 has no card surface, so the cell shapes would be invisible. :where() keeps this at the skin's
 // own weight: it beats the skin's transparent default, and the Style tab's "Review box" still wins.

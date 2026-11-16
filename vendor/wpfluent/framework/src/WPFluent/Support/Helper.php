@@ -7,7 +7,7 @@ use Exception;
 use Throwable;
 use InvalidArgumentException;
 use NinjaPhotoFeed\Framework\Foundation\App;
-use NinjaPhotoFeed\Framework\Support\HigherOrderTapProxy;
+use NinjaPhotoFeed\Framework\Support\Proxies\HigherOrderTapProxy;
 
 class Helper
 {

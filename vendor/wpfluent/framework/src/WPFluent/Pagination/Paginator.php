@@ -7,8 +7,8 @@ use ArrayAccess;
 use JsonSerializable;
 use IteratorAggregate;
 use NinjaPhotoFeed\Framework\Support\Collection;
-use NinjaPhotoFeed\Framework\Support\JsonableInterface;
-use NinjaPhotoFeed\Framework\Support\ArrayableInterface;
+use NinjaPhotoFeed\Framework\Support\Contracts\JsonableInterface;
+use NinjaPhotoFeed\Framework\Support\Contracts\ArrayableInterface;
 use NinjaPhotoFeed\Framework\Pagination\PaginatorInterface;
 
 class Paginator extends AbstractPaginator implements ArrayableInterface, ArrayAccess, Countable, IteratorAggregate, JsonSerializable, JsonableInterface, PaginatorInterface

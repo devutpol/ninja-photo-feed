@@ -187,13 +187,13 @@ class InstagramTemplateHandler
         ?>
         <div class="npfeed-ig-header-statistics">
             <?php if ($show_posts) { ?>
-                <div class="npfeed-ig-header-statistic-item">
+                <div class="npfeed-ig-header-statistic-item" dir="auto">
                     <strong><?php echo esc_html(GlobalHelper::shortNumberFormat($user['media_count'])); ?> </strong>
                     <?php echo esc_html(Arr::get($translations, 'posts') ?: __('Posts', 'ninja-photo-feed')); ?>
                 </div>
             <?php } ?>
             <?php if ($show_followers) { ?>
-                <div class="npfeed-ig-header-statistic-item">
+                <div class="npfeed-ig-header-statistic-item" dir="auto">
                     <strong><?php echo esc_html(GlobalHelper::shortNumberFormat($user['followers_count'])); ?></strong>
                     <?php echo esc_html(Arr::get($translations, 'followers') ?: __('Followers', 'ninja-photo-feed')); ?>
                 </div>

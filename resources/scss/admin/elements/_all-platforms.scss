@@ -407,6 +407,16 @@
       padding: 10px 50px;
     }
   }
+  .npfeed-reconnect-rows{
+    margin-block-start: 10px;
+  }
+  .npfeed-reconnect-row{
+    padding-block: 10px;
+    border-block-start: 1px solid var(--npfeed-primary-border, #E1E4EA);
+    p + p{
+      margin-block-start: 6px;
+    }
+  }
   .npfeed_review_notice_close_icon{
     position: absolute;
     top: 0px;

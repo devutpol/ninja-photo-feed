@@ -3,7 +3,7 @@
 namespace NinjaPhotoFeed\Framework\Validator\Rules;
 
 use NinjaPhotoFeed\Framework\Database\Orm\Model;
-use NinjaPhotoFeed\Framework\Support\Conditionable;
+use NinjaPhotoFeed\Framework\Support\Concerns\Conditionable;
 
 class Unique
 {

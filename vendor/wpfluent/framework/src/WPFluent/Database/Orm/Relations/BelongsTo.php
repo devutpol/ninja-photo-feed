@@ -3,12 +3,18 @@
 namespace NinjaPhotoFeed\Framework\Database\Orm\Relations;
 
 use NinjaPhotoFeed\Framework\Database\Orm\Model;
+use NinjaPhotoFeed\Framework\Http\Request\CurrentUser;
 use NinjaPhotoFeed\Framework\Database\Orm\Builder;
 use NinjaPhotoFeed\Framework\Database\Orm\Collection;
 use NinjaPhotoFeed\Framework\Database\Orm\Relations\Concerns\ComparesRelatedModels;
 use NinjaPhotoFeed\Framework\Database\Orm\Relations\Concerns\InteractsWithDictionary;
 use NinjaPhotoFeed\Framework\Database\Orm\Relations\Concerns\SupportsDefaultModels;
 
+/**
+ * @template TRelatedModel of \NinjaPhotoFeed\Framework\Database\Orm\Model
+ *
+ * @extends Relation<TRelatedModel>
+ */
 class BelongsTo extends Relation
 {
     use ComparesRelatedModels,
@@ -186,6 +192,10 @@ class BelongsTo extends Relation
      */
     public function associate($model)
     {
+        if ($model instanceof CurrentUser) {
+            $model = $model->forRelation();
+        }
+
         $ownerKey = $model instanceof Model ? $model->getAttribute(
             $this->ownerKey
         ) : $model;

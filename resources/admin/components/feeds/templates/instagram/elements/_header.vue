@@ -7,17 +7,17 @@
                 </a>
             </div>
             <div class="npfeed-ig-header-info">
-                <div class="npfeed-ig-header-name" v-if="settings.header_settings.display_username === 'true'">
+                <div class="npfeed-ig-header-name" dir="auto" v-if="settings.header_settings.display_username === 'true'">
                     <a target="_blank" :href="'https://www.instagram.com/'+header.username" :title="header.username">
                         @{{  header.username   }}
                     </a>
                 </div>
                 <div class="npfeed-ig-header-statistics" v-if="( (typeof header.media_count !== 'undefined' ) || ( typeof header.followers_count !== 'undefined' ))">
-                    <div class="npfeed-ig-header-statistic-item" v-if="header.media_count && settings.header_settings.display_posts_counter === 'true'"><strong>{{shortNumberFormat(header.media_count)}}</strong> {{ $t('Posts') }}</div>
-                    <div class="npfeed-ig-header-statistic-item" v-if="header.followers_count && settings.header_settings.display_followers_counter === 'true'"><strong>{{shortNumberFormat(header.followers_count)}}</strong> {{ $t('Followers') }}</div>
+                    <div class="npfeed-ig-header-statistic-item" dir="auto" v-if="header.media_count && settings.header_settings.display_posts_counter === 'true'"><strong>{{shortNumberFormat(header.media_count)}}</strong> {{ $t('Posts') }}</div>
+                    <div class="npfeed-ig-header-statistic-item" dir="auto" v-if="header.followers_count && settings.header_settings.display_followers_counter === 'true'"><strong>{{shortNumberFormat(header.followers_count)}}</strong> {{ $t('Followers') }}</div>
                 </div>
-                <h3 class="npfeed-ig-header-fullname" v-if="header.name && settings.header_settings.display_name === 'true'">{{ header.name }}</h3>
-                <div class="npfeed-ig-header-description" v-if="settings.header_settings.display_description === 'true'">
+                <h3 class="npfeed-ig-header-fullname" dir="auto" v-if="header.name && settings.header_settings.display_name === 'true'">{{ header.name }}</h3>
+                <div class="npfeed-ig-header-description" dir="auto" v-if="settings.header_settings.display_description === 'true'">
                     <p v-if="has_pro && settings.header_settings.custom_profile_bio_text" v-html="nl2br(settings.header_settings.custom_profile_bio_text)"></p>
                     <p v-if="!settings.header_settings.custom_profile_bio_text && header.biography" v-html="nl2br(header.biography)"></p>
                 </div>

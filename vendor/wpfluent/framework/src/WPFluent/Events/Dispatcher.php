@@ -9,8 +9,8 @@ use NinjaPhotoFeed\Framework\Support\Arr;
 use NinjaPhotoFeed\Framework\Support\Str;
 use NinjaPhotoFeed\Framework\Support\Helper;
 use NinjaPhotoFeed\Framework\Container\Container;
-use NinjaPhotoFeed\Framework\Support\MacroableTrait;
-use NinjaPhotoFeed\Framework\Support\ReflectsClosures;
+use NinjaPhotoFeed\Framework\Support\Concerns\MacroableTrait;
+use NinjaPhotoFeed\Framework\Support\Concerns\ReflectsClosures;
 use NinjaPhotoFeed\Framework\Events\DispatcherInterface;
 use NinjaPhotoFeed\Framework\Events\ShouldDispatchAfterCommit;
 use NinjaPhotoFeed\Framework\Events\ShouldHandleEventsAfterCommit;
@@ -49,13 +49,6 @@ class Dispatcher implements DispatcherInterface
      */
     protected $wildcardsCache = [];
 
-
-    /**
-     * The stack of listeners being deferred.
-     * 
-     * @var integer
-     */
-    protected $deferDepth = 0;
 
     /**
      * The currently deferred events.
@@ -236,7 +229,9 @@ class Dispatcher implements DispatcherInterface
 
     /**
      * Execute the given callback while deferring events,
-     * then dispatch all the deferred events.
+     * then dispatch all the deferred events. If the callback
+     * throws, they are dropped. A nested call dispatches
+     * its own events when it ends.
      *
      * @param  callable  $callback
      * @param  array|null  $events
@@ -244,30 +239,28 @@ class Dispatcher implements DispatcherInterface
      */
     public function defer(callable $callback, ?array $events = null)
     {
-        $this->deferDepth++;
-
+        $wasDeferring = $this->deferringEvents;
+        $previousDeferredEvents = $this->deferredEvents;
         $previousEventsToDefer = $this->eventsToDefer;
 
-        if ($events !== null) {
-            $this->eventsToDefer = $events;
-        }
+        $this->deferringEvents = true;
+        $this->deferredEvents = [];
+        $this->eventsToDefer = $events;
 
         try {
-            return $callback();
-        } finally {
-            $this->deferDepth--;
+            $result = $callback();
 
-            if ($this->deferDepth === 0) {
-                $events = $this->deferredEvents;
-                $this->deferredEvents = [];
-                $this->eventsToDefer = null;
+            $this->deferringEvents = false;
 
-                foreach ($events as $args) {
-                    $this->dispatch(...$args);
-                }
-            } else {
-                $this->eventsToDefer = $previousEventsToDefer;
+            foreach ($this->deferredEvents as $args) {
+                $this->dispatch(...$args);
             }
+
+            return $result;
+        } finally {
+            $this->deferringEvents = $wasDeferring;
+            $this->deferredEvents = $previousDeferredEvents;
+            $this->eventsToDefer = $previousEventsToDefer;
         }
     }
 
@@ -279,15 +272,7 @@ class Dispatcher implements DispatcherInterface
      */
     protected function shouldDeferEvent($event)
     {
-        if ($this->deferDepth === 0) {
-            return false;
-        }
-
-        if ($this->eventsToDefer === null) {
-            return true;
-        }
-
-        return in_array($event, $this->eventsToDefer, true);
+        return $this->deferringEvents && ($this->eventsToDefer === null || in_array($event, $this->eventsToDefer));
     }
 
     /**
@@ -555,7 +540,9 @@ class Dispatcher implements DispatcherInterface
 
     /**
      * Determine if the given event handler should be dispatched after
-     * all database transactions have committed.
+     * all database transactions have committed: it has a true
+     * $afterCommit, or implements ShouldHandleEventsAfterCommit (as in
+     * Laravel) or ShouldDispatchAfterCommit.
      *
      * @param  object|mixed  $listener
      * @return bool
@@ -563,6 +550,7 @@ class Dispatcher implements DispatcherInterface
     protected function ShouldBeDispatchedAfterTransactions($listener)
     {
         return (($listener->afterCommit ?? null) ||
+            $listener instanceof ShouldHandleEventsAfterCommit ||
             $listener instanceof ShouldDispatchAfterCommit
         ) && $this->resolveTransactionManager();
     }

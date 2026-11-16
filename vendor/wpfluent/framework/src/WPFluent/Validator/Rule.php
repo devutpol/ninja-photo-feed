@@ -16,7 +16,7 @@ use NinjaPhotoFeed\Framework\Validator\Rules\Exists;
 use NinjaPhotoFeed\Framework\Validator\Rules\RequiredIf;
 use NinjaPhotoFeed\Framework\Validator\Rules\Dimensions;
 use NinjaPhotoFeed\Framework\Validator\Rules\ConditionalRules;
-use NinjaPhotoFeed\Framework\Support\ArrayableInterface;
+use NinjaPhotoFeed\Framework\Support\Contracts\ArrayableInterface;
 
 class Rule
 {
@@ -59,7 +59,7 @@ class Rule
     /**
      * Get an in constraint builder instance.
      *
-     * @param  \NinjaPhotoFeed\Framework\Support\ArrayableInterface|array|string  $values
+     * @param  \NinjaPhotoFeed\Framework\Support\Contracts\ArrayableInterface|array|string  $values
      * @return \NinjaPhotoFeed\Framework\Validator\Rules\In
      */
     public static function in($values)
@@ -74,7 +74,7 @@ class Rule
     /**
      * Get a not_in constraint builder instance.
      *
-     * @param  \NinjaPhotoFeed\Framework\Support\ArrayableInterface|array|string  $values
+     * @param  \NinjaPhotoFeed\Framework\Support\Contracts\ArrayableInterface|array|string  $values
      * @return \NinjaPhotoFeed\Framework\Validator\Rules\NotIn
      */
     public static function notIn($values)

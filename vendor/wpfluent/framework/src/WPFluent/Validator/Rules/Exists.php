@@ -2,7 +2,7 @@
 
 namespace NinjaPhotoFeed\Framework\Validator\Rules;
 
-use NinjaPhotoFeed\Framework\Support\Conditionable;
+use NinjaPhotoFeed\Framework\Support\Concerns\Conditionable;
 
 class Exists
 {

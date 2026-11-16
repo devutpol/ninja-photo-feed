@@ -1,5 +1,5 @@
 <template>
-    <div v-if="feed.caption && settings.post_settings.display_caption === 'true'" class="npfeed-ig-post-caption">
+    <div v-if="feed.caption && settings.post_settings.display_caption === 'true'" class="npfeed-ig-post-caption" dir="auto">
         <p class="npfeed-ig-post-caption-text" v-html="formatText($trimWords(feed.caption,settings.post_settings.trim_caption_words,true))"></p>
     </div>
 </template>
