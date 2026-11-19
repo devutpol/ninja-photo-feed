@@ -21,7 +21,6 @@ class ShortcodeHandler
 {
     public $platform = '';
     public $imageSettings = [];
-    public $productId = null;
     private static $localizeScriptLoaded = false;
 
     public function addShortcode()
@@ -45,23 +44,21 @@ class ShortcodeHandler
         $args = shortcode_atts(array(
             'id' => '',
             'platform' => '',
-            'product_id' => '',
         ), $args);
 
         if (!$args['id']) {
             return '';
         }
         $platform = sanitize_text_field(Arr::get($args, 'platform', ''));
-        $product_id = absint(Arr::get($args, 'product_id', 0));
 
         if (empty($platform) || empty($args['id'])) {
-            return __('Please, set a template platform name or template id on your shortcode', 'ninja-photo-feed');
+            return esc_html__('Please, set a template platform name or template id on your shortcode', 'ninja-photo-feed');
         }
 
         $templateId = absint($args['id']);
 
         if (!in_array($platform, GlobalHelper::shortcodeAllowedPlatforms())) {
-            return __('Provided platform name is not valid.', 'ninja-photo-feed');
+            return esc_html__('Provided platform name is not valid.', 'ninja-photo-feed');
         }
 
         // Same visibility policy as the AJAX renderers: never render a draft, private,
@@ -72,7 +69,6 @@ class ShortcodeHandler
         }
 
         $this->platform = $platform;
-        $this->productId = $product_id;
 
         if (!did_action('wp_enqueue_scripts')) {
             $this->registerStyles();
@@ -289,7 +285,7 @@ class ShortcodeHandler
                 'total' => $pagination_settings['total'],
         ));
 
-        return $html;
+        return wp_kses($html, GlobalHelper::feedTemplateAllowedHtml());
     }
 
     public function formatFeedSettings($feed = [])
@@ -519,6 +515,7 @@ class ShortcodeHandler
         $page = absint(Arr::get($_REQUEST, 'page', 2));
 
         $content = apply_filters('npfeed_feed_items_by_page_' . $platform, '', $templateId, $page);
+        $content = wp_kses((string) $content, GlobalHelper::feedTemplateAllowedHtml());
 
         wp_send_json(['content' => $content]);
         die();
